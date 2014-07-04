@@ -1,1 +1,3 @@
-# Creating a widget UI component
+# Contributing to Amarkal
+## Creating a widget UI component
+- 
