@@ -1,0 +1,1 @@
+<a data-toggle="tooltip" data-placement="right" title="<?php echo $this->description; ?>">?</a>

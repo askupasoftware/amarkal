@@ -1,0 +1,31 @@
+{
+  "name": "amarkal",
+  "version": "0.1.0",
+  "description": "Development framework for WordPress.",
+  "author": "Askupa Software",
+  "main": "GruntFile.js",
+  "directories": {
+    "css": "Assets/css",
+    "js": "Assets/js",
+    "sass": "Assets/sass"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.3.3",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-contrib-compass": "^0.9.0",
+    "grunt-contrib-copy": "^0.5.0"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/amarkal/amarkal.git"
+    },
+    {
+      "type": "svn",
+      "url": "http://plugins.svn.wordpress.org/amarkal/"
+    }
+  ]
+}

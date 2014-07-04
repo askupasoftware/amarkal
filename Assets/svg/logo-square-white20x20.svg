@@ -1,0 +1,17 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <defs>
+  <svg width="64.000000px" height="64.000000px" viewBox="0 0 64.000000 64.000000" preserveAspectRatio="xMidYMid meet" id="svg_1">
+   <metadata>Created by potrace 1.11, written by Peter Selinger 2001-2013</metadata>
+   <g id="svg_3" transform="translate(0,64) scale(0.10000000149011612,-0.10000000149011612) " fill="#FFFFFF">
+    <path id="svg_4" d="m171,563c-72,-38 -131,-71 -131,-75c0,-4 26,-21 58,-37l57,-28l26,19c14,11 44,22 66,25c37,5 45,2 86,-36c24,-22 51,-41 60,-41c22,0 207,87 207,97c0,10 -264,143 -284,143c-7,0 -73,-30 -145,-67z"/>
+    <path id="svg_5" d="m10,295l0,-156l137,-65c75,-35 141,-63 146,-61c12,4 9,204 -3,228c-5,9 -32,22 -59,29c-59,14 -81,36 -88,88c-5,35 -10,41 -59,65c-30,15 -59,27 -64,27c-6,0 -10,-61 -10,-155z"/>
+    <path id="svg_6" d="m520,410c-41,-21 -94,-42 -118,-46c-41,-6 -45,-5 -81,35c-48,51 -97,57 -130,15c-43,-54 -20,-106 52,-119c74,-14 82,-28 85,-164c3,-90 7,-121 17,-121c7,0 74,29 149,65l136,64l0,156c0,181 6,175 -110,115z"/>
+   </g>
+  </svg>
+ </defs>
+ <g>
+  <title>Amarkal Logo</title>
+  <use xlink:href="#svg_1" id="logo" stroke-width="0" y="0.317411" x="0" transform="matrix(0.3145999127757846,0,0,0.31504890079514325,-0.08657530857048311,-0.0857441804657131) "/>
+ </g>
+</svg>

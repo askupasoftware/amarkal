@@ -1,0 +1,29 @@
+/* line 4, ../sass/error.scss */
+.amarkal-widget.row span.error-box {
+  text-align: center;
+  display: block;
+}
+/* line 8, ../sass/error.scss */
+.amarkal-widget.row span.error-box > span {
+  background-color: #ffecec;
+  padding: 5px 15px;
+  border: 1px solid #e46157;
+  border-radius: 3px;
+  display: inline-block;
+  color: #e46157;
+  position: relative;
+  max-width: 200px;
+  text-align: left;
+}
+/* line 19, ../sass/error.scss */
+.amarkal-widget.row span.error-box > span .error-arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #e46157;
+  top: -5px;
+  left: 50%;
+  margin-left: -5px;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
