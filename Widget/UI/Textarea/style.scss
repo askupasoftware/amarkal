@@ -1,0 +1,33 @@
+/* Textarea
+---------------------------------------*/
+
+.amarkal-widget.row.textarea {
+	
+	> label {
+		@include border-radius($corner-radius $corner-radius $corner-radius 0);
+		display: inline-block;
+		margin-bottom: -3px;
+		border-top-width: 1px;
+		border-left-width: 1px;
+		border-right-width: 1px;
+	}
+	
+	.component-wrapper {
+		
+		padding: 5px 5px 0px;
+		@include border-radius(0 $corner-radius $corner-radius);
+		border-width: 1px;
+		
+		textarea {
+			@include border-radius($corner-radius - 1px);
+			max-width: 100%;
+			min-width: 100%;
+			min-height: 120px;
+			
+			&.error {
+				border: 1px solid $error-border;
+				background-color: $error-bg;
+			}
+		}
+	}
+}

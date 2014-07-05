@@ -2,8 +2,6 @@
 
 namespace Amarkal\Widget;
 
-use Amarkal\Widget\UI;
-
 /**
  * Describes an abstract widget instance.
  * 
@@ -102,7 +100,7 @@ abstract class AbstractWidget extends \WP_Widget implements WidgetInterface {
 		// Field id's and names must be generated as a part 
 		// of the form function process.
 		foreach( $this->cpanel->get_components() as $component ) {
-			if ( $component instanceof UI\ValueComponentInterface ) {
+			if ( $component instanceof ValueComponentInterface ) {
 				$name = $component->get_name();
 				$component->set_id_attribute( $this->get_field_id( $name ) );
 				$component->set_name_attribute( $this->get_field_name( $name ) );

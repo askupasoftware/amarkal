@@ -57,9 +57,14 @@ class Autoloader {
 		if (0 !== strpos($class, __NAMESPACE__)) {
             return;
         }
-		
+		// Widget UI classes
+        if( strpos( $class, "Amarkal\Widget\UI" ) === 0 )
+        {
+            $class  = str_replace ("Amarkal\Widget\UI", "Amarkal\Widget\UI", $class)."\controller";
+        }
+        
 		$fileName = dirname(__FILE__).str_replace(array(__NAMESPACE__, '\\'), array('',DIRECTORY_SEPARATOR), $class).'.php';
-
+        
 		if ( is_file( $fileName ) ) {
 			require $fileName;
 			return true;

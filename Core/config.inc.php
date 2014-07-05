@@ -34,12 +34,12 @@ return array(
         'register'  => array(
             array(
                 'handle'    => 'amarkal-widget-script',
-                'url'       => 'js/widget.js',
+                'url'       => 'js/widget.min.js',
                 'facing'    => 'admin'
             ),
             array(
                 'handle'    => 'bootstrap-tooltip',
-                'url'       => 'js/bootstrap-tooltip.js',
+                'url'       => 'js/tooltip.min.js',
                 'facing'    => 'admin'
             )
         )
@@ -63,7 +63,12 @@ return array(
         'register'  => array(
             array(
                 'handle'    => 'amarkal-widget-style',
-                'url'       => 'css/widget.css',
+                'url'       => 'css/widget.min.css',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'bootstrap-tooltip',
+                'url'       => 'css/tooltip.min.css',
                 'facing'    => 'admin'
             )
         )

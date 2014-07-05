@@ -2,8 +2,6 @@
 
 namespace Amarkal\Widget;
 
-use Amarkal\Widget\UI;
-
 /**
  * Implements a widget options updater.
  * 
@@ -15,9 +13,9 @@ use Amarkal\Widget\UI;
 class WidgetUpdater {
 	
 	/**
-	 * The list of UI\AbstractComponent type objects to be updated.
+	 * The list of AbstractComponent type objects to be updated.
 	 * 
-	 * @var UI\AbstractComponent[] component list
+	 * @var AbstractComponent[] component list
 	 */
 	private $components;
 	
@@ -69,7 +67,7 @@ class WidgetUpdater {
 	public function update()
 	{
 		foreach ( $this->components as $component ) {
-			if ( $component instanceof UI\ValueComponentInterface ) {
+			if ( $component instanceof ValueComponentInterface ) {
 				$this->update_component( $component );
 			}
 		}
@@ -81,11 +79,11 @@ class WidgetUpdater {
 	 * 
 	 * Update the $new_instance array with the appropriate value.
 	 * 
-	 * @param UI\ValueComponentInterface $component The component to validate.
+	 * @param ValueComponentInterface $component The component to validate.
 	 * @param type $new_instance The new component values array.
 	 * @param type $old_instance The old component values array.
 	 */
-	private function update_component( UI\ValueComponentInterface $component )
+	private function update_component( ValueComponentInterface $component )
 	{
 		$name = $component->get_name();
 		
@@ -97,20 +95,20 @@ class WidgetUpdater {
 		}
 		
 		// Disabled component: no update needed
-		if ( $component instanceof UI\DisableableComponentInterface &&
+		if ( $component instanceof DisableableComponentInterface &&
 			 true == $component->is_disabled() )
 		{
 			return;
 		}
 		
 		// Apply user-defined filter
-		if( $component instanceof UI\FilterableComponentInterface )
+		if( $component instanceof FilterableComponentInterface )
 		{
 			$this->update_filterable( $component );
 		}
 		
 		// Validate value
-		if( $component instanceof UI\ValidatableComponentInterface )
+		if( $component instanceof ValidatableComponentInterface )
 		{
 			$this->update_validatable( $component );
 		}
@@ -119,9 +117,9 @@ class WidgetUpdater {
 	/**
 	 * Filter the component's value using its filter function.
 	 * 
-	 * @param UI\FilterableComponentInterface $component
+	 * @param FilterableComponentInterface $component
 	 */
-	private function update_filterable( UI\FilterableComponentInterface $component )
+	private function update_filterable( FilterableComponentInterface $component )
 	{
 		$component->apply_filter( $this->new_instance[$component->get_name()] );
 	}
@@ -132,9 +130,9 @@ class WidgetUpdater {
 	 * If the value is invalid, the old value is used, and an error message is
 	 * saved into the array as {component_name}_error_message.
 	 * 
-	 * @param UI\ValidatableComponentInterface $component The component to validate.
+	 * @param ValidatableComponentInterface $component The component to validate.
 	 */
-	private function update_validatable( UI\ValidatableComponentInterface $component )
+	private function update_validatable( ValidatableComponentInterface $component )
 	{
 		$name = $component->get_name();
 

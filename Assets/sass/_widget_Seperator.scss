@@ -1,0 +1,22 @@
+/* Seperator
+---------------------------------------*/
+
+.amarkal-widget.row.seperator {
+	text-align: center;
+	border: 1px solid $border-color;
+	background-color: $label-bg-color;
+	height: 3px;
+	margin: 35px -5px 20px;
+	padding-bottom: 0px;
+	@include border-radius($corner-radius);
+	
+	> span {
+		background-color: white;
+		padding: 0 12px;
+		position: relative;
+		top: -7px;
+		border-left: 1px solid $border-color;
+		border-right: 1px solid $border-color;
+		border-radius: $corner-radius;
+	}
+}

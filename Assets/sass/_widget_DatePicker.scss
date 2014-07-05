@@ -1,0 +1,113 @@
+/* Date Picker
+---------------------------------------*/
+.amarkal-widget.row.datepicker {
+	
+	> label {
+		@include border-radius($corner-radius $corner-radius $corner-radius 0);
+		display: inline-block;
+		margin-bottom: -3px;
+		border-top-width: 1px;
+		border-left-width: 1px;
+		border-right-width: 1px;
+	}
+	
+	.component-wrapper {
+		padding: 5px;
+		@include border-radius(0 $corner-radius $corner-radius);
+		border-width: 1px;
+		
+		input {
+			@include user-select(none);
+			width: 86%;
+			border-radius: $corner-radius;
+			@include background(linear-gradient(top, #f3f3f3, $label-bg-color));
+		}
+		
+		.datepicker-button {
+			background-image: url(../img/datepicker-icon.png);
+			background-size: 30px;
+			width: 30px;
+			height: 27px;
+			display: inline-block;
+			float: right;
+			cursor: pointer;
+			outline: 0;
+			@include user-select(none);
+		}
+	}
+}
+
+/* Date Picker Widget
+---------------------------------------*/
+.ui-datepicker {
+	background-color: #333;
+	padding: 7px;
+	border-radius: $corner-radius;
+	@include box-shadow(0 0 8px rgba(0,0,0,0.3));
+	
+	.ui-datepicker-header {
+		@include background(linear-gradient(top, #fcfcfc, #C3C3C3));
+		padding: 3px 10px;
+		@include border-radius( ($corner-radius - 2) ($corner-radius - 2) 0 0);
+		@include text-shadow(0 1px 0 white);
+		
+		.ui-datepicker-next,
+		.ui-datepicker-prev {
+			@include user-select(none);
+			cursor: pointer;
+		}
+		
+		.ui-datepicker-next {
+			float: right;
+			@include user-select(none);
+			outline: 0;
+		}
+		
+		.ui-datepicker-prev {
+			float: left;
+		}
+		
+		.ui-datepicker-title {
+			text-align: center;
+		}
+	}
+	
+	.ui-datepicker-calendar {
+		border-spacing: 0;
+		
+		thead {
+			background-color: #888;
+		}
+		
+		td,
+		th {
+			text-align: center;
+			vertical-align: middle;
+		}
+		
+		a {
+			display: inline-block;
+			width: 30px;
+			height: 25px;
+			line-height: 25px;
+			border-style: solid;
+			border-width: 1px;
+			border-top-color: white;
+			border-right-color: white;
+			border-left-color: white;
+			border-bottom-color: black;
+			@include background(linear-gradient(top, #fcfcfc, #C3C3C3));
+			text-decoration: none;
+			@include text-shadow(0 1px 0 white);
+			
+			&:hover,
+			&:active,
+			&.ui-state-active {
+				@include background(linear-gradient(top, #C3C3C3, #fcfcfc));
+			}
+		}
+	}
+}
+
+// This fixes the initial datepicker visibility
+#ui-datepicker-div {display:none;}

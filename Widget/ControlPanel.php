@@ -2,8 +2,6 @@
 
 namespace Amarkal\Widget;
 
-use Amarkal\Widget\UI;
-
 /**
  * Implements a widget control panel.
  * 
@@ -96,7 +94,7 @@ class ControlPanel {
 	 * @throws UI\DuplicateNameException Thrown when two components share 
 	 *									 the same name 
 	 */
-	public function add_component( UI\ComponentInterface $new_component ) 
+	public function add_component( ComponentInterface $new_component ) 
 	{
 		
 		// First component - no need to check for name uniqueness
@@ -109,14 +107,14 @@ class ControlPanel {
 		else 
 		{
 			// Only value components must have unique names
-			if ( $new_component instanceof UI\ValueComponentInterface )
+			if ( $new_component instanceof ValueComponentInterface )
 			{
 				foreach ( $this->components as $component )
 				{
-					if( $component instanceof UI\ValueComponentInterface && 
+					if( $component instanceof ValueComponentInterface && 
 						$component->get_name() == $new_component->get_name() )
 					{
-						throw new UI\DuplicateNameException(
+						throw new DuplicateNameException(
 							"A component with the name '{$component->get_name()}' already exists"
 						);
 					}
@@ -167,7 +165,7 @@ class ControlPanel {
 			$defaults = array();
 			foreach ( $this->components as $component ) 
 			{
-				if ( $component instanceof UI\ValueComponentInterface ) 
+				if ( $component instanceof ValueComponentInterface ) 
 				{ 
 					$defaults[$component->get_name()] = $component->get_default_value();
 				}
@@ -190,13 +188,13 @@ class ControlPanel {
 		$out = '';
 		foreach( $this->components as $component ) 
 		{	
-			if( $component instanceof UI\ValueComponentInterface ) 
+			if( $component instanceof ValueComponentInterface ) 
 			{
 				// Set the component's value
 				$component->set_value( $instance[$component->get_name()] );
 			}
 			
-			if ( $component instanceof UI\ValidatableComponentInterface ) 
+			if ( $component instanceof ValidatableComponentInterface ) 
 			{
 				// Invalid user input: Set error flag.
 				if ( true == $instance[$component->get_name().'_error'] )
