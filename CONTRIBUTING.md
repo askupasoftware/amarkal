@@ -10,3 +10,6 @@
 - At the very least, the directory should have the `controller.php` and `template.php` files. Otherwise, an error will occur.
 - The script should be wrapped inside a function that is binded to the 'widget_init' event. This will ensure that the script is called by the widget's admin panel after it is saved/dragged/refreshed.
 - Take a look at the existing UI components under `Widget/UI` to learn how they should be created.
+
+### Creating a new options page UI component
+- To be written.
