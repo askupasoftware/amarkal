@@ -39,6 +39,7 @@
     ------------------------*/
     .ao-body {
         
+        // Sidebar
         .ao-sidebar {
             float: right;
             width: 200px;
@@ -48,18 +49,32 @@
                 margin: 0;
                 
                 .item {
-                    margin: 0;
-                    padding: 7px 13px;
-                    background-color: white;
-                    cursor: pointer;
+                    @include border-radius(0 2px 2px 0);
                     
-                    i {
-                        margin-right: 10px;
+                    a {
+                        margin: 0;
+                        padding: 7px 13px;
+                        text-decoration:none;
+                        display: block;
+                        width: 100%;
+                        
+                        i {
+                            margin-right: 10px;
+
+                            &.fa {font-size: 18px}
+                            &.dashicons {font-size: 20px}
+                        }
+                    }
+                    
+                    &.active {
+                        background-color: white;
+                        border-right: 3px solid;
                     }
                 }
             }
         }
         
+        // Sections
         .ao-sections {
             background-color: white;
             min-height: 300px;

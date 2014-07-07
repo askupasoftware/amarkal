@@ -8,7 +8,7 @@ class OptionsPage
     
     public function __construct( Config $config ) {
         $this->config = $config;
-        $this->set_current_section();
+        $this->preprocess_sections();
     }
     
     public function register()
@@ -46,15 +46,34 @@ class OptionsPage
         add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
     }
     
-    private function set_current_section()
+    private function preprocess_sections()
     {
-        if( 'toplevel' == filter_input( INPUT_GET, 'page' ) )
+        // Set section slugs
+        $first = true;
+        foreach( $this->config->options['sections'] as $section )
         {
-            $this->config->options['sections'][0]->set_current_section();
+            if( $first )
+            {
+                $first = false;
+                $slug = \Amarkal\Common\Tools::strtoslug( $this->config->settings['admin-title'] );
+                $section->set_slug( $slug );
+            }
+            else
+            {
+                $slug = \Amarkal\Common\Tools::strtoslug( $section->title );
+                $section->set_slug( $slug );
+            }
         }
-        else
+        
+        //activate current section
+        $page = filter_input( INPUT_GET, 'page' );
+        foreach( $this->config->options['sections'] as $section )
         {
-            
+            if( $section->get_slug() == $page )
+            {
+                $section->set_current_section();
+                return;
+            }
         }
     }
 }
