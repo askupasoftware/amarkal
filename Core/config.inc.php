@@ -1,18 +1,24 @@
 <?php
 
+/**
+ * Globally defined constants.
+ */
+$defines = array(
+   'AMARKAL_VERSION'       => '0.1',
+   'AMARKAL_DIR'           => plugin_dir_path( __DIR__ ),
+   'AMARKAL_URL'           => plugin_dir_url( __DIR__ ),
+   'AMARKAL_ASSETS_URL'    => plugin_dir_url( __DIR__ ).'Assets/'
+);
+foreach( $defines as $name => $value ) {
+    define( $name , $value );
+}
+
+/**
+ * Configuration Array.
+ */
 return array(
     
     'required_php_version'      => '5.3.0',
-    
-    /**
-     * Globally defined constants.
-     */
-    'defines'       => array(
-        'AMARKAL_VERSION'       => '0.1',
-        'AMARKAL_DIR'           => plugin_dir_path( __DIR__ ),
-        'AMARKAL_URL'           => plugin_dir_url( __DIR__ ),
-        'AMARKAL_ASSETS_URL'    => plugin_dir_url( __DIR__ ).'Assets/'
-    ),
     
     /**
      * The list of JavaScript files to load.
@@ -34,12 +40,12 @@ return array(
         'register'  => array(
             array(
                 'handle'    => 'amarkal-widget-script',
-                'url'       => 'js/widget.min.js',
+                'url'       => AMARKAL_ASSETS_URL.'js/widget.min.js',
                 'facing'    => 'admin'
             ),
             array(
                 'handle'    => 'bootstrap-tooltip',
-                'url'       => 'js/tooltip.min.js',
+                'url'       => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
                 'facing'    => 'admin'
             )
         )
@@ -62,13 +68,23 @@ return array(
          */
         'register'  => array(
             array(
-                'handle'    => 'amarkal-widget-style',
-                'url'       => 'css/widget.min.css',
+                'handle'    => 'amarkal-widget',
+                'url'       => AMARKAL_ASSETS_URL.'css/widget.min.css',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'font-awesome',
+                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css',
                 'facing'    => 'admin'
             ),
             array(
                 'handle'    => 'bootstrap-tooltip',
-                'url'       => 'css/tooltip.min.css',
+                'url'       => AMARKAL_ASSETS_URL.'css/tooltip.min.css',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'amarkal-options',
+                'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
                 'facing'    => 'admin'
             )
         )

@@ -128,23 +128,9 @@ class MenuPage
         
         if( !isset( $config['slug'] ) || '' == $config['slug'] )
         {
-            $config['slug'] = $this->strtoslug( $config['title'] );
+            $config['slug'] = \Amarkal\Common\Tools::strtoslug( $config['title'] );
         }
         $this->config = array_merge( $this->get_defaults(), $config );
-    }
-    
-    /**
-     * String to slug.
-     * 
-     * Generate a slug from a string by converting all the special characters
-     * into dashes.
-     * 
-     * @param string $str The string to convert.
-     * @return string The resulting slug.
-     */
-    private function strtoslug( $str )
-    {
-        return preg_replace( '/[ .\-_@#$%^&*();\\/|<>"\'!+]+/', '-', strtolower( $str ) );
     }
     
     /**
@@ -198,7 +184,7 @@ class MenuPage
                     $page['title'], 
                     $page['title'], 
                     $page['capability'], 
-                    $this->strtoslug( $page['title'] ), 
+                    \Amarkal\Common\Tools::strtoslug( $page['title'] ), 
                     $page['content']
                 );
             }

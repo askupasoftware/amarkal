@@ -22,8 +22,7 @@ class Autoloader {
 	static function init()
 	{
         self::$config = include('Core/config.inc.php');
-
-        Autoloader::register_constants();
+        
         Autoloader::register_classes();
         Autoloader::register_assets();
         \Amarkal\Core\Dashboard::init();
@@ -34,15 +33,6 @@ class Autoloader {
 	 */
 	public static function register_classes() {
 		spl_autoload_register(array(__CLASS__, 'autoload'));		
-	}
-	
-	/**
-	 * Register global constants
-	 */
-	public static function register_constants() {
-		foreach( self::$config['defines'] as $name => $value ) {
-			define( $name , $value );
-		}
 	}
 	
 	/**
@@ -83,7 +73,7 @@ class Autoloader {
 			$ac->register_asset(
 				new Assets\Stylesheet(array(
 					'handle'	=> $asset['handle'],
-					'url'		=> AMARKAL_ASSETS_URL.$asset['url'],
+					'url'		=> $asset['url'],
 					'version'	=> AMARKAL_VERSION,
 					'facing'	=> $asset['facing']
 				))	
@@ -101,7 +91,7 @@ class Autoloader {
 			$ac->register_asset(
 				new Assets\Script(array(
 					'handle'	=> $asset['handle'],
-					'url'		=> AMARKAL_ASSETS_URL.$asset['url'],
+					'url'		=> $asset['url'],
 					'version'	=> AMARKAL_VERSION,
 					'facing'	=> $asset['facing']
 				))	

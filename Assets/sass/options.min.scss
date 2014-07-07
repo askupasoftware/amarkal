@@ -1,0 +1,91 @@
+@import 'compass/css3';
+
+.ao-wrapper {
+    
+    /* Options Page Header 
+    ------------------------*/
+    .ao-header {
+        background-color: #DDD;
+        margin-right: 200px;
+        padding: 1px;
+        @include border-radius(3px 3px 0 0);
+        
+        .icon {
+            vertical-align: middle;
+            margin: 10px 20px;
+            float: left;
+        }
+        
+        h2 {
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 10px;
+            
+            span {
+                font-size: 12px;
+                font-weight: 700;
+                margin-left: 10px;
+            }
+        }
+        
+        p {
+            margin-top: -5px;
+            margin-bottom: 17px;
+            font-style: italic;
+        }
+    }
+    
+    /* Options Page Body 
+    ------------------------*/
+    .ao-body {
+        
+        .ao-sidebar {
+            float: right;
+            width: 200px;
+            margin-top: 10px;
+            
+            .ao-section-list {
+                margin: 0;
+                
+                .item {
+                    margin: 0;
+                    padding: 7px 13px;
+                    background-color: white;
+                    cursor: pointer;
+                    
+                    i {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        
+        .ao-sections {
+            background-color: white;
+            min-height: 300px;
+            margin-right: 200px;
+            padding: 1px;
+        }
+    }
+    
+    /* Options Page Footer 
+    ------------------------*/
+    .ao-footer {
+        background-color: #DDD;
+        margin-right: 200px;
+        padding: 1px;
+        @include border-radius(0 0 3px 3px);
+        
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 10px;
+        }
+        
+        p {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+        }
+    }
+}

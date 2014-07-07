@@ -16,7 +16,7 @@ namespace Amarkal\Admin;
 class Notifier
 {
     const ERROR     = 'error';
-    const SUCCESS   = 'update';
+    const SUCCESS   = 'updated';
     
     static function notify( $message, $type )
     {

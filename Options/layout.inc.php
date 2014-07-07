@@ -1,12 +1,13 @@
 <div class="wrap">
     <h2></h2>
 </div>
+
 <div class="clear"></div>
 <div class="wrap">
-    <div class="amarkal-options-wrapper">
+    <div class="ao-wrapper">
         
         <!-- Header -->
-        <div class="amarkal-options-header">
+        <div class="ao-header">
             <img class="icon" src="<?php echo $this->header['icon']; ?>" width="64" height="64"/>
             <h2><?php echo $this->header['title']; ?><span><?php echo $this->header['version']; ?></span></h2>
             <?php if( isset( $this->header['subtitle'] ) ): ?>
@@ -15,14 +16,27 @@
         </div>
         
         <!-- Body -->
-        <div class="amarkal-options-body">
-            
+        <div class="ao-body">
+            <div class="ao-sidebar">
+                <ul class="ao-section-list">
+                    <?php foreach( $this->options['sections'] as $section ): ?>
+                        <li class="item"><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="ao-sections">
+                <?php foreach( $this->options['sections'] as $section ): ?>
+                    <div class="ao-section">
+                        <h3><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></h3>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
         
         <!-- Footer -->
-        <div class="amarkal-options-footer">
+        <div class="ao-footer">
             <?php if( isset( $this->footer['icon'] ) ): ?>
-                <img class="icon" src="<?php echo $this->footer['icon']; ?>" width="64" height="64"/>
+                <img class="icon" src="<?php echo $this->footer['icon']; ?>" width="32" height="32"/>
             <?php endif; ?>
             <p><?php echo $this->footer['text']; ?></p>
         </div>
@@ -30,7 +44,7 @@
     
     <!-- Subfooter -->
     <?php if( isset( $this->subfooter['text'] ) ): ?>
-        <div class="amarkal-options-subfooter">
+        <div class="ao-subfooter">
             <p><?php echo $this->subfooter['text']; ?></p>
         </div>
     <?php endif; ?>
