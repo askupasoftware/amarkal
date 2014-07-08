@@ -1,5 +1,7 @@
 @import 'compass/css3';
 
+$border: 1px solid #C4C4C4;
+
 .ao-wrapper {
     
     /* Options Page Header 
@@ -9,6 +11,9 @@
         margin-right: 200px;
         padding: 1px;
         @include border-radius(3px 3px 0 0);
+        border-top: $border;
+        border-left: $border;
+        border-right: $border;
         
         .icon {
             vertical-align: middle;
@@ -42,7 +47,7 @@
         // Sidebar
         .ao-sidebar {
             float: right;
-            width: 200px;
+            width: 201px; // 200 + 1 to hide the body's right border
             margin-top: 10px;
             
             .ao-section-list {
@@ -50,13 +55,14 @@
                 
                 .item {
                     @include border-radius(0 2px 2px 0);
+                    margin:0;
                     
                     a {
                         margin: 0;
                         padding: 7px 13px;
                         text-decoration:none;
                         display: block;
-                        width: 100%;
+                        outline: 0;
                         
                         i {
                             margin-right: 10px;
@@ -66,9 +72,16 @@
                         }
                     }
                     
+                    &:hover:not(.active) {
+                        border-left: 3px solid;
+                        a {padding-left: 10px;}
+                    }
+                    
                     &.active {
                         background-color: white;
                         border-right: 3px solid;
+                        border-top: $border;
+                        border-bottom: $border;
                     }
                 }
             }
@@ -80,6 +93,8 @@
             min-height: 300px;
             margin-right: 200px;
             padding: 1px;
+            border-left: $border;
+            border-right: $border;
         }
     }
     
@@ -90,6 +105,9 @@
         margin-right: 200px;
         padding: 1px;
         @include border-radius(0 0 3px 3px);
+        border-left: $border;
+        border-right: $border;
+        border-bottom: $border;
         
         .icon {
             display: inline-block;

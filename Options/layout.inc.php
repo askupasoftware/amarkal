@@ -30,7 +30,7 @@
             </div>
             <div class="ao-sections">
                 <?php foreach( $this->options['sections'] as $section ): ?>
-                    <div class="ao-section">
+                    <div class="ao-section" id="<?php echo $section->get_slug(); ?>">
                         <h3><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></h3>
                     </div>
                 <?php endforeach; ?>
