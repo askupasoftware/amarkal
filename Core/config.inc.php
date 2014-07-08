@@ -39,13 +39,18 @@ return array(
          */
         'register'  => array(
             array(
-                'handle'    => 'amarkal-widget-script',
+                'handle'    => 'amarkal-widget',
                 'url'       => AMARKAL_ASSETS_URL.'js/widget.min.js',
                 'facing'    => 'admin'
             ),
             array(
                 'handle'    => 'bootstrap-tooltip',
                 'url'       => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'amarkal-options-page',
+                'url'       => AMARKAL_ASSETS_URL.'js/_options_core.js',
                 'facing'    => 'admin'
             )
         )

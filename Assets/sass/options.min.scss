@@ -95,6 +95,12 @@ $border: 1px solid #C4C4C4;
             padding: 1px;
             border-left: $border;
             border-right: $border;
+            
+            .ao-section {
+                display:none;
+                
+                &.active {display:block}
+            }
         }
     }
     

@@ -17,20 +17,24 @@
         
         <!-- Body -->
         <div class="ao-body">
+            
+            <!-- Sidebar -->
             <div class="ao-sidebar">
                 <ul class="ao-section-list">
                     <?php foreach( $this->options['sections'] as $section ): ?>
                         <li class="item<?php echo $section->is_current_section() ? ' active' : ''; ?>">
-                            <a href="?page=<?php echo $section->get_slug(); ?>">
+                            <a href="<?php echo $section->get_slug(); ?>">
                                 <i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
+            
+            <!-- Sections -->
             <div class="ao-sections">
                 <?php foreach( $this->options['sections'] as $section ): ?>
-                    <div class="ao-section" id="<?php echo $section->get_slug(); ?>">
+                    <div class="ao-section<?php echo $section->is_current_section() ? ' active' : ''; ?>" id="<?php echo $section->get_slug(); ?>">
                         <h3><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></h3>
                     </div>
                 <?php endforeach; ?>
