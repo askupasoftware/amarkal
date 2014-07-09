@@ -8,9 +8,20 @@ class Section
     private $active = false;
     private $slug;
     
+    public function defaults()
+    {
+        return array(
+            'title'         => '',      // The section's title. MUST be unique.
+            'description'   => '',      // The section's description.
+            'icon'          => '',      // One of the icon classes from Font Awesome or Dashicons.
+            'parent'        => null,    // The parent's title, if applicable.
+            'fields'        => array()  // The section's fields.
+        );
+    }
+    
     public function __construct( array $config = array() )
     {
-        $this->config = $config;
+        $this->config = array_merge( $this->defaults(), $config );
     }
     
     public function __get( $name )

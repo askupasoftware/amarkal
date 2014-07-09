@@ -36,6 +36,12 @@
                 <?php foreach( $this->options['sections'] as $section ): ?>
                     <div class="ao-section<?php echo $section->is_current_section() ? ' active' : ''; ?>" id="<?php echo $section->get_slug(); ?>">
                         <h3><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></h3>
+                        <p><?php echo $section->description; ?></p>
+                        <?php foreach( $section->fields as $field ): ?>
+                            <div class="field-wrapper">
+                                <?php echo $field->render(); ?>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
