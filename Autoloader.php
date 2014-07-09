@@ -52,6 +52,11 @@ class Autoloader {
         {
             $class  = str_replace ("Amarkal\Widget\UI", "Amarkal\Widget\UI", $class)."\controller";
         }
+        // Options UI classes
+        if( strpos( $class, "Amarkal\Options\UI" ) === 0 )
+        {
+            $class  = str_replace ("Amarkal\Options\UI", "Amarkal\Options\UI", $class)."\controller";
+        }
         
 		$fileName = dirname(__FILE__).str_replace(array(__NAMESPACE__, '\\'), array('',DIRECTORY_SEPARATOR), $class).'.php';
         
