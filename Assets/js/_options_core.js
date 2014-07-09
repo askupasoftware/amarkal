@@ -29,7 +29,11 @@
         if( this.activeSection != slug )
         {
             $('#'+slug+'.ao-section').addClass('active');
+            $('a[href="'+slug+'"]').parent().addClass('active');
+            
             $('#'+this.activeSection+'.ao-section').removeClass('active');
+            $('a[href="'+this.activeSection+'"]').parent().removeClass('active');
+            
             this.activeSection = slug;
         }
     };

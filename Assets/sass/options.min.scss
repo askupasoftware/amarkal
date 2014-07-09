@@ -7,7 +7,7 @@ $border: 1px solid #C4C4C4;
     /* Options Page Header 
     ------------------------*/
     .ao-header {
-        background-color: #DDD;
+        @include background-image(linear-gradient(#EEE, #DDD));
         margin-right: 200px;
         padding: 1px;
         @include border-radius(3px 3px 0 0);
@@ -107,7 +107,7 @@ $border: 1px solid #C4C4C4;
     /* Options Page Footer 
     ------------------------*/
     .ao-footer {
-        background-color: #DDD;
+        @include background-image(linear-gradient(#DDD, #CCC));
         margin-right: 200px;
         padding: 1px;
         @include border-radius(0 0 3px 3px);
