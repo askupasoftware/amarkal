@@ -1,13 +1,14 @@
 @import 'compass/css3';
 
 $border: 1px solid #C4C4C4;
+$background-color: #EBEBEB;
 
 .ao-wrapper {
     
     /* Options Page Header 
     ------------------------*/
     .ao-header {
-        @include background-image(linear-gradient(#EEE, #DDD));
+        @include background-image(linear-gradient(#F3F3F3, $background-color));
         margin-right: 200px;
         padding: 1px;
         @include border-radius(3px 3px 0 0);
@@ -78,10 +79,11 @@ $border: 1px solid #C4C4C4;
                     }
                     
                     &.active {
-                        background-color: white;
+                        background-color: $background-color;
                         border-right: 3px solid;
                         border-top: $border;
                         border-bottom: $border;
+                        @include text-shadow( 0 1px 0 rgba(255,255,255,0.7) );
                     }
                 }
             }
@@ -89,7 +91,7 @@ $border: 1px solid #C4C4C4;
         
         // Sections
         .ao-sections {
-            background-color: white;
+            background-color: $background-color;
             min-height: 300px;
             margin-right: 200px;
             padding: 1px;
@@ -98,6 +100,11 @@ $border: 1px solid #C4C4C4;
             
             .ao-section {
                 display:none;
+                background-color: white;
+                margin: 0 10px;
+                @include border-radius(3px);
+                min-height: 300px;
+                border: $border;
                 
                 &.active {display:block}
             }
@@ -107,7 +114,7 @@ $border: 1px solid #C4C4C4;
     /* Options Page Footer 
     ------------------------*/
     .ao-footer {
-        @include background-image(linear-gradient(#DDD, #CCC));
+        @include background-image(linear-gradient($background-color, #DDD));
         margin-right: 200px;
         padding: 1px;
         @include border-radius(0 0 3px 3px);
