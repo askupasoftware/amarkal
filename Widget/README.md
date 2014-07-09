@@ -1,0 +1,1 @@
+## Amarkal::Widget
