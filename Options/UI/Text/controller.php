@@ -2,11 +2,7 @@
 
 namespace Amarkal\Options\UI;
 
-class Text
+class Text extends \Amarkal\Options\AbstractField
 {
-    private $config;
     
-    public function __construct( $config ) {
-        $this->config = $config;
-    }
 }
