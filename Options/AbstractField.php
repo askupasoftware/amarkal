@@ -29,7 +29,7 @@ abstract class AbstractField implements FieldInterface
     /**
 	 * @see FieldInterface
 	 */
-	public function defaults() {
+	public function default_settings() {
 		return array();
 	}
     
@@ -52,7 +52,7 @@ abstract class AbstractField implements FieldInterface
 		}
         
 		// Combine defaults with user-provided settings.
-		$this->config = array_merge( $this->defaults(), $config );
+		$this->config = array_merge( $this->default_settings(), $config );
 
 		// Create a new template and set the configuration
 		$this->template = new \Amarkal\Template\Template(
@@ -80,4 +80,16 @@ abstract class AbstractField implements FieldInterface
 	public function render() {
 		return $this->template->render();
 	}
+    
+    /**
+     * Get field settings by name.
+     * 
+     * @param string $name The settings' parameter name.
+     * 
+     * @return mixed the settings' parameter value.
+     */
+    public function __get( $name )
+    {
+        return $this->config[$name];
+    }
 }
