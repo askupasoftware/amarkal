@@ -1,20 +1,35 @@
 @import 'compass/css3';
 
+/* Options Page Header 
+------------------------*/
 $border: 1px solid #C4C4C4;
 $background-color: #EBEBEB;
+$sidebar-width: 200px;
+
+$theme-color1: rgb(159,185,210);
+$theme-color2: rgb(110,139,173);
+$theme-color3: rgb(73,97,131);
+
+// Responsive media break points
+$break-small: 776px;
+$break-large: 920px;
+
 
 .ao-wrapper {
     
     /* Options Page Header 
     ------------------------*/
     .ao-header {
-        @include background-image(linear-gradient(#F3F3F3, $background-color));
-        margin-right: 200px;
+        
+        margin-right: $sidebar-width;
         padding: 1px;
-        @include border-radius(3px 3px 0 0);
         border-top: $border;
         border-left: $border;
         border-right: $border;
+        @include background-image(linear-gradient(#F3F3F3, $background-color));
+        @include border-radius(3px 3px 0 0);
+        @include box-shadow( inset 0 1px rgb(255,255,255) );
+        @media screen and (max-width: $break-small) {margin-right: 44px;}
         
         .icon {
             vertical-align: middle;
@@ -48,15 +63,16 @@ $background-color: #EBEBEB;
         // Sidebar
         .ao-sidebar {
             float: right;
-            width: 201px; // 200 + 1 to hide the body's right border
+            width: $sidebar-width + 1; // 200 + 1 to hide the body's right border
             margin-top: 10px;
+            @media screen and (max-width: $break-small) {width: 45px;}
             
             .ao-section-list {
                 margin: 0;
                 
                 .item {
-                    @include border-radius(0 2px 2px 0);
                     margin:0;
+                    @include border-radius(0 2px 2px 0);
                     
                     a {
                         margin: 0;
@@ -64,12 +80,17 @@ $background-color: #EBEBEB;
                         text-decoration:none;
                         display: block;
                         outline: 0;
+                        color: $theme-color2;
                         
                         i {
                             margin-right: 10px;
 
                             &.fa {font-size: 18px}
                             &.dashicons {font-size: 20px}
+                        }
+                        
+                        span {
+                            @media screen and (max-width: $break-small) {display:none;}
                         }
                     }
                     
@@ -84,6 +105,7 @@ $background-color: #EBEBEB;
                         border-top: $border;
                         border-bottom: $border;
                         @include text-shadow( 0 1px 0 rgba(255,255,255,0.7) );
+                        @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgb(255,255,255) );
                     }
                 }
             }
@@ -97,16 +119,82 @@ $background-color: #EBEBEB;
             padding: 1px;
             border-left: $border;
             border-right: $border;
+            @media screen and (max-width: $break-small) {margin-right: 44px;}
             
             .ao-section {
                 display:none;
                 background-color: white;
                 margin: 0 10px;
-                @include border-radius(3px);
                 min-height: 300px;
                 border: $border;
+                @include border-radius(3px);
+                @include box-shadow( 0 -1px 0 rgba(0,0,0,0.1), 0 1px 0 rgb(255,255,255) );
                 
                 &.active {display:block}
+                
+                .section-header {
+                    margin: 5px;
+                    border: $border;
+                    height:40px;
+                    position:relative;
+                    padding-left: 45px;
+                    @include background-image(linear-gradient(#F3F3F3, $background-color));
+                    @include border-radius( 2px );
+                    @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgb(255,255,255) );
+                    
+                    h3 {
+                        margin: 10px;
+                        display: inline-block;
+                        i {
+                            position: absolute;
+                            top: -1px;
+                            left: -1px;
+                            font-size: 30px;
+                            display: block;
+                            color: $theme-color3;
+                            height: 40px;
+                            width: 45px;
+                            line-height: 40px;
+                            text-align: center;
+                            border-right: 1px solid white;
+                            border: 1px solid black;
+                            @include background-image(linear-gradient($theme-color1, $theme-color2));
+                            @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgb(255,255,255) );
+                            @include text-shadow( 0 1px 0 rgba(255,255,255,0.5), 0 -1px 0 rgb(0,0,0) );
+                            @include border-radius( 2px 0 0 2px );
+                        }
+                    }
+                    
+                    p {
+                        display: inline-block;
+                        color: #888;
+                        margin: 10px 0;
+                        @media screen and (max-width: $break-small) {display:none;}
+                    }
+                }
+                
+                .field-wrapper {
+                    margin: 10px;
+                    border-bottom: 1px solid $background-color;
+                    
+                    &:last-child {border-bottom: none;}
+                    
+                    .field-label {
+                        display: inline-block;
+                        vertical-align: top;
+                        width: 150px;
+                        
+                        p {
+                            color:gray;
+                            font-style: italic;
+                        }
+                    }
+                    
+                    .field {
+                        display: inline-block;
+                        vertical-align: top;
+                    }
+                }
             }
         }
     }
@@ -114,13 +202,15 @@ $background-color: #EBEBEB;
     /* Options Page Footer 
     ------------------------*/
     .ao-footer {
-        @include background-image(linear-gradient($background-color, #DDD));
-        margin-right: 200px;
+        margin-right: $sidebar-width;
         padding: 1px;
-        @include border-radius(0 0 3px 3px);
         border-left: $border;
         border-right: $border;
         border-bottom: $border;
+        @include background-image(linear-gradient($background-color, #DDD));
+        @include border-radius(0 0 3px 3px);
+        @include box-shadow( inset 0 -1px rgba(0,0,0,0.1) );
+        @media screen and (max-width: $break-small) {margin-right: 44px;}
         
         .icon {
             display: inline-block;
@@ -132,6 +222,25 @@ $background-color: #EBEBEB;
             display: inline-block;
             vertical-align: middle;
             margin: 0;
+        }
+        
+        .ao-control {
+            float: right;
+            margin: 10px;
+            
+            .button {
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                color: $theme-color3;
+                font-weight: bold;
+                outline: 0;
+                @include background-image(linear-gradient($theme-color1, $theme-color2));
+                @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
+                @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+                
+                &:hover {@include opacity(0.9);}
+                
+                &:active {@include background-image(linear-gradient($theme-color2, $theme-color1));}
+            }
         }
     }
 }
