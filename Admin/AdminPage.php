@@ -3,14 +3,14 @@
 namespace Amarkal\Admin;
 
 /**
- * Implements a menu page for the WordPress admin sidebar.
+ * Implements an admin page with an admin sidebar menu.
  * 
  * @see http://codex.wordpress.org/Function_Reference/add_menu_page
  * @see http://codex.wordpress.org/Function_Reference/add_submenu_page
  * 
  * Example usage:
  * 
- * $page = new \Amarkal\Admin\MenuPage(array(
+ * $page = new \Amarkal\Admin\AdminPage(array(
  *     'title'         => 'My Admin Page',
  *     'icon'          => 'my-page-icon.png',
  *     'class'         => 'my-icon',
@@ -26,12 +26,12 @@ namespace Amarkal\Admin;
  * $page->register();
  * 
  */
-class MenuPage
+class AdminPage
 {
     /**
      * The menu page configuration.
      * 
-     * @see MenuPage::get_defaults() for possible options.
+     * @see AdminPage::get_defaults() for possible options.
      * @var mixed[] The configuraion.  
      */
     private $config;
@@ -50,6 +50,8 @@ class MenuPage
      * Add a page to this menu.
      * 
      * If there is only one page set for this menu, no submenu will be created.
+     * If there is more than one page set for this menu, a submenu will 
+     * automatically be created with all the pages of this menu.
      * 
      * Possible options are:
      * title:       (Required) Submenu title AND submenu page title tag.
@@ -101,7 +103,7 @@ class MenuPage
     
     /**
      * Get the list of required parameter names when adding a page to this menu.
-     * Used by MenuPage::add_page().
+     * Used by AdminPage::add_page().
      * 
      * @return string[] The parameter names.
      */
@@ -137,7 +139,7 @@ class MenuPage
      * Add this page, and all it's submenus, to the admin sidebar.
      * 
      * Internally used when the admin_menu action is called. 
-     * This function is called by MenuPage::register().
+     * This function is called by AdminPage::register().
      */
     public function add_menu_page()
     {
@@ -165,7 +167,7 @@ class MenuPage
                 // Add a submenu page if there are multiple pages
                 if( $page_count > 1 )
                 {
-                    add_submenu_page( 
+                    \add_submenu_page( 
                         $slug, 
                         $page['title'], 
                         $page['title'], 
@@ -179,7 +181,7 @@ class MenuPage
             
             // Pages after the first page
             else {
-                add_submenu_page( 
+                \add_submenu_page( 
                     $slug, 
                     $page['title'], 
                     $page['title'], 
@@ -207,5 +209,14 @@ class MenuPage
             $css .= $rule.':'.$value.';';
         }
         return $css;
+    }
+    
+    /**
+     * Get the slug for this admin page.
+     * @return type
+     */
+    public function get_slug()
+    {
+        return $this->config['slug'];
     }
 }

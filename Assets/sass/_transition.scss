@@ -1,0 +1,31 @@
+$prefixes: moz ms webkit o;
+
+@mixin scale( $size ) {
+    @include transform( scale($size,$size) );
+}
+
+@mixin rotate( $size ) {
+    @include transform( rotate($size) );
+}
+
+@mixin translate( $size ) {
+    @include transform( translate($size) );
+}
+
+@mixin skew( $size, $duration, $easing ) {
+    @include transform( skew($size) );
+}
+
+@mixin transform( $transform ) {
+    transform: $transform;
+    @each $prefix in $prefixes {
+        -#{$prefix}-transform: $transform;
+    }
+}
+
+@mixin transition( $transition ) {
+    transition: $transition;
+    @each $prefix in $prefixes {
+        -#{$prefix}-transition: $transition;
+    }
+}

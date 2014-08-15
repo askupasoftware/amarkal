@@ -26,6 +26,27 @@ module.exports = function(grunt) {
                         rename: function(dest, src) {
                             return dest + "_widget_" + src.split("/")[src.split("/").length-2] + '.js';
                         }
+                    },
+                    {   // Copy options UI .scss files to the sass dir
+                        expand: true,
+                        cwd: 'Options/UI/',
+                        src: ['**/*.scss'], 
+                        dest: '<%= pkg.directories.sass %>/', 
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            // File names starting with "_" are ignored by compass
+                            return dest + "_options_" + src.split("/")[src.split("/").length-2] + '.scss';
+                        }
+                    },
+                    {   // Copy options UI .js files to the js dir
+                        expand: true,
+                        cwd: 'Options/UI/',
+                        src: ['**/*.js'],
+                        dest: '<%= pkg.directories.js %>/', 
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            return dest + "_options_" + src.split("/")[src.split("/").length-2] + '.js';
+                        }
                     }
                 ]
             }
@@ -37,7 +58,9 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'Assets/sass/widget.min.scss': ['Assets/sass/_widget_core.scss','Assets/sass/_widget_*.scss'],
-                    'Assets/js/widget.min.js': ['Assets/js/_widget_core.js','Assets/js/_widget_*.js']
+                    'Assets/js/widget.min.js': ['Assets/js/_widget_core.js','Assets/js/_widget_*.js'],
+                    'Assets/sass/options.min.scss': ['Assets/sass/_options_core.scss','Assets/sass/_options_*.scss'],
+                    'Assets/js/options.min.js': ['Assets/js/_options_core.js','Assets/js/_options_*.js']
                 }
             }
         },
@@ -59,6 +82,7 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'Assets/js/widget.min.js': ['Assets/js/widget.min.js'],
+                    'Assets/js/options.min.js': ['Assets/js/options.min.js'],
                     'Assets/js/tooltip.min.js': ['Assets/js/_tooltip.js']
                 }
             }

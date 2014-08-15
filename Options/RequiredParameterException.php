@@ -1,6 +1,6 @@
 <?php
 
-namespace Amarkal\Widget;
+namespace Amarkal\Options;
 
 /**
  * Exception thrown if a field is instantiated without a required parameter.

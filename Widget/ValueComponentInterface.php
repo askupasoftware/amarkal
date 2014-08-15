@@ -8,7 +8,6 @@ namespace Amarkal\Widget;
  * Value components include all input components, such as textfields, textareas,
  * radio buttons etc... as opposed to non-value components such as seperators.
  */
-
 interface ValueComponentInterface {
 	
 	/**

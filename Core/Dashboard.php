@@ -5,7 +5,7 @@ namespace Amarkal\Core;
 class Dashboard {
 	public static function init() {
         $config = include( 'config.inc.php' );
-        $page = new \Amarkal\Admin\MenuPage(array(
+        $page = new \Amarkal\Admin\AdminPage(array(
             'title'         => 'Amarkal',
             'icon'          => AMARKAL_ASSETS_URL.$config['dashboard']['icon-image'],
             'class'         => $config['dashboard']['icon-class'],

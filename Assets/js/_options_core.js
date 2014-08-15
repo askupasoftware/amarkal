@@ -34,6 +34,9 @@
             $('#'+this.activeSection+'.ao-section').removeClass('active');
             $('a[href="'+this.activeSection+'"]').parent().removeClass('active');
             
+            // Change the form's action
+            $('#ao-form').attr('action', '?page='+slug);
+            
             this.activeSection = slug;
         }
     };
