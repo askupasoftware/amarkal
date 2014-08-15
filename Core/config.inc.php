@@ -93,13 +93,5 @@ return array(
                 'facing'    => 'admin'
             )
         )
-    ),
-    
-    /**
-     * Amarkal dashboard
-     */
-    'dashboard'     => array(
-        'icon-image'    => 'svg/logo-square-white20x20.svg',
-        'icon-class'    => 'amarkal-dashboard-icon'
     )
 );

@@ -25,7 +25,6 @@ class Autoloader {
         
         Autoloader::register_classes();
         Autoloader::register_assets();
-        \Amarkal\Core\Dashboard::init();
 	}
 	
 	/**
@@ -113,3 +112,4 @@ class Autoloader {
 		$ac->enqueue();
 	}
 }
+Autoloader::init();
