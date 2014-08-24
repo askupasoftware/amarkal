@@ -71,10 +71,10 @@ class AssetLoader {
 	 * @param \Amarkal\Assets\AbstractAsset $new_asset The asset to enqueue
 	 * @throws DuplicateAssetException	If the a duplicated asset handle exists
 	 */
-	public function register_asset( \Amarkal\Assets\AbstractAsset $new_asset ) {
+	public function register_asset( \Amarkal\Assets\AbstractAsset $new_asset )
+    {
 		if( NULL == $this->assets ) {
 			$this->assets = array();
-            $new_asset->register();
 			$this->assets[] = $new_asset;
 		}
 		else {
@@ -83,7 +83,6 @@ class AssetLoader {
 					throw new DuplicateAssetException("An asset with the handle {$new_asset->handle} already exists");
 				}
 			}
-            $new_asset->register();
 			$this->assets[] = $new_asset;
 		}
 	}
@@ -113,7 +112,8 @@ class AssetLoader {
 		
 		foreach ( $this->assets as $asset ) {
 			if ( $asset instanceof $type && $asset->facing == $facing ) {
-				$asset->enqueue();
+				$asset->register();
+                $asset->enqueue();
 			}
 		}
 	}

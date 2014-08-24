@@ -30,6 +30,13 @@ class Stylesheet extends AbstractAsset {
 	 */
 	public function register()
     {
+        wp_register_style(
+			$this->handle,
+			$this->url,
+			$this->dependencies,
+			$this->version,
+			$this->media
+		);
 		$this->is_registered = true;
 	}
     
@@ -41,26 +48,11 @@ class Stylesheet extends AbstractAsset {
     {
         if( $this->is_registered )
         {
-            add_action( 'wp_print_styles', array( $this, 'print_style'), 8 );
+            wp_enqueue_style( $this->handle );
         }
         else
         {
             throw new \RuntimeException("Assets must be registered before enqueuing.");
         }
-    }
-    
-    /**
-     * Hooks to the wp_print_styles action
-     */
-    public function print_style()
-    {
-        wp_register_style(
-			$this->handle,
-			$this->url,
-			$this->dependencies,
-			$this->version,
-			$this->media
-		);
-        wp_enqueue_style( $this->handle );
     }
 }
