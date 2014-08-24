@@ -36,10 +36,10 @@ class Script extends AbstractAsset {
 	/**
 	 * Enqueue the script and localize the data as needed
 	 */
-	public function register()
+    public function register()
     {
         $this->is_registered = true;
-	}
+    }
 
     /**
      * Enqueue the script.
@@ -63,22 +63,22 @@ class Script extends AbstractAsset {
     public function print_script()
     {
         wp_register_script(
-			$this->handle,
-			$this->url,
-			$this->dependencies,
-			$this->version,
-			$this->footer
-		);
-		
-		// Localize the script as needed
-		if( !empty( $this->localize['data'] ) && !empty( $this->localize['data'] ) ) {
-			wp_localize_script(
-				$this->handle,
-				$this->localize['name'],
-				$this->localize['data']
-			);
-		}
-        
+            $this->handle,
+            $this->url,
+            $this->dependencies,
+            $this->version,
+            $this->footer
+        );
+
+        // Localize the script as needed
+        if( !empty( $this->localize['data'] ) && !empty( $this->localize['data'] ) ) {
+            wp_localize_script(
+                $this->handle,
+                $this->localize['name'],
+                $this->localize['data']
+            );
+        }
+
         wp_enqueue_script( $this->handle );
     }
 }
