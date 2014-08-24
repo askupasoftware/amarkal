@@ -36,8 +36,33 @@ class Script extends AbstractAsset {
 	/**
 	 * Enqueue the script and localize the data as needed
 	 */
-	public function register() {
-		wp_register_script(
+	public function register()
+    {
+        $this->is_registered = true;
+	}
+
+    /**
+     * Enqueue the script.
+     * @throws \RuntimeException if the script has not been registered.
+     */
+    public function enqueue()
+    {
+        if( $this->is_registered )
+        {
+            add_action( 'wp_print_scripts', array( $this, 'print_script'), 8 );
+        }
+        else
+        {
+            throw new \RuntimeException("Assets must be registered before enqueuing.");
+        }
+    }
+    
+    /**
+     * Hooks to the wp_print_scripts action
+     */
+    public function print_script()
+    {
+        wp_register_script(
 			$this->handle,
 			$this->url,
 			$this->dependencies,
@@ -54,22 +79,6 @@ class Script extends AbstractAsset {
 			);
 		}
         
-        $this->is_registered = true;
-	}
-
-    /**
-     * Enqueue the script.
-     * @throws \RuntimeException if the script has not been registered.
-     */
-    public function enqueue()
-    {
-        if( $this->is_registered )
-        {
-            wp_enqueue_script( $this->handle );
-        }
-        else
-        {
-            throw new \RuntimeException("Assets must be registered before enqueuing.");
-        }
+        wp_enqueue_script( $this->handle );
     }
 }
