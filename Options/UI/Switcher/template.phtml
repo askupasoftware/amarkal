@@ -1,0 +1,10 @@
+<div class="ao-field-switcher">
+    <input 
+        type="checkbox"
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        <?php echo ($this->value = 1 ? 'checked' : ''); ?>
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>/>
+    <label><?php echo $this->labels[0]; ?></label>
+    <label><?php echo $this->labels[1]; ?></label>
+</div>
