@@ -34,11 +34,11 @@ namespace Amarkal\Loaders;
  * $al->register_asset(
  *        new \Amarkal\Assets\Script(array(
  *            'handle'    => 'myScript',
- *            'url'        => 'http://www.website.com/path/to/script.js',
+ *            'url'       => 'http://www.website.com/path/to/script.js',
  *            'facing'    => 'public',
- *            'localize    => array(
+ *            'localize   => array(
  *                'name'    => 'myVar'                    // The name of the variable holding the data
- *                'data'  => 'One', 'Two', 'Three'    // The data to be stored in the array
+ *                'data'    => array('One', 'Two', 'Three')    // The data to be stored in the array
  *            )
  *        ))
  * );

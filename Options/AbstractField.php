@@ -67,7 +67,7 @@ abstract class AbstractField implements FieldInterface
 	 */
 	static function get_script_path() {
 		$class_name =  substr( get_called_class() , strrpos( get_called_class(), '\\') + 1);
-		return __DIR__ . '/UI/' . $class_name . '/template.php';
+		return __DIR__ . '/UI/' . $class_name . '/template.phtml';
 	}
     
     /**

@@ -9,7 +9,7 @@
             
             <!-- Header -->
             <div class="ao-header">
-                <img class="icon" src="<?php echo $this->header['icon']; ?>" width="64" height="64"/>
+                <img class="icon" src="<?php echo $this->header['icon']; ?>" height="64"/>
                 <h2><?php echo $this->header['title']; ?><span><?php echo $this->header['version']; ?></span></h2>
                 <?php if( isset( $this->header['subtitle'] ) ): ?>
                     <p><?php echo $this->header['subtitle']; ?></p>
@@ -63,7 +63,7 @@
             <!-- Footer -->
             <div class="ao-footer">
                 <?php if( isset( $this->footer['icon'] ) ): ?>
-                    <img class="icon" src="<?php echo $this->footer['icon']; ?>" width="32" height="32"/>
+                    <img class="icon" src="<?php echo $this->footer['icon']; ?>" height="30"/>
                 <?php endif; ?>
                 <p><?php echo $this->footer['text']; ?></p>
                 <div class="ao-control">

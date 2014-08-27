@@ -79,7 +79,7 @@ return array(
             ),
             array(
                 'handle'    => 'font-awesome',
-                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css',
+                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
                 'facing'    => 'admin'
             ),
             array(
