@@ -1,0 +1,10 @@
+<div class="ao-field-dropdown">
+    <select 
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>>
+        <?php foreach($this->options as $option => $value) : ?>
+            <option value="<?php echo $value; ?>"<?php echo ($this->value == $value ? ' selected' : ''); ?>><?php echo $option; ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

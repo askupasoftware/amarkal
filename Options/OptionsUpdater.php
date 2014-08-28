@@ -107,6 +107,7 @@ class OptionsUpdater
 	private function update_field( ValueFieldInterface $field )
 	{
 		$name = $field->get_name();
+        $this->final_instance[$name] = $this->new_instance[$name];
 		
 		// If this is the first time this widget is created, there are no
 		// old values: use default value.

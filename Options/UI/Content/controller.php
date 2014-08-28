@@ -17,26 +17,20 @@ namespace Amarkal\Options\UI;
  *      'labels'        => array('On','Off')
  * ));
  */
-class Switcher
+class Content
 extends \Amarkal\Options\AbstractField
-implements \Amarkal\Options\ValueFieldInterface,
-           \Amarkal\Options\DisableableFieldInterface
 {
     public function default_settings() {
         return array(
-            'name'          => '',
             'title'			=> '',
-            'disabled'      => false,
-            'default'		=> '',
             'help'			=> null,
             'description'	=> '',
-            'labels'        => array('ON','OFF'),
-            'multivalue'    => false
+            'template'      => null
         );
     }
     
     public function required_settings() {
-        return array('name');
+        return array('template');
     }
 
     /**

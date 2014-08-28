@@ -213,18 +213,18 @@ $break-large: 920px;
                     
                     .field-title {
                         display: inline-block;
-                        vertical-align: top;
+                        vertical-align: middle;
                         width: 200px;
                         margin-right: 20px;
                         
                         .help {
+                            display: inline-block;
+                            vertical-align: middle;
                             padding: 0 6px;
                             text-decoration: none;
                             font-weight: bold;
                             border: 1px solid white;
                             cursor: pointer;
-                            vertical-align: middle;
-                            float: right;
                             color: white;
                             font-size: 14px;
                             @include border-radius(50%);
@@ -237,6 +237,10 @@ $break-large: 920px;
                             font-weight: bold;
                             font-size: 14px;
                             margin: 0;
+                            display: inline-block;
+                            vertical-align: middle;
+                            width: 160px;
+                            margin-right: 20px;
                         }
                         
                         .description {
@@ -248,7 +252,7 @@ $break-large: 920px;
                     
                     .field {
                         display: inline-block;
-                        vertical-align: top;
+                        vertical-align: middle;
                     }
                 }
             }
@@ -330,18 +334,35 @@ $break-large: 920px;
     }
 }
 
-.ao-field-input {
+.ao-field-dropdown {
+    font-size: 13px;
+}
+
+
+.ao-field-switcher {
+    display: inline-block;
     
-    input {
-        border-radius: 3px;
-        margin: 0;
-        width: 250px;
+    input {display: none;}
+    
+    label {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px 11px;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        border-right: 1px solid rgba(0,0,0,0.3);
+        border-left: 1px solid rgba(255,255,255,0.5);
+        @include background-image(linear-gradient($theme-color1, $theme-color2));
         
-        &.error {
-            border: 1px solid $error-border-color;
-            background-color: $error-background-color;
-            @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
+        &.active {
+            background: rgb(228, 228, 228);
+            border-top: 1px solid rgba(0,0,0,0.3);
+            border-bottom: none;
+            @include box-shadow(inset 0 2px 1px rgba(0,0,0,0.1));
         }
+        
+        &:first-of-type {@include border-radius( 4px 0 0 4px );border-left: none}
+        &:last-of-type {@include border-radius( 0 4px 4px 0 );border-right: none}
     }
 }
 .ao-field-input {

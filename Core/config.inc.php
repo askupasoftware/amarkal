@@ -50,7 +50,12 @@ return array(
             ),
             array(
                 'handle'    => 'amarkal-options-page',
-                'url'       => AMARKAL_ASSETS_URL.'js/_options_core.js',
+                'url'       => AMARKAL_ASSETS_URL.'js/options.min.js',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'select2',
+                'url'       => AMARKAL_ASSETS_URL.'js/select2.min.js',
                 'facing'    => 'admin'
             )
         )
@@ -90,6 +95,11 @@ return array(
             array(
                 'handle'    => 'amarkal-options',
                 'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
+                'facing'    => 'admin'
+            ),
+            array(
+                'handle'    => 'select2',
+                'url'       => AMARKAL_ASSETS_URL.'css/select2.min.css',
                 'facing'    => 'admin'
             )
         )

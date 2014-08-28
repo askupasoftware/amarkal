@@ -44,11 +44,13 @@
                             <?php foreach( $section->fields as $field ): ?>
                                 <div class="field-wrapper<?php echo ($field->disabled ? ' disabled' : ''); ?>">
                                     <div class="field-title">
+                                        <p class="title"><?php echo $field->title; ?></p>
                                         <?php if ( $field->help ): ?>
                                             <a class="help" data-toggle="tooltip" data-type="help" data-placement="bottom" title="<?php echo $field->help; ?>">?</a>
                                         <?php endif; ?>
-                                        <p class="title"><?php echo $field->title; ?></p>
-                                        <p class="description"><?php echo $field->description; ?></p>
+                                        <?php if ( $field->description ): ?>
+                                            <p class="description"><?php echo $field->description; ?></p>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="field">
                                         <?php echo $field->render(); ?>

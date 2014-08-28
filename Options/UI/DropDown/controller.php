@@ -17,7 +17,7 @@ namespace Amarkal\Options\UI;
  *      'labels'        => array('On','Off')
  * ));
  */
-class Switcher
+class DropDown
 extends \Amarkal\Options\AbstractField
 implements \Amarkal\Options\ValueFieldInterface,
            \Amarkal\Options\DisableableFieldInterface
@@ -30,13 +30,12 @@ implements \Amarkal\Options\ValueFieldInterface,
             'default'		=> '',
             'help'			=> null,
             'description'	=> '',
-            'labels'        => array('ON','OFF'),
-            'multivalue'    => false
+            'options'       => array()
         );
     }
     
     public function required_settings() {
-        return array('name');
+        return array('name','options');
     }
 
     /**

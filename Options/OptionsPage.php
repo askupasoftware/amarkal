@@ -21,6 +21,14 @@ class OptionsPage
         $this->page         = $this->get_page();
         $this->old_instance = $this->get_old_instance();
         $this->new_instance = $this->get_new_instance();
+        
+        // This is the initial activation, save the defaults to the db
+        if(!$this->options_exists())
+        {
+            $this->reset();
+        }
+        
+        $this->set_global_variable();
     }
     
     public function register()
@@ -53,10 +61,10 @@ class OptionsPage
     
     public function footer_credits()
     {
-        echo '<span id="footer-thankyou">Created with <a href="#">Amarkal</a> v'.AMARKAL_VERSION.'</span>';
+        echo '<span id="footer-thankyou">Created with <a href="https://github.com/amarkal/amarkal">Amarkal</a> v'.AMARKAL_VERSION.'</span>';
     }
     
-    private function render()
+    public function render()
     {
         $template = new \Amarkal\Template\Template( __DIR__.'/layout.inc.php', $this->config->get_config() );
         echo $template->render();
@@ -168,6 +176,10 @@ class OptionsPage
         );
     }
     
+    /**
+     * Get the current options instance from the database.
+     * @return type
+     */
     private function get_old_instance()
     {
         $old_instance = \get_option( $this->page->get_slug() );
@@ -181,6 +193,10 @@ class OptionsPage
         }
     }
     
+    /**
+     * Get the options instance from the $_post variable.
+     * @return type
+     */
     private function get_new_instance()
     {
         $new_instance = \filter_input_array( INPUT_POST );
@@ -202,5 +218,24 @@ class OptionsPage
     private function get_current_section()
     {
         return \filter_input( INPUT_GET, 'page' );
+    }
+    
+    /**
+     * Checks if the database contains a saved instance of these options.
+     * 
+     * @return bool true, if a saved instance exists.
+     */
+    private function options_exists()
+    {
+        return $this->get_old_instance() != array();
+    }
+    
+    /**
+     * Set a global variable containing the option values to be used throughout
+     * the program.
+     */
+    private function set_global_variable()
+    {
+        $GLOBALS[$this->page->get_slug().'_options'] = $this->get_old_instance();
     }
 }

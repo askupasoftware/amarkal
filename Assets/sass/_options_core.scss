@@ -213,18 +213,18 @@ $break-large: 920px;
                     
                     .field-title {
                         display: inline-block;
-                        vertical-align: top;
+                        vertical-align: middle;
                         width: 200px;
                         margin-right: 20px;
                         
                         .help {
+                            display: inline-block;
+                            vertical-align: middle;
                             padding: 0 6px;
                             text-decoration: none;
                             font-weight: bold;
                             border: 1px solid white;
                             cursor: pointer;
-                            vertical-align: middle;
-                            float: right;
                             color: white;
                             font-size: 14px;
                             @include border-radius(50%);
@@ -237,6 +237,10 @@ $break-large: 920px;
                             font-weight: bold;
                             font-size: 14px;
                             margin: 0;
+                            display: inline-block;
+                            vertical-align: middle;
+                            width: 160px;
+                            margin-right: 20px;
                         }
                         
                         .description {
@@ -248,7 +252,7 @@ $break-large: 920px;
                     
                     .field {
                         display: inline-block;
-                        vertical-align: top;
+                        vertical-align: middle;
                     }
                 }
             }

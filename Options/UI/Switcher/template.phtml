@@ -1,10 +1,11 @@
-<div class="ao-field-switcher">
+<div class="ao-field-switcher <?php echo ($this->multivalue ? 'multivalue' : 'singlevalue'); ?>">
     <input 
-        type="checkbox"
+        type="text"
         id="<?php echo $this->name; ?>"
         name="<?php echo $this->name; ?>"
-        <?php echo ($this->value = 1 ? 'checked' : ''); ?>
+        value="<?php echo $this->value; ?>"
         <?php echo ($this->disabled ? 'disabled' : ''); ?>/>
-    <label><?php echo $this->labels[0]; ?></label>
-    <label><?php echo $this->labels[1]; ?></label>
+    <?php foreach( $this->labels as $label ) : ?>
+        <label data-value="<?php echo $label; ?>" <?php echo (in_array($label, explode(',',$this->value)) ? 'class="active"' : ''); ?>><?php echo $label; ?></label>
+    <?php endforeach; ?>
 </div>
