@@ -5,10 +5,5 @@
         "php": ">=5.3.0"
     },
     "license": "GPL-3.0+",
-    "keywords": ["wordpress", "options", "framework", "amarkal", "widget", "plugin", "template"],
-    "autoload": {
-        "psr-0": {
-            "Amarkal": "/"
-        }
-    }
+    "keywords": ["wordpress", "options", "framework", "amarkal", "widget", "plugin", "template"]
 }

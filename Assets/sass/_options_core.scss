@@ -20,6 +20,7 @@ $break-small: 776px;
 $break-large: 920px;
 
 .ao-wrapper {
+    direction: ltr;
     
     /* Options Page Header 
     ------------------------*/
@@ -220,7 +221,9 @@ $break-large: 920px;
                         .help {
                             display: inline-block;
                             vertical-align: middle;
-                            padding: 0 6px;
+                            width: 18px;
+                            height: 18px;
+                            text-align: center;
                             text-decoration: none;
                             font-weight: bold;
                             border: 1px solid white;
