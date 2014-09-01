@@ -1,0 +1,14 @@
+<div class="ao-multi-field">
+    <?php foreach( $this->fields as $field ) : ?>
+        <div class="sub-field">
+            <p class="title">
+                <?php echo $field->title; ?>
+            </p>
+            <?php if ( $field->help ): ?>
+                <a class="help" data-toggle="tooltip" data-type="help" data-placement="bottom" title="<?php echo $field->help; ?>">?</a>
+            <?php endif; ?>
+            <div class="clear"></div>
+            <?php echo $field->render(); ?>
+        </div>
+    <?php endforeach; ?>
+</div>
