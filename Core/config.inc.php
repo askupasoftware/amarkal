@@ -31,7 +31,9 @@ return array(
         'enqueue'   => array(
             'wp-color-picker',
             'jquery-ui',
-            'jquery-ui-datepicker'
+            'jquery-ui-datepicker',
+            'jquery-ui-spinner',
+            'jquery-ui-slider'
         ),
         
         /**

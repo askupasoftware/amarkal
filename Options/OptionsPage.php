@@ -44,7 +44,9 @@ class OptionsPage
             $self = $this;
             $page = new \Amarkal\Admin\AdminPage(array(
                 'title'         => $this->config->settings['admin-title'],
-                'icon'          => $this->config->settings['admin-icon']
+                'icon'          => $this->config->settings['admin-icon'],
+                'class'         => $this->config->settings['admin-icon-class'],
+                'style'         => $this->config->settings['admin-icon-style']
             ));
             foreach( $this->config->options['sections'] as $section )
             {

@@ -92,4 +92,18 @@ abstract class AbstractField implements FieldInterface
     {
         return $this->config[$name];
     }
+    
+    /**
+     * Set field settings by name.
+     * 
+     * @param string $name The settings' parameter name.
+     * @param mixed $value The value to set.
+     * 
+     * @return mixed the settings' parameter value.
+     */
+    public function __set( $name, $value )
+    {
+        $this->config[$name] = $value;
+        $this->template->properties[$name] = $value;
+    }
 }
