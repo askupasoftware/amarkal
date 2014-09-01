@@ -1,0 +1,37 @@
+.ao-field-spinner {
+    input {
+        border-top: 1px solid #CCC;
+        border-bottom: 1px solid #ccc;
+        border-left: none;
+        border-right: none;
+        height: 25px;
+        width: 50px;
+        text-align: center;
+        outline: none;
+        padding: 2px 6px;
+        margin:0;
+        @include user-select(none);
+    }
+    
+    .ui-spinner {
+        font-size: 0;
+        
+        .ui-spinner-button {
+            font-size: 14px;
+            height: 25px;
+            padding: 2px 6px;
+            border: 1px solid rgba(0,0,0,0.3);
+            color: #444;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            @include background-image(linear-gradient($theme-color1, $theme-color2));
+            @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
+            @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+            
+            &:first-child {@include border-radius( 5px 0 0 5px )}
+            &:last-child {@include border-radius( 0 5px 5px 0 )}
+            &:hover {@include background-image(linear-gradient( $theme-color2, $theme-color1 ));}
+        }
+    }
+}
