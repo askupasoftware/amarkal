@@ -1,0 +1,12 @@
+<div class="ao-field-slider">
+    <input 
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        value="<?php echo $this->value; ?>"
+        data-min="<?php echo $this->min; ?>"
+        data-max="<?php echo $this->max; ?>"
+        data-step="<?php echo $this->step; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>
+        readonly="readonly"/>
+    <div class="slider"></div>
+</div>
