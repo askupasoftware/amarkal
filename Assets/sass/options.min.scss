@@ -379,7 +379,19 @@ $break-large: 920px;
         vertical-align: middle;
         margin-right: 4%;
         @include border-radius( 3px );
-        @include background-image(linear-gradient( $theme-color2, $theme-color1 ));
+        @include background-image(linear-gradient( #C4C4C4, #EBEBEB ));
+        
+        &.range {width: 68%}
+        
+        .ui-slider-range {
+            height: 10px;
+            position: absolute;
+            @include border-radius( 3px );
+            @include background-image(linear-gradient( $theme-color2, $theme-color1 ));
+            
+            &.ui-slider-range-max {right:0}
+            &.ui-slider-range-min {left:0}
+        }
         
         .ui-slider-handle {
             margin-left: -14px;

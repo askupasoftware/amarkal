@@ -1,12 +1,31 @@
-<div class="ao-field-slider">
-    <input 
-        id="<?php echo $this->name; ?>"
-        name="<?php echo $this->name; ?>"
-        value="<?php echo $this->value; ?>"
-        data-min="<?php echo $this->min; ?>"
-        data-max="<?php echo $this->max; ?>"
-        data-step="<?php echo $this->step; ?>"
-        <?php echo ($this->disabled ? 'disabled' : ''); ?>
-        readonly="readonly"/>
-    <div class="slider"></div>
+<div 
+    class="ao-field-slider"
+    data-min="<?php echo $this->min; ?>"
+    data-max="<?php echo $this->max; ?>"
+    data-step="<?php echo $this->step; ?>"
+    data-type="<?php echo $this->type; ?>">
+    
+    <?php if( is_array( $this->default ) && count( $this->default ) == 2 ) : ?>
+        <input 
+            id="<?php echo $this->name.'[0]'; ?>"
+            name="<?php echo $this->name.'[0]'; ?>"
+            value="<?php echo $this->value[0]; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+        <div class="slider range"></div>
+        <input 
+            id="<?php echo $this->name.'[1]'; ?>"
+            name="<?php echo $this->name.'[1]'; ?>"
+            value="<?php echo $this->value[1]; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+    <?php else : ?>
+        <input 
+            id="<?php echo $this->name; ?>"
+            name="<?php echo $this->name; ?>"
+            value="<?php echo $this->value; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+        <div class="slider"></div>
+    <?php endif; ?>
 </div>
