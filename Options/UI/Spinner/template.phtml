@@ -1,0 +1,11 @@
+<div class="ao-field-spinner">
+    <input 
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        value="<?php echo $this->value; ?>"
+        data-minvalue="<?php echo $this->minvalue; ?>"
+        data-maxvalue="<?php echo $this->maxvalue; ?>"
+        data-step="<?php echo $this->step; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>
+        readonly="readonly"/>
+</div>
