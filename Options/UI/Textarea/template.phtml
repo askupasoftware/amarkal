@@ -1,0 +1,8 @@
+<div class="ao-field-textarea">
+    <textarea
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        class="<?php if ( $this->invalid ) echo 'error'; ?>"
+        <?php echo ( $this->invalid ? 'data-toggle="tooltip" data-type="error" data-placement="bottom" title="'.$this->error_message.'" ' : ''); ?>
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>><?php echo $this->value; ?></textarea>
+</div>
