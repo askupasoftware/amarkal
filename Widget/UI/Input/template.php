@@ -8,7 +8,10 @@
 			   id="<?php echo $this->id; ?>" 
 			   name="<?php echo $this->name; ?>" 
 			   type="<?php echo $this->type; ?>" 
-			   value="<?php echo $this->value; ?>" 
+			   value="<?php echo $this->value; ?>"
+               min="<?php echo $this->min; ?>"
+               max="<?php echo $this->max; ?>"
+               step="<?php echo $this->step; ?>"
 			   class="widefat <?php if ( $this->error ) echo ' error'; ?>" 
 			   <?php echo ($this->disabled ? 'disabled' : ''); ?>>
 	</div>

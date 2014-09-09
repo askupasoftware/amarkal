@@ -1,10 +1,10 @@
 <div class="amarkal-widget row checkbox<?php if ( $this->error ) echo ' error'; ?><?php if ( true == $this->disabled ) echo ' disabled'; ?>">
-	<div class="component-wrapper">
+    <div class="component-wrapper">
 		<input id="<?php echo $this->id; ?>" 
 			   name="<?php echo $this->name; ?>" 
 			   type="checkbox" 
 			   class="widefat" 
-			   <?php echo $this->value == 'on' ? 'checked' : ''; ?> 
+			   <?php checked($this->value, 'on'); ?> 
 			   <?php echo ($this->disabled ? 'disabled' : ''); ?>>
 	</div>
 	<label for="<?php echo $this->id; ?>"><?php echo $this->label; ?></label>

@@ -5,80 +5,69 @@ namespace Amarkal\Widget;
 /**
  * Describes an abstract widget instance.
  * 
- * Use this class as a parent class to your widget. Subclasses should over-ride 
+ * Use this class as a parent class to your widget. WidgetConfig should 
  * the self::widget() function to generate their widget code.
  * 
  * @see Widget\ControlPanel For instructions on how to create a control panel
  *      for the widget.
+ * @see Widget\WidgetConfig For instructions on how to create a configuration object.
  * 
  * Example Usage:
  * 
- * class MyWidget extends Widget\AbstractWidget {
- *	
- *	public function __construct() {
- *		parent::setup(
- *			new Widget\WidgetSetup( 
- *				array(
- *					'name' => 'My Widget Title',
- *					'version' => '1.0',
- *					'languages-url' => 'languages/',
- *					'description' => 'This is the widget's description'
- *				)
- *			),
- *			new Widget\ControlPanel( $component_array )
- *		);
- *	}
+ * $widget = new Widget( new WidgetConfig(array(
+ *      ...
+ * )));
+ * $widget->register();
  *
- *	public function widget($args, $instance) {
- *		// Generate widget code
- *	}
- *	
- * }
  */
-abstract class AbstractWidget extends \WP_Widget implements WidgetInterface {
+class Widget extends \WP_Widget implements WidgetInterface {
 	
-	private $setup;
+	private $config;
 	private $cpanel;
-	
-	/**
-	 * Register the widget 
-	 * 
-	 * Call this function to bind the widget to the 'widgets_init' hook.
-	 */
-	public static function register() {
-		add_action('widgets_init', create_function('', 'return register_widget("'.get_called_class().'");'));
-	}
-	
-	/**
-	 * Widget setup
+    
+    /**
+	 * Widget constructor
 	 * 
 	 * Set the widget's settings and control panel.
 	 * 
-	 * @param \Amarkal\Widget\WidgetSetup $setup	The widget setup
-	 * @param \Amarkal\Widget\ControlPanel $panel	The widget's control panel
+	 * @param \Amarkal\Widget\WidgetConfig $config	The widget configuration
 	 */
-	public function setup( WidgetSetup $setup, ControlPanel $panel )
+	public function __construct( WidgetConfig $config )
 	{
-		$this->setup = $setup;
+		$this->config = $config;
 		
 		// Set the widget's parameters
 		parent::__construct(
-			$this->setup->slug ,
-			__( $this->setup->name , $this->setup->slug ), // This is shown in the 'widgets' panel
+			$this->config->slug ,
+			__( $this->config->name , $this->config->slug ), // This is shown in the 'widgets' panel
 			array(
-				'classname'		=>	$this->setup->slug.'-class' ,
-				'description'	=>	__( $this->setup->description, $this->setup->slug )
+				'classname'		=>	$this->config->slug.'-class' ,
+				'description'	=>	__( $this->config->description, $this->config->slug )
 			)
 		);
 		
 		// This line must be called after the parent's constructor
-		$this->set_control_panel( $panel );
+		$this->set_control_panel( $config->cpanel );
 		
 		// Hooks fired when the Widget is activated and deactivated
 		register_activation_hook( __FILE__, array( $this, 'on_activation' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'on_deactivation' ) );
 	}
-	
+    
+	/**
+	 * Register the widget 
+	 * 
+	 * Call this function to bind the widget to the 'widgets_init' hook.
+	 */
+	public function register() {
+        // A little hack to allow a constructor with arguments
+        add_action('widgets_init', function(){
+            global $wp_widget_factory;
+            $class = $this->config->slug;
+            $wp_widget_factory->widgets[$class] = new Widget( $this->config );
+        });
+	}
+    
 	/**
 	 * Set a control panel for the widget.
 	 * 
@@ -175,5 +164,13 @@ abstract class AbstractWidget extends \WP_Widget implements WidgetInterface {
 	public function on_deactivation( $network_wide ) {
 		// Override in child's class to define deactivation functionality.
 	}
+
+    public function widget( $args, $instance ) {
+        $callable = $this->config->callback;
+		
+		if( is_callable( $callable ) ) {
+			$callable( $args, $instance );
+		}
+    }
 
 }

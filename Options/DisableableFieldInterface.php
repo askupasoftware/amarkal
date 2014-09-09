@@ -7,7 +7,7 @@ namespace Amarkal\Options;
  * 
  * This interface is applicable for any field that allows user input.
  */
-interface DisableableFieldInterface extends ValueFieldInterface {
+interface DisableableFieldInterface {
 	
 	/**
 	 * Check if the field has been disabled.

@@ -2,6 +2,18 @@
 
 namespace Amarkal\Options;
 
+/**
+ * Implements an admin options page.
+ * 
+ * This class can be used to develop options pages for plugins and themes.
+ * 
+ * Hooks fired on a typical request:
+ * ao_init: Fires upon initiation
+ * ao_preprocess: Fires before the fields are updated.
+ * ao_postprocess: Fires after the fields are updated.
+ * ao_before_render: Fires before the options page is rendered.
+ * ao_after_render: Fires after the options page is rendered.
+ */
 class OptionsPage
 {
     private $config;
@@ -27,14 +39,14 @@ class OptionsPage
         {
             $this->reset();
         }
-        
-        $this->set_global_variable();
+        do_action('ao_init');
     }
     
     public function register()
     {
         $this->preprocess();
         $this->page->register();
+        $this->set_global_variable();
     }
     
     private function get_page()
@@ -68,16 +80,20 @@ class OptionsPage
     
     public function render()
     {
-        $template = new \Amarkal\Template\Template( __DIR__.'/layout.inc.php', $this->config->get_config() );
+        do_action('ao_before_render');
+        $template = new \Amarkal\Template\Template( __DIR__.'/OptionsPage.phtml', $this->config->get_config() );
         echo $template->render();
         add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
+        do_action('ao_after_render');
     }
     
     private function preprocess()
     {
+        do_action('ao_preprocess');
         $this->set_section_slugs();
         $this->activate_section( $this->get_current_section() );
         $this->update();
+        do_action('ao_postprocess');
     }
     
     private function set_section_slugs()
@@ -118,12 +134,16 @@ class OptionsPage
         {
             case 'save':
                 $errors = $this->save();
+                \Amarkal\Options\Notifier::success('Settings saved.');
                 break;
             case 'reset-section':
-                $this->reset( $this->get_current_section() );
+                $section = $this->config->get_section_by_slug($this->get_current_section());
+                $this->reset( $section );
+                \Amarkal\Options\Notifier::success('<strong>'.$section->title.'</strong> section was reset to its default settings.');
                 break;
             case 'reset-all':
                 $this->reset();
+                \Amarkal\Options\Notifier::success('All sections were reset to their default settings.');
                 break;
             // No submission (simple request)
             default:
@@ -132,15 +152,18 @@ class OptionsPage
         
         foreach( $this->fields as $field )
         {
-            // Set field value
-            $field->set_value( $this->new_instance[$field->get_name()] );
-            
-            // Invalid user input: Set error flag.
-            if ( $field instanceof ValidatableFieldInterface &&
-                 in_array($field->get_name(), $errors) ) 
-			{
-				$field->set_validity( ValidatableFieldInterface::INVALID );
-			}
+            if( $field instanceof ValueFieldInterface )
+            {
+                // Set field value
+                $field->set_value( $this->new_instance[$field->get_name()] );
+
+                // Invalid user input: Set error flag.
+                if ( $field instanceof ValidatableFieldInterface &&
+                     in_array($field->get_name(), $errors) ) 
+                {
+                    $field->set_validity( ValidatableFieldInterface::INVALID );
+                }
+            }
         }
     }
     
@@ -166,11 +189,29 @@ class OptionsPage
         return $updater->get_error_fields();
     }
     
-    private function reset( $section = null )
+    private function reset( Section $section = null )
     {
-        // No values are passed to the OptionsUpdater so that the default values
-        // Will be returned.
-        $updater = new OptionsUpdater( $this->fields );
+        if( null != $section )
+        {
+            // Get default values for section
+            $new_instance = $this->get_old_instance();
+            foreach( $section->fields as $field )
+            {
+                if( $field instanceof ValueFieldInterface )
+                {
+                    $new_instance[$field->name] = $field->get_default_value();
+                }
+            }
+            
+            // Update back to defaults
+            $updater = new OptionsUpdater( $this->fields, $new_instance, $this->get_old_instance() );
+        }
+        else 
+        {
+            // No values are passed to the OptionsUpdater so that the default values
+            // Will be returned.
+            $updater = new OptionsUpdater( $this->fields );
+        }
         
         \update_option(
             $this->page->get_slug(), 
@@ -238,6 +279,17 @@ class OptionsPage
      */
     private function set_global_variable()
     {
-        $GLOBALS[$this->page->get_slug().'_options'] = $this->get_old_instance();
+        $var_name = "";
+        
+        if( isset($this->config->settings['global_variable']) )
+        {
+            $var_name = $this->config->settings['global_variable'];
+        }
+        else
+        {
+            $var_name = $this->page->get_slug().'_options';
+        }
+        
+        $GLOBALS[$var_name] = $this->get_old_instance();
     }
 }

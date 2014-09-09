@@ -12,7 +12,6 @@
 				<option value="<?php echo $choice; ?>"<?php echo $this->value == $choice ? ' selected' : ''; ?>><?php echo $label; ?></option>
 			<?php endforeach; ?>
 		</select>
-		<span class="select-button">&#x25BE;</span>
 	</div>
 	<?php if ( $this->has_property('description') ): ?>
 		<p class="description"><?php echo $this->description; ?></p>

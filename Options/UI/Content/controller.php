@@ -3,18 +3,17 @@
 namespace Amarkal\Options\UI;
 
 /**
- * Implements a two state switch.
+ * Implements a content holder for.
+ * 
+ * User this special field to display static content inside the options page.
  * 
  * Usage Example:
  * 
  * $field = new Text(array(
- *		'name'			=> 'textfield_1',
  *		'title'			=> 'Title',
- *		'default'		=> 'Enter your title here',
- *		'disabled'		=> false,
  *		'description'	=> 'This is the title',
  *      'help'			=> 'Some helpful text',
- *      'labels'        => array('On','Off')
+ *      'template'      => 'path-to-file'
  * ));
  */
 class Content
@@ -25,7 +24,8 @@ extends \Amarkal\Options\AbstractField
             'title'			=> '',
             'help'			=> null,
             'description'	=> '',
-            'template'      => null
+            'template'      => null,
+            'full_width'    => false
         );
     }
     

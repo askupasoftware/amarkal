@@ -37,22 +37,27 @@
                 <div class="ao-sections">
                     <?php foreach( $this->options['sections'] as $section ): ?>
                         <div class="ao-section<?php echo $section->is_current_section() ? ' active' : ''; ?>" id="<?php echo $section->get_slug(); ?>">
+                            
+                            <?php do_action('ao_notices'); ?>
+                            
                             <div class="section-header">
                                 <h3><i class="<?php echo $section->get_icon_class(); ?>"></i><?php echo $section->title; ?></h3>
                                 <p><?php echo $section->description; ?></p>
                             </div>
                             <?php foreach( $section->fields as $field ): ?>
                                 <div class="field-wrapper<?php echo ($field->disabled ? ' disabled' : ''); ?>">
-                                    <div class="field-title">
-                                        <p class="title"><?php echo $field->title; ?></p>
-                                        <?php if ( $field->help ): ?>
-                                            <a class="help" data-toggle="tooltip" data-type="help" data-placement="bottom" title="<?php echo $field->help; ?>">?</a>
-                                        <?php endif; ?>
-                                        <?php if ( $field->description ): ?>
-                                            <p class="description"><?php echo $field->description; ?></p>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="field">
+                                    <?php if( !$field->full_width ) : ?>
+                                        <div class="field-title">
+                                            <p class="title"><?php echo $field->title; ?></p>
+                                            <?php if ( $field->help ): ?>
+                                                <a class="help" data-toggle="tooltip" data-type="help" data-placement="bottom" title="<?php echo $field->help; ?>">?</a>
+                                            <?php endif; ?>
+                                            <?php if ( $field->description ): ?>
+                                                <p class="description"><?php echo $field->description; ?></p>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="field<?php echo $field->full_width ? ' full-width' : '' ?>">
                                         <?php echo $field->render(); ?>
                                     </div>
                                 </div>

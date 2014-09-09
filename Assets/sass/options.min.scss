@@ -83,15 +83,16 @@ $break-large: 920px;
                     
                     a {
                         margin: 0;
-                        padding: 7px 13px;
+                        padding: 7px;
                         text-decoration:none;
                         display: block;
                         outline: 0;
                         color: $theme-color2;
                         
                         i {
-                            margin-right: 10px;
-                            @include transition( all .2s ease-in-out );
+                            width: 30px;
+                            text-align: center;
+                            @include transition( all .1s ease-in-out );
 
                             &.fa {font-size: 18px}
                             &.dashicons {font-size: 20px}
@@ -99,20 +100,18 @@ $break-large: 920px;
                         
                         span {
                             @media screen and (max-width: $break-small) {display:none;}
-                            @include transition( all .2s ease-in-out );
                         }
                     }
                     
                     &:hover {
                         i {@include scale( 1.2 );}
-                        span {padding-left:10px}
                     }
                     
                     &:hover:not(.active) {
                         border-left: 3px solid;
                         
                         a {
-                            padding-left: 10px;
+                            padding-left: 4px;
                         }
                     }
                     
@@ -148,6 +147,57 @@ $break-large: 920px;
                 @include box-shadow( 0 -1px 0 rgba(0,0,0,0.1), 0 1px 0 rgb(255,255,255) );
                 
                 &.active {display:block}
+                
+                .notification {
+                    margin: 5px;
+                    padding-left: 45px;
+                    border-style: solid;
+                    border-width: 0;
+                    border-left-width: 5px;
+                    position: relative;
+                    
+                    p {
+                        display: inline-block;
+                    }
+                    
+                    + .notification {
+                        margin-top: -5px;
+                    }
+                    
+                    &:before {
+                        font-family: FontAwesome;
+                        font-size: 24px;
+                        position: absolute;
+                        left: 13px;
+                        top: 0;
+                        bottom: 0;
+                        line-height: 45px;
+                    }
+                    
+                    &.info {
+                        color: rgb(47, 114, 177);
+                        border-color: rgb(47, 114, 177);
+                        background-color: rgb(155, 231, 255);
+                        
+                        &:before {content: "\f05a";}
+                    }
+                    
+                    &.success {
+                        color: #2FB15E;
+                        border-color: #2FB15E;
+                        background-color: #CAFFBA;
+                        
+                        &:before {content: "\f058";}
+                    }
+                    
+                    &.errors {
+                        color: #B81919;
+                        border-color: #B81919;
+                        background-color: #FFC8C8;
+                        
+                        &:before {content: "\f057";}
+                    }
+                }
                 
                 .section-header {
                     margin: 5px;
@@ -259,6 +309,8 @@ $break-large: 920px;
                         display: inline-block;
                         vertical-align: middle;
                         width: 68%;
+                        
+                        &.full-width{ width: 100%;}
                     }
                 }
             }
@@ -340,6 +392,20 @@ $break-large: 920px;
     }
 }
 
+.ao-field-content {
+    font-size: 14px;
+    
+    .aligncenter {clear: both; display: block; margin-left:auto; margin-right: auto;}
+    .alignleft {float:left;margin-right:10px}
+    .alignright {float:right;margin-left:10px}
+    
+    img {margin-top:10px;margin-bottom:10px}
+    
+    ul {
+        padding-left: 28px;
+        list-style-type: square;
+    }
+}
 .ao-field-dropdown {
     font-size: 13px;
 }
@@ -358,6 +424,23 @@ $break-large: 920px;
             font-weight: bold;
             margin: 10px 10px 10px 0;
         }
+    }
+}
+.ao-field-process {
+    button {
+        font-size: 14px;
+        padding: 3px 9px;
+        border: 1px solid rgba(0,0,0,0.3);
+        color: #444;
+        text-decoration: none;
+        outline: none;
+        cursor: pointer;
+        @include background-image(linear-gradient($theme-color1, $theme-color2));
+        @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
+        @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+        @include border-radius( 5px );
+        
+        &:hover {@include background-image(linear-gradient( $theme-color2, $theme-color1 ));}
     }
 }
 .ao-field-slider {
@@ -485,6 +568,68 @@ $break-large: 920px;
             border: 1px solid $error-border-color;
             background-color: $error-background-color;
             @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
+        }
+    }
+}
+.ao-field-textarea {
+    position: relative;
+    
+    .ui-wrapper {
+        position: relative !important;
+        min-width: 250px !important;
+        min-height: 150px !important;
+        
+        .ui-resizable-handle {
+            position: absolute;
+            font-size: 10px;
+            line-height: 6px;
+            text-align: center;
+            color: rgb(158, 158, 158);
+            text-shadow: 0 1px 0 white;
+            
+            
+            
+            &.ui-resizable-e {
+                width: 12px;
+                background: rgb(233, 233, 233);
+                top: 0;
+                bottom: 12px;
+                right: 12px;
+                @include border-radius( 0 3px 3px 0 );
+                
+                i {
+                    position: absolute;
+                    right: 3px;
+                    top: 47%;
+                }
+            }
+            &.ui-resizable-s {
+                height: 12px;
+                background: rgb(233, 233, 233);
+                left: 0;
+                right: 12px;
+                bottom: 12px;
+                @include border-radius( 0 0 3px 3px );
+            }
+            &.ui-resizable-se {
+                height: 12px;
+                width: 12px;
+                right: 12px;
+            }
+        }
+        
+        textarea {
+            margin: 0 !important;
+            padding: 5px;
+            min-width: 250px !important;
+            min-height: 150px !important;
+            @include border-radius( 3px 0 0 0 );
+
+            &.error {
+                border: 1px solid $error-border-color;
+                background-color: $error-background-color;
+                @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
+            }
         }
     }
 }

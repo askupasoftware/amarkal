@@ -33,7 +33,8 @@ return array(
             'jquery-ui',
             'jquery-ui-datepicker',
             'jquery-ui-spinner',
-            'jquery-ui-slider'
+            'jquery-ui-slider',
+            'jquery-ui-resizable'
         ),
         
         /**

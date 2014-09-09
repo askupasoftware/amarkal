@@ -13,8 +13,8 @@ namespace Amarkal\Loaders;
  * 
  *		$loader = new ClassLoader();
  *		
- *		// Register the Amarkal namespace, located under __DIR__.'/Amarkal'
- *		$loader->register_namespace( 'Amarkal', __DIR__ );
+ *		// Register the Amarkal namespace, located under __DIR__.'/app'
+ *		$loader->register_namespace( 'Amarkal', __DIR__.'/app' );
  * 
  *		// Register a namespace with multiple paths
  *		$loader->register_namespace( 'Amarkal', array( __DIR__.'/src', __DIR__.'/lib/askupa' ) );
@@ -26,9 +26,15 @@ class ClassLoader {
 	
 	/**
 	 * Namespaces array
-	 * @var array	The array of namespaces and corresponding paths 
+	 * @var array	Array of namespaces and corresponding paths 
 	 */
 	private $namespaces;
+    
+    /**
+     * Autoload filters.
+     * @var array Array of filters per namespace.
+     */
+    private $filters = array();
 	
 	/**
 	 * Loads the given class or interface
@@ -51,14 +57,21 @@ class ClassLoader {
 	 * @param	string			$namespace	The namespace
 	 * @param	array|string	$paths		The path(s) to the namespace
 	 */
-	public function register_namespace( $namespace, $paths ) {
-		if ( isset( $this->namespaces[ $namespace ] ) ) {
+	public function register_namespace( $namespace, $paths )
+    {
+		if ( isset( $this->namespaces[ $namespace ] ) )
+        {
             $this->namespaces[ $namespace ] = array_merge(
                 $this->namespaces[ $namespace ],
                 (array) $paths
             );
-        } else {
+        } 
+        else 
+        {
             $this->namespaces[ $namespace ] = (array) $paths;
+            
+            // Register PSR_0 as the first autoload filter for every namespace
+            $this->register_autoload_filter( $namespace, array( $this, "PSR_0" ) );
         }
 	}
 	
@@ -68,25 +81,67 @@ class ClassLoader {
      * @param	string $class	The name of the class
      * @return	string			The path, if found
      */
-	private function find_file( $class ) {
-		if ( false !== $pos = strrpos( $class, '\\' ) ) {
-            $class_path = str_replace( '\\', DIRECTORY_SEPARATOR, substr( $class, 0, $pos ) ).DIRECTORY_SEPARATOR;
-            $class_name = substr( $class, $pos + 1 );
-        }
-		
-		$class_path .= $class_name.'.php';
-		
-		foreach ( $this->namespaces as $namespace => $dirs ) {
-            if ( $class === strstr( $class, $namespace ) ) {
-                foreach ( $dirs as $dir ) {
-                    if ( file_exists($dir.DIRECTORY_SEPARATOR.$class_path ) ) {
-                        return $dir.DIRECTORY_SEPARATOR.$class_path;
+	private function find_file( $class )
+    {
+		foreach ( $this->namespaces as $namespace => $dirs )
+        {
+            if ( $class === strstr( $class, $namespace ) ) 
+            {
+                foreach ( $dirs as $dir )
+                {
+                    // Apply filters
+                    foreach( $this->filters[$namespace] as $filter )
+                    {
+                        $file = $filter($class, $namespace, $dir);
+                        
+                        if ( file_exists( $file ) ) 
+                        {
+                            return $file;
+                        }
                     }
                 }
             }
 		}
 	}
-	
+    
+    /**
+     * Implements the PSR 0 class autoloader.
+     * @param type $class
+     */
+    public function PSR_0( $class, $namespace, $dir )
+    {
+        return $dir.str_replace(
+            array('\\',$namespace), 
+            array(DIRECTORY_SEPARATOR,''), 
+            $class
+        ).'.php';
+    }
+    
+    /**
+     * Autoload filters are functions that are used to autoload classes. These 
+     * functions accept a class name as an argument and return the appropriate 
+     * file path to that class.
+     * Autoload filters are applied per namespace. Each namespace can have 
+     * multiple autoload filters. The class loader will loop through all the filters
+     * until a file is found. The filters are looped through in the order in which
+     * they were registered.
+     * 
+     * @param type $namespace The namespace in which the filter is applied.
+     * @param type $filter    A callable that returns the file path for the given class.
+     */
+    public function register_autoload_filter( $namespace, $filter )
+    {
+        if(is_callable( $filter ) )
+        {
+            if( !isset($this->filters[$namespace]) )
+            {
+                $this->filters[$namespace] = array();
+            }
+            
+            $this->filters[$namespace][] = $filter;
+        }
+    }
+    
 	/**
      * Registers this instance as an autoloader.
      *

@@ -3,7 +3,7 @@
 namespace Amarkal\Admin;
 
 /**
- * Implements an admin notifyer.
+ * Implements an admin notifier.
  * 
  * Use this class to print admin notices. If the $page parameter is specified,
  * the notification will only be printed on that page. Otherwise, the notification

@@ -15,6 +15,17 @@ class Tools
      */
     static function strtoslug( $str )
     {
-        return preg_replace( '/[ .\-_@#$%^&*();\\/|<>"\'!+]+/', '-', strtolower( $str ) );
+        return preg_replace( '/[^a-zA-Z0-9]+/s', '_', strtolower( $str ) );
     }
+    
+    /**
+     * Check if the given array is associative, or sequential.
+     * 
+     * @param array $array The array to check
+     * @return bool True if the given array is associative.
+     */
+    static function is_assoc( array $array ) {
+        return (bool) count(array_filter(array_keys($array), 'is_string'));
+    }
+
 }

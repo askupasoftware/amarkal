@@ -17,7 +17,7 @@ class OptionsConfig
         
         foreach( $this->get_fields() as $field )
         {
-            if( in_array( $field->name, $names ) )
+            if( $field instanceof ValueFieldInterface && in_array( $field->name, $names ) )
             {
                 throw new DuplicateNameException( 'A field with with the name '.$field->name.' already exist. Field names MUST be unique.' );
             }
@@ -56,5 +56,22 @@ class OptionsConfig
             $this->fields = $fields;
         }
         return $this->fields;
+    }
+    
+    public function get_section_fields( $section_slug )
+    {
+        $section = $this->get_section_by_slug( $section_slug );
+        return $section->fields;
+    }
+    
+    public function get_section_by_slug( $section_slug )
+    {
+        foreach( $this->config['options']['sections'] as $section )
+        {
+            if( $section->get_slug() == $section_slug )
+            {
+                return $section;
+            }
+        }
     }
 }
