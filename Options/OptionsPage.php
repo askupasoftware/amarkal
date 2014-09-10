@@ -39,7 +39,7 @@ class OptionsPage
         {
             $this->reset();
         }
-        do_action('ao_init');
+        $this->do_action('ao_init');
     }
     
     public function register()
@@ -80,20 +80,20 @@ class OptionsPage
     
     public function render()
     {
-        do_action('ao_before_render');
+        $this->do_action('ao_before_render');
         $template = new \Amarkal\Template\Template( __DIR__.'/OptionsPage.phtml', $this->config->get_config() );
         echo $template->render();
         add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
-        do_action('ao_after_render');
+        $this->do_action('ao_after_render');
     }
     
     private function preprocess()
     {
-        do_action('ao_preprocess');
+        $this->do_action('ao_preprocess');
         $this->set_section_slugs();
         $this->activate_section( $this->get_current_section() );
         $this->update();
-        do_action('ao_postprocess');
+        $this->do_action('ao_postprocess');
     }
     
     private function set_section_slugs()
@@ -291,5 +291,14 @@ class OptionsPage
         }
         
         $GLOBALS[$var_name] = $this->get_old_instance();
+    }
+    
+    private function do_action( $hook )
+    {
+        // Make sure the action has not been called before
+        if( 0 == did_action( $hook ) )
+        {
+            do_action( $hook );
+        }
     }
 }
