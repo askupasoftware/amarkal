@@ -82,7 +82,10 @@ if(!class_exists('EnvironmentValidator'))
             }
             
             // Valid Environment, initiate Amarkal.
-            require_once 'Autoloader.php';
+            if(!class_exists('\\Amarkal\\Autoloader'))
+            {
+                require_once 'Autoloader.php';
+            }
             return true;
         }
         
