@@ -146,50 +146,45 @@ class AdminPage
         extract( $this->config );
         $icon .= '' != $class ? '" class="'.$class : '';
         $icon .= array() != $style ? '" style="'.$this->array_to_css($style) : '';
-        $first_page = true;
-        $page_count = count($this->config['submenu-pages']);
+        $page = $this->config['submenu-pages'][0];
+        
+        \add_menu_page( 
+            $title, 
+            $title, 
+            $page['capability'], 
+            $slug,
+            $page['content'],
+            $icon,
+            $position
+        );
+        
+        if( count($this->config['submenu-pages']) > 1 )
+        {
+            $this->add_submenu_pages();
+        }
+    }
+    
+    /**
+     * 
+     * @global type $submenu
+     */
+    function add_submenu_pages()
+    {
+        $slug = $this->config['slug'];
         
         foreach( $this->config['submenu-pages'] as $page )
-        {
-            // Add a menu page
-            if( $first_page )
-            {
-                \add_menu_page( 
-                    $title, 
-                    $title, 
-                    $page['capability'], 
-                    $slug, 
-                    $page['content'],
-                    $icon,
-                    $position
-                );
-                
-                // Add a submenu page if there are multiple pages
-                if( $page_count > 1 )
-                {
-                    \add_submenu_page( 
-                        $slug, 
-                        $page['title'], 
-                        $page['title'], 
-                        $page['capability'], 
-                        $slug, 
-                        $page['content']
-                    );
-                }
-                $first_page = false;
-            }
+        {            
+            \add_submenu_page( 
+                $slug, 
+                $page['title'], 
+                $page['title'], 
+                $page['capability'], 
+                $slug.'&section='.\Amarkal\Common\Tools::strtoslug( $page['title'] ), 
+                $page['content']
+            );
             
-            // Pages after the first page
-            else {
-                \add_submenu_page( 
-                    $slug, 
-                    $page['title'], 
-                    $page['title'], 
-                    $page['capability'], 
-                    \Amarkal\Common\Tools::strtoslug( $page['title'] ), 
-                    $page['content']
-                );
-            }
+            global $submenu;
+            unset($submenu[$slug][0]);
         }
     }
     

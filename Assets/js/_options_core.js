@@ -15,7 +15,7 @@
         var self = this;
         $('.ao-section-list li a').click(function( event ){
             event.preventDefault();
-            self.showSection($(this).attr('href'));
+            self.showSection($(this).attr('data-slug'));
         });
     };
 
@@ -29,13 +29,13 @@
         if( this.activeSection != slug )
         {
             $('#'+slug+'.ao-section').addClass('active');
-            $('a[href="'+slug+'"]').parent().addClass('active');
+            $('a[data-slug="'+slug+'"]').parent().addClass('active');
             
             $('#'+this.activeSection+'.ao-section').removeClass('active');
-            $('a[href="'+this.activeSection+'"]').parent().removeClass('active');
+            $('a[data-slug="'+this.activeSection+'"]').parent().removeClass('active');
             
             // Change the form's action
-            $('#ao-form').attr('action', '?page='+slug);
+            $('#ao-form').attr('action', $('a[data-slug="'+slug+'"]').attr('href'));
             
             this.activeSection = slug;
         }

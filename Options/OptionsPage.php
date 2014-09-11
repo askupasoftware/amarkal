@@ -81,7 +81,9 @@ class OptionsPage
     public function render()
     {
         $this->do_action('ao_before_render');
-        $template = new \Amarkal\Template\Template( __DIR__.'/OptionsPage.phtml', $this->config->get_config() );
+        $template = new \Amarkal\Template\Template( 
+            dirname( __FILE__ ).'/OptionsPage.phtml', 
+            $this->config->get_config() + array( "page_slug" => $this->get_page()->get_slug() ) );
         echo $template->render();
         add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
         $this->do_action('ao_after_render');
@@ -98,25 +100,29 @@ class OptionsPage
     
     private function set_section_slugs()
     {
-        $first = true;
-        foreach( $this->config->options['sections'] as $section )
+        if( count($this->config->options['sections']) > 1 )
         {
-            if( $first )
-            {
-                $first = false;
-                $slug = \Amarkal\Common\Tools::strtoslug( $this->config->settings['admin-title'] );
-                $section->set_slug( $slug );
-            }
-            else
+            foreach( $this->config->options['sections'] as $section )
             {
                 $slug = \Amarkal\Common\Tools::strtoslug( $section->title );
                 $section->set_slug( $slug );
             }
         }
+        else
+        {
+            $slug = \Amarkal\Common\Tools::strtoslug( $this->config->settings['admin-title'] );
+            $this->config->options['sections'][0]->set_slug( $slug );
+        }
     }
     
     private function activate_section( $slug )
     {
+        if( 1 == count($this->config->options['sections']) )
+        {
+            $this->config->options['sections'][0]->set_current_section();
+            return;
+        }
+        
         foreach( $this->config->options['sections'] as $section )
         {
             if( $section->get_slug() == $slug )
@@ -260,7 +266,7 @@ class OptionsPage
     
     private function get_current_section()
     {
-        return \filter_input( INPUT_GET, 'page' );
+        return \filter_input( INPUT_GET, 'section' );
     }
     
     /**
