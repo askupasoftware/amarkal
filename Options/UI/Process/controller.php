@@ -8,12 +8,12 @@ namespace Amarkal\Options\UI;
  * Usage Example:
  * 
  * $field = new Text(array(
- *		'name'			=> 'process_1',
- *		'title'			=> 'Title',
- *		'label'         => 'My Button',
- *		'disabled'		=> false,
- *      'help'			=> 'Some helpful text',
- *		'description'	=> 'This is the title',
+ *      'name'          => 'process_1',
+ *      'title'         => 'Title',
+ *      'label'         => 'My Button',
+ *      'disabled'      => false,
+ *      'help'          => 'Some helpful text',
+ *      'description'   => 'This is the title',
  *      'callback'      => function() {}
  *      'hook'          => 'ao_preprocess'
  * ));
@@ -28,21 +28,21 @@ implements \Amarkal\Options\DisableableFieldInterface
         
         $callable = $this->config['callback'];
         
-		if( is_callable( $callable ) && isset( $_POST[$this->name] ) )
+        if( is_callable( $callable ) && isset( $_POST[$this->name] ) )
         {
-			add_action($this->config['hook'],$callable,4);
-		}
+            add_action($this->config['hook'],$callable,4);
+        }
     }
     
     public function default_settings()
     {
         return array(
             'name'          => '',
-            'title'			=> '',
+            'title'            => '',
             'label'         => '',
-            'disabled'		=> false,
-            'help'			=> null,
-            'description'	=> '',
+            'disabled'        => false,
+            'help'            => null,
+            'description'    => '',
             'callback'      => function(){},
             'hook'          => 'ao_init'
         );
@@ -54,8 +54,8 @@ implements \Amarkal\Options\DisableableFieldInterface
     }
 
     /**
-	 * {@inheritdoc}
-	 */
+     * {@inheritdoc}
+     */
     public function is_disabled()
     {
         return $this->config['disabled'];

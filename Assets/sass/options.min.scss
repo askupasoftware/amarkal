@@ -5,11 +5,11 @@
 /* Options Page Header 
 ------------------------*/
 $border: 1px solid #C4C4C4;
-$background-color: #EBEBEB;
+$background-color: rgb(236, 240, 241);
 
-$theme-color1: rgb(159,185,210);
-$theme-color2: rgb(110,139,173);
-$theme-color3: rgb(73,97,131);
+$theme-color1: #75BFF0;
+$theme-color2: #2980b9;
+$theme-color3: rgb(52, 73, 94);
 
 $error-background-color: rgb(255, 244, 244);
 $error-border-color: red; 
@@ -85,7 +85,7 @@ $break-large: 920px;
                     @include border-radius(3px);
                     @include box-shadow( 0 -1px 0 rgba(0,0,0,0.1), 0 1px 0 rgb(255,255,255) );
 
-                    &.active {display:block}
+                    &.active {display:block;}
 
                     .notification {
                         margin: 5px;
@@ -164,7 +164,7 @@ $break-large: 920px;
                                 border-right: 1px solid white;
                                 border: 1px solid black;
                                 @include background-image(linear-gradient($theme-color1, $theme-color2));
-                                @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgb(255,255,255) );
+                                @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
                                 @include text-shadow( 0 1px 0 rgba(255,255,255,0.5), 0 -1px 0 rgb(0,0,0) );
                                 @include border-radius( 2px 0 0 2px );
                             }
@@ -294,12 +294,13 @@ $break-large: 920px;
                     @include background-image(linear-gradient($theme-color1, $theme-color2));
                     @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
                     @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
-
+                    @media screen and (max-width: $break-small) {padding:0;font-size:0;}
+                    
                     &:hover {@include opacity(0.9);}
-
                     &:active {@include background-image(linear-gradient($theme-color2, $theme-color1));}
 
                     i {
+                        font-size: 14px;
                         position: absolute;
                         left: 0;
                         bottom: 0;
@@ -308,21 +309,22 @@ $break-large: 920px;
                         border-right: 1px solid #333;
                         @include box-shadow( inset -1px 0 0 rgba(255,255,255,0.5) );
                         @include border-radius( 3px 0 0 3px );
+                        @media screen and (max-width: $break-small) {@include border-radius( 3px );border: none;position:relative;}
                     }
 
                     &[value="save"] i {
                         color: rgb(22, 100, 22);
-                        @include background-image( linear-gradient(#A0E0B2,#6EAD71) );
+                        @include background-image( linear-gradient(#63F5A1,rgb(39, 174, 96)) );
                     }
 
                     &[value="reset-section"] i {
                         color: rgb(129, 67, 0);
-                        @include background-image( linear-gradient(#FFE090,#BDA871) );
+                        @include background-image( linear-gradient(rgb(241, 196, 15),rgb(243, 156, 18)) );
                     }
 
                     &[value="reset-all"] i {
                         color: rgb(114, 0, 0);
-                        @include background-image( linear-gradient(#FFBBBB,#BD7171) );
+                        @include background-image( linear-gradient(#F1958B,rgb(192, 57, 43)) );
                     }
                 }
             }
@@ -334,10 +336,17 @@ $break-large: 920px;
         width: 200px;
         position: relative;
         @media screen and (max-width: $break-large) {width: 45px;}
-
+        
+        &.collapsed {
+            width: 45px;
+            .item span {display:none;}
+            .tabs a {padding: 5px 0 !important; text-align: center}
+            a[href="collapse"] i:before {content: "\f0a8";}
+        }
+        
         .ao-section-list {
             margin: 0;
-            background-color: #DDDDDD;
+            background-color: rgb(189, 195, 199);
             position: absolute;
             top: 20px;
             bottom: 20px;
@@ -390,10 +399,37 @@ $break-large: 920px;
                     @include box-shadow( 2px 2px 2px -1px rgba(0, 0, 0, 0.7) !important );
                     
                     &:first-child{background-color: #F0F0F0;} // Matches the header's gradient
+                    
+                    .tabs {display: block;}
                 }
                 
                 &:first-child{box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.09);}
                 &:last-child{box-shadow: 0 1px 0 rgba(255, 255, 255, 0.37);}
+                
+                .tabs {
+                    display: none;
+                    overflow: hidden;
+                    background-color: rgb(52, 73, 94);
+                    
+                    li {
+                        margin: 0;
+                        border-top: 1px solid rgba(255, 255, 255, 0.2);
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+                        
+                        &:hover,
+                        &.active {@include box-shadow( inset 0 0 10px rgba(0, 0, 0, 0.5) );border-top: 1px solid rgba(0, 0, 0, 0.5);}
+                        
+                        a {
+                            font-size: 11px;
+                            color: rgb(236, 240, 241);
+                            padding: 5px 25px;
+                            @include text-shadow( 0 -1px 0 black );
+                            @media screen and (max-width: $break-large) {padding: 5px 0;text-align:center;}
+                            
+                            i {font-size: 11px;}
+                        }
+                    }
+                }
             }
         }
     }

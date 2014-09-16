@@ -1,0 +1,5 @@
+<div class="ao-tabbed-section<?php echo $this->current_section ? ' active' : ''; ?>">
+    <?php foreach( $this->tabs as $tab ): ?>
+        <?php echo $tab->render(); ?>
+    <?php endforeach; ?>
+</div>

@@ -10,14 +10,14 @@ use \Amarkal\Options;
  * Usage Example:
  * 
  * $field = new Text(array(
- *		'name'			=> 'textfield_1',
- *		'label'			=> 'Title',
- *		'default'		=> 'Enter your title here',
- *		'disabled'		=> false,
- *		'filter'		=> function( $v ) { return trim( strip_tags( $v ) ); },
- *		'validation'	=> function( $v ) { return strlen($v) <= 25; },
- * 		'error_message' => 'Error: the title must be less than 25 characters',
- *		'description'	=> 'This is the title'
+ *        'name'            => 'textfield_1',
+ *        'label'           => 'Title',
+ *        'default'         => 'Enter your title here',
+ *        'disabled'        => false,
+ *        'filter'          => function( $v ) { return trim( strip_tags( $v ) ); },
+ *        'validation'      => function( $v ) { return strlen($v) <= 25; },
+ *        'error_message'   => 'Error: the title must be less than 25 characters',
+ *        'description'     => 'This is the title'
  * ));
  */
 class MultiField
@@ -53,12 +53,12 @@ implements \Amarkal\Options\ValueFieldInterface
     public function default_settings() {
         return array(
             'name'          => '',
-            'title'			=> '',
+            'title'            => '',
             'disabled'      => false,
-            'default'		=> '',
-            'help'			=> null,
-            'description'	=> '',
-            'filter'		=> function( $v ) { return $v; },
+            'default'        => '',
+            'help'            => null,
+            'description'    => '',
+            'filter'        => function( $v ) { return $v; },
             'fields'        => array()
         );
     }
@@ -68,27 +68,27 @@ implements \Amarkal\Options\ValueFieldInterface
     }
 
     /**
-	 * {@inheritdoc}
-	 */
-	public function get_default_value() {
+     * {@inheritdoc}
+     */
+    public function get_default_value() {
         $defaults = array();
         foreach( $this->fields as $field )
         {
             $defaults[$field->index] = $field->get_default_value();
         }
         return $defaults;
-	}
+    }
 
     /**
-	 * {@inheritdoc}
-	 */
-	public function get_name() {
-		return $this->config['name'];
-	}
+     * {@inheritdoc}
+     */
+    public function get_name() {
+        return $this->config['name'];
+    }
 
     /**
-	 * {@inheritdoc}
-	 */
+     * {@inheritdoc}
+     */
     public function set_value( $value ) {
         foreach( $this->fields as $field )
         {

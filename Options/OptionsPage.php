@@ -44,7 +44,12 @@ class OptionsPage
     
     public function register()
     {
-        $this->preprocess();
+        // Only preprocess if this is the currently viewed page
+        if( $this->page->get_slug() == filter_input(INPUT_GET, 'page') )
+        {
+            $this->preprocess();
+        }
+        
         $this->page->register();
         $this->set_global_variable();
     }
