@@ -41,11 +41,12 @@ class TabbedSection extends Section
             $tabs[] = new \Amarkal\Template\Template(
                 dirname(__FILE__).'/Section.phtml',
                 array(
-                    'current_section'   => $this->is_current_section(),
+                    'current_section'   => $this->is_current_tab( $tab_slug ),
                     'slug'              => $tab_slug,
                     'icon'              => $this->get_icon_class(),
                     'title'             => $this->title.' ('.$name.')',
-                    'fields'            => $this->get_tab_fields( $tab_slug )
+                    'fields'            => $this->get_tab_fields( $tab_slug ),
+                    'class'             => 'ao-tab'
                 )
             );
         }
@@ -54,10 +55,11 @@ class TabbedSection extends Section
         $tabs[] = new \Amarkal\Template\Template(
             dirname(__FILE__).'/Section.phtml',
             array(
-                'current_section'   => $this->is_current_section(),
+                'current_section'   => $this->is_current_tab( 'create' ),
                 'slug'              => 'create',
                 'icon'              => 'fa fa-plus',
                 'title'             => 'Add New '.$this->labels['singular'],
+                'class'             => 'ao-tab',
                 'fields'            => array(
                     new UI\Text(array(
                         'name'      => 'new_'.strtolower( $this->labels['singular'] ),
@@ -78,6 +80,7 @@ class TabbedSection extends Section
             dirname( __FILE__ ).'/TabbedSection.phtml',
             array(
                 'current_section'   => $this->is_current_section(),
+                'slug'              => $this->get_slug(),
                 'tabs'              => $tabs
             )    
         );
@@ -117,5 +120,10 @@ class TabbedSection extends Section
             $tab_fields[] = $tab_field;
         }
         return $tab_fields;
+    }
+    
+    public function is_current_tab( $tab_slug )
+    {
+        return $this->is_current_section() && filter_input(INPUT_GET, 'tab') == $tab_slug;
     }
 }

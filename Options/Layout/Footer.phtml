@@ -1,0 +1,11 @@
+<div class="ao-footer">
+    <?php if( null != $this->icon ): ?>
+        <img class="icon" src="<?php echo $this->icon; ?>" height="30"/>
+    <?php endif; ?>
+    <p><?php echo $this->text ?></p>
+    <div class="ao-control">
+        <button class="button" type="submit" name="submit" class="button" value="save"><i class="fa fa-save"></i> Save</button>
+        <button class="button" type="submit" name="submit" class="button" value="reset-section"><i class="fa fa-mail-reply"></i> Reset Section</button>
+        <button class="button" type="submit" name="submit" class="button" value="reset-all"><i class="fa fa-refresh"></i> Reset All</button>
+    </div>
+</div>

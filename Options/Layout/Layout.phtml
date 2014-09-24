@@ -1,0 +1,46 @@
+<!-- Fixes admin notices -->
+<div class="wrap">
+    <h2></h2>
+</div>
+
+<div class="clear"></div>
+<div class="wrap">
+    <table class="ao-wrapper" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td class="ao-content">
+                    <form method="post" id="ao-form">
+
+                        <!-- Header -->
+                        <?php $this->header->render(true); ?>
+
+                        <!-- Body -->
+                        <div class="ao-body">
+
+                            <!-- Sections -->
+                            <div class="ao-sections">
+                                <?php foreach( $this->sections as $section ): ?>
+                                    <?php $section->render(); ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <?php $this->footer->render(true); ?>
+                        
+                    </form>
+                </td>
+
+                <!-- Sidebar -->
+                <?php $this->sidebar->render(true); ?>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- Subfooter -->
+    <?php if( isset( $this->subfooter['text'] ) ): ?>
+        <div class="ao-subfooter">
+            <p><?php echo $this->subfooter['text']; ?></p>
+        </div>
+    <?php endif; ?>
+</div>

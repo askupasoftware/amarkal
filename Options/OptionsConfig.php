@@ -46,7 +46,7 @@ class OptionsConfig
         if( !isset( $this->fields ) )
         {
             $fields = array();
-            foreach( $this->config['options']['sections'] as $section )
+            foreach( $this->config['sections'] as $section )
             {
                 foreach( $section->fields as $field )
                 {
@@ -66,7 +66,7 @@ class OptionsConfig
     
     public function get_section_by_slug( $section_slug )
     {
-        foreach( $this->config['options']['sections'] as $section )
+        foreach( $this->config['sections'] as $section )
         {
             if( $section->get_slug() == $section_slug )
             {

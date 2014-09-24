@@ -65,7 +65,7 @@ class OptionsPage
                 'class'         => $this->config->settings['admin-icon-class'],
                 'style'         => $this->config->settings['admin-icon-style']
             ));
-            foreach( $this->config->options['sections'] as $section )
+            foreach( $this->config->sections as $section )
             {
                 $page->add_page(array(
                     'title'         => $section->title,
@@ -86,10 +86,13 @@ class OptionsPage
     public function render()
     {
         $this->do_action('ao_before_render');
+        $layout = new Layout\Layout($this->get_page()->get_slug(), $this->config->get_config());
+        $layout->render(true);
+        /*
         $template = new \Amarkal\Template\Template( 
             dirname( __FILE__ ).'/OptionsPage.phtml', 
             $this->config->get_config() + array( "page_slug" => $this->get_page()->get_slug() ) );
-        echo $template->render();
+        echo $template->render();*/
         add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
         $this->do_action('ao_after_render');
     }
@@ -98,16 +101,15 @@ class OptionsPage
     {
         $this->do_action('ao_preprocess');
         $this->set_section_slugs();
-        $this->activate_section( $this->get_current_section() );
         $this->update();
         $this->do_action('ao_postprocess');
     }
     
     private function set_section_slugs()
     {
-        if( count($this->config->options['sections']) > 1 )
+        if( count($this->config->sections) > 1 )
         {
-            foreach( $this->config->options['sections'] as $section )
+            foreach( $this->config->sections as $section )
             {
                 $slug = \Amarkal\Common\Tools::strtoslug( $section->title );
                 $section->set_slug( $slug );
@@ -116,25 +118,7 @@ class OptionsPage
         else
         {
             $slug = \Amarkal\Common\Tools::strtoslug( $this->config->settings['admin-title'] );
-            $this->config->options['sections'][0]->set_slug( $slug );
-        }
-    }
-    
-    private function activate_section( $slug )
-    {
-        if( 1 == count($this->config->options['sections']) )
-        {
-            $this->config->options['sections'][0]->set_current_section();
-            return;
-        }
-        
-        foreach( $this->config->options['sections'] as $section )
-        {
-            if( $section->get_slug() == $slug )
-            {
-                $section->set_current_section();
-                break;
-            }
+            $this->config->sections[0]->set_slug( $slug );
         }
     }
     

@@ -19,7 +19,7 @@ class Section
      * Current section state.
      * @var boolean True if this is the current section.
      */
-    private $active = false;
+    private $active;
     
     /**
      * Section's slug. Used as the query argument 'section'.
@@ -67,7 +67,8 @@ class Section
             'slug'              => $this->get_slug(),
             'icon'              => $this->get_icon_class(),
             'title'             => $this->title,
-            'fields'            => $this->fields
+            'fields'            => $this->fields,
+            'class'             => 'ao-section'
         ));
         echo $template->render();
     }
@@ -115,19 +116,15 @@ class Section
     }
     
     /**
-     * Set this section as the currently active section.
-     */
-    public function set_current_section()
-    {
-        $this->active = true;
-    }
-    
-    /**
      * Check if this is the current section.
      * @return boolean True if this is the currently active section.
      */
     public function is_current_section()
     {
+        if( !isset( $this->active ) )
+        {
+            $this->active = filter_input(INPUT_GET, 'section') == $this->get_slug();
+        }
         return $this->active;
     }
 }

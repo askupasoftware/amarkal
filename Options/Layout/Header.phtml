@@ -1,0 +1,9 @@
+<div class="ao-header">
+    <?php if( null != $this->icon ): ?>
+        <img class="icon" src="<?php echo $this->icon; ?>" height="64"/>
+    <?php endif; ?>
+    <h2><?php echo $this->title; ?><span><?php echo $this->version; ?></span></h2>
+    <?php if( null != $this->subtitle ): ?>
+        <p><?php echo $this->subtitle; ?></p>
+    <?php endif; ?>
+</div>

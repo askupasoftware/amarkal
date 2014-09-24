@@ -76,15 +76,19 @@ $break-large: 920px;
                 border-left: $border;
                 border-right: $border;
 
-                .ao-section {
-                    display:none;
-                    background-color: white;
-                    margin: 0 10px;
-                    min-height: 300px;
-                    border: $border;
-                    @include border-radius(3px);
-                    @include box-shadow( 0 -1px 0 rgba(0,0,0,0.1), 0 1px 0 rgb(255,255,255) );
-
+                .ao-section,
+                .ao-tab {
+                    
+                    &:not(.tabbed) {
+                        display:none;
+                        background-color: white;
+                        margin: 0 10px;
+                        min-height: 300px;
+                        border: $border;
+                        @include border-radius(3px);
+                        @include box-shadow( 0 -1px 0 rgba(0,0,0,0.1), 0 1px 0 rgb(255,255,255) );
+                    }
+                    
                     &.active {display:block;}
 
                     .notification {
@@ -263,6 +267,7 @@ $break-large: 920px;
             border-left: $border;
             border-bottom: $border;
             border-right: $border;
+            min-height: 48px;
             @include background-image(linear-gradient($background-color, #DDD));
             @include border-radius(0 0 3px 3px);
             @include box-shadow( inset 0 -1px rgba(0,0,0,0.1) );
@@ -270,13 +275,15 @@ $break-large: 920px;
             .icon {
                 display: inline-block;
                 vertical-align: middle;
-                margin: 10px;
+                margin: 10px 0 10px 10px;
             }
 
             p {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 0;
+                line-height: 48px;
+                margin-left: 10px;
             }
 
             .ao-control {

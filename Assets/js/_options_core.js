@@ -8,7 +8,7 @@
     {
         this.sidebar = $('.ao-sidebar');
         this.activeSection = $('.ao-section.active').attr('id');
-        //this.activeTab = this.activeSection.split(':')[1];
+        this.activeTab = $('.ao-tab.active').attr('id');
         this.setSidebar();
     };
     
@@ -63,10 +63,10 @@
     { 
         if( this.activeTab !== tab )
         {
-            $('#'+tab+'.ao-section').addClass('active');
+            $('#'+tab+'.ao-tab').addClass('active');
             $('a[data-tab="'+tab+'"]').parent().addClass('active');
             
-            $('#'+this.activeTab+'.ao-section').removeClass('active');
+            $('#'+this.activeTab+'.ao-tab').removeClass('active');
             $('a[data-tab="'+this.activeTab+'"]').parent().removeClass('active');
             
             // Change the form's action

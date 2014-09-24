@@ -1,0 +1,43 @@
+<?php if( count($this->sections) > 1 ) : ?>
+    <td class="ao-sidebar">
+        <ul class="ao-section-list">
+            <?php foreach( $this->sections as $section ): ?>
+                <li class="item<?php echo $section->is_current_section() ? ' active' : ''; ?>">
+                    <a href="?page=<?php echo $this->page_slug; ?>&section=<?php echo $section->get_slug(); ?>" data-slug="<?php echo $section->get_slug(); ?>">
+                        <i class="<?php echo $section->get_icon_class(); ?>"></i>
+                        <span><?php echo $section->title; ?></span>
+                    </a>
+
+                    <!-- Tabbed section -->
+                    <?php if( $section instanceof Amarkal\Options\TabbedSection ): ?>
+                        <ul class="tabs">
+                            <?php foreach( $section->get_tabs() as $tab ): ?>
+                                <?php $tab_slug = Amarkal\Common\Tools::strtoslug($tab); ?>
+                                <li class="<?php echo $section->is_current_tab($tab_slug) ? ' active' : ''; ?>">
+                                    <?php $href = '?page='.$this->page_slug.'&section='.$section->get_slug().'&tab='.$tab_slug; ?>
+                                    <a href="<?php echo $href; ?>" data-parent="<?php echo $section->get_slug(); ?>" data-tab="<?php echo $tab_slug; ?>">
+                                        <i class="<?php echo $section->get_icon_class(); ?>"></i>
+                                        <span><?php echo $tab; ?></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                            <li>
+                                <a href="<?php echo '?page='.$this->page_slug.'&section='.$section->get_slug(); ?>" data-parent="<?php echo $section->get_slug(); ?>" data-tab="create">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add New <?php echo $section->labels['singular']; ?></span>
+                                </a>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+            <li class="item">
+                <a href="collapse">
+                    <i class="fa fa-arrow-circle-right"></i>
+                    <span>Collapse Menu</span>
+                </a>
+            </li>
+        </ul>
+    </td>
+<?php endif; ?>
+
