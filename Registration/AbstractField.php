@@ -12,7 +12,7 @@ abstract class AbstractField
     public function __construct( $props ) {
         $this->template = new \Amarkal\Template\Template($this->get_script_path());
         
-        foreach(array_merge( $this->get_defaults(), $props ) as $key => $value)
+        foreach(array_merge( $this->defaults(), $props ) as $key => $value)
         {
             $this->{$key} = $value;
         }
@@ -40,28 +40,21 @@ abstract class AbstractField
          return __DIR__ . '/' . $class_name . '.phtml';
     }
     
-    static function register_form_action()
+    public function register_form_action()
     {
         $this->render( true );
     }
     
-    static function registration_errors_action( $errors, $sanitized_user_login, $user_email )
+    public function registration_errors_action( $errors, $sanitized_user_login, $user_email )
     {
         if( false == $this->validate() )
         {
             $this->on_error( $errors );
         }
+        return $errors;
     }
     
-    static function user_register_action( $user_id )
-    {
-        if( true == $this->validate() )
-        {
-            $this->on_success( $user_id );
-        }
-    }
-    
-    abstract function on_error( $errors );
-    abstract function on_success( $user_id );
+    abstract function on_error( &$errors );
+    abstract function defaults();
     abstract function validate();
 }
