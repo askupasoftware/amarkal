@@ -20,9 +20,11 @@ abstract class AbstractField
    
     public function render( $echo = false )
     {
+        $this->value = $this->get_value();
         $props = get_object_vars($this);
         unset($props['template']);
-        $this->template->set_properties(get_object_vars($this));
+        
+        $this->template->set_properties($props);
         
         if( $echo )
         {
@@ -52,6 +54,11 @@ abstract class AbstractField
             $this->on_error( $errors );
         }
         return $errors;
+    }
+    
+    public function get_value()
+    {
+        return filter_input(INPUT_POST, $this->name);
     }
     
     abstract function on_error( &$errors );

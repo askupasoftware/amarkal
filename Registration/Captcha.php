@@ -55,4 +55,13 @@ class Captcha extends AbstractField
         
         return ' = '.$numbers[$num_1].' + '.$num_2;
     }
+    
+    /**
+     * Don't remeber form values for captcha.
+     * @return string
+     */
+    public function get_value() 
+    {
+        return '';
+    }
 }
