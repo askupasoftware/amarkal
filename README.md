@@ -4,6 +4,16 @@
 - Website: [askupasoftware.com](http://www.askupasoftware.com/)
 - Tested up to WordPress 4.0
 
+## Contents
+
+* [Overview](#overview)
+* [Requirements](#server-requirements)
+* [Installation](#installation)
+	* [Via Git](#via-git)
+	* [Via Composer](#via-composer)
+	* [Manual install](#manual-install)
+* [Updating](#updating)
+
 ## Overview
 
 Amarkal is a WordPress development framework that is aimed at simplifying the creation and maintenance of WordPress plugins and themes.
