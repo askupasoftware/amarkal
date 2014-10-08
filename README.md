@@ -7,7 +7,7 @@
 ## Contents
 
 * [Overview](#overview)
-* [Requirements](#server-requirements)
+* [Requirements](#requirements)
 * [Installation](#installation)
 	* [Via Git](#via-git)
 	* [Via Composer](#via-composer)
