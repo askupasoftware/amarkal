@@ -4,62 +4,70 @@ namespace Amarkal\Loaders;
 
 /**
  * Implements a universal autoloader for PHP >= 5.3
- * 
- * Classes that are to be loaded with the ClassLoader are to follow the PSR-0 
- * naming standards for namespaces and class names
- * (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
- * 
- * Example usage:
- * 
- *		$loader = new ClassLoader();
- *		
- *		// Register the Amarkal namespace, located under __DIR__.'/app'
- *		$loader->register_namespace( 'Amarkal', __DIR__.'/app' );
- * 
- *		// Register a namespace with multiple paths
- *		$loader->register_namespace( 'Amarkal', array( __DIR__.'/src', __DIR__.'/lib/askupa' ) );
- *		
- *		// Activate the autoloader
- *		$loader->register();
  */
-class ClassLoader {
-	
-	/**
-	 * Namespaces array
-	 * @var array	Array of namespaces and corresponding paths 
-	 */
-	private $namespaces;
+class ClassLoader
+{
+    /**
+     * Namespaces array
+     * @var array    Array of namespaces and corresponding paths 
+     */
+    private $namespaces;
     
     /**
      * Autoload filters.
      * @var array Array of filters per namespace.
      */
     private $filters = array();
-	
-	/**
-	 * Loads the given class or interface
-	 * 
-	 * @param	string	$class	The name of the class
-	 * @return	boolean			True/false if class was loaded
-	 */
-	private function load_class( $class ) {
-		$file = $this->find_file( $class );
-		if( null !== $file ) {
-			require $file;
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Register a namespace
-	 * 
-	 * @param	string			$namespace	The namespace
-	 * @param	array|string	$paths		The path(s) to the namespace
-	 */
-	public function register_namespace( $namespace, $paths )
+    
+    /**
+     * Create a new ClassLoader.
+     * 
+     * Classes that are to be loaded with the ClassLoader are to follow the PSR-0 
+     * naming standards for namespaces and class names
+     * (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+     * Search algorithms different than the PSR-0 algorithm can be registered
+     * using ClassLoader::register_autoload_filter();
+     * 
+     * Example usage:
+     * 
+     * $loader = new ClassLoader();
+     *        
+     * // Register the Amarkal namespace, located under __DIR__.'/app'
+     * $loader->register_namespace( 'Amarkal', __DIR__.'/app' );
+     * 
+     * // Register a namespace with multiple paths
+     * $loader->register_namespace( 'Amarkal', array( __DIR__.'/src', __DIR__.'/lib/askupa' ) );
+     *        
+     * // Activate the autoloader
+     * $loader->register();
+     */
+    public function __construct() { }
+    
+    /**
+     * Loads the given class or interface
+     * 
+     * @param    string    $class    The name of the class
+     * @return    boolean            True/false if class was loaded
+     */
+    private function load_class( $class )
     {
-		if ( isset( $this->namespaces[ $namespace ] ) )
+        $file = $this->find_file( $class );
+        if( null !== $file ) {
+            require $file;
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Register a namespace
+     * 
+     * @param    string            $namespace    The namespace
+     * @param    array|string    $paths        The path(s) to the namespace
+     */
+    public function register_namespace( $namespace, $paths )
+    {
+        if ( isset( $this->namespaces[ $namespace ] ) )
         {
             $this->namespaces[ $namespace ] = array_merge(
                 $this->namespaces[ $namespace ],
@@ -73,17 +81,17 @@ class ClassLoader {
             // Register PSR_0 as the first autoload filter for every namespace
             $this->register_autoload_filter( $namespace, array( $this, "PSR_0" ) );
         }
-	}
-	
-	/**
+    }
+    
+    /**
      * Finds the path to the file where the class is defined.
      *
-     * @param	string $class	The name of the class
-     * @return	string			The path, if found
+     * @param    string $class    The name of the class
+     * @return    string            The path, if found
      */
-	private function find_file( $class )
+    private function find_file( $class )
     {
-		foreach ( $this->namespaces as $namespace => $dirs )
+        foreach ( $this->namespaces as $namespace => $dirs )
         {
             if ( $class === strstr( $class, $namespace ) ) 
             {
@@ -92,7 +100,8 @@ class ClassLoader {
                     // Apply filters
                     foreach( $this->filters[$namespace] as $filter )
                     {
-                        $file = $filter($class, $namespace, $dir);
+                        //$file = $filter($class, $namespace, $dir);
+                        $file = call_user_func_array($filter, array($class, $namespace, $dir));
                         
                         if ( file_exists( $file ) ) 
                         {
@@ -101,8 +110,8 @@ class ClassLoader {
                     }
                 }
             }
-		}
-	}
+        }
+    }
     
     /**
      * Implements the PSR 0 class autoloader.
@@ -142,7 +151,7 @@ class ClassLoader {
         }
     }
     
-	/**
+    /**
      * Registers this instance as an autoloader.
      *
      * @param bool    $prepend
