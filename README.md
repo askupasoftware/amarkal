@@ -1,4 +1,4 @@
-# Amarkal Framework [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Amarkal Powered](http://askupasoftware.com/poweredby.gif)](http://www.askupasoftware.com/)
+# Amarkal Framework [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Amarkal Powered](http://www.askupasoftware.com/poweredby.gif)](http://www.askupasoftware.com/)
 
 - Version: 0.2-alpha
 - Website: [askupasoftware.com](http://www.askupasoftware.com/)
