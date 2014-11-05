@@ -13,10 +13,10 @@ class WidgetConfig {
         
         $defaults = array(
             'name'            => 'My Plugin',
-            'description'    => 'My Plugin\'s description',
-            'version'        => '1.0',
-            'callback'      => function( $args, $instance ){},  // Overrides WP_Widget::widget()
-            'cpanel'        => new \Amarkal\Widget\ControlPanel()
+            'description'     => 'My Plugin\'s description',
+            'version'         => '1.0',
+            'callback'        => function( $args, $instance ){},  // Overrides WP_Widget::widget()
+            'cpanel'          => new \Amarkal\Widget\ControlPanel()
         );
         
         $config = array_merge( $defaults, $config );
