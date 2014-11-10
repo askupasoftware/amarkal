@@ -1,0 +1,4 @@
+<div class="af af-text <?php if ( $this->invalid ) echo 'af-error'; ?>"
+    <?php echo ( $this->invalid ? 'data-toggle="tooltip" data-type="error" data-placement="bottom" title="'.$this->error_message.'" ' : ''); ?>>
+    <?php $input = new Amarkal\UI\Components\Input(array('name'=>$this->name,'type'=>'text','disabled'=>$this->disabled)); ?>
+</div>

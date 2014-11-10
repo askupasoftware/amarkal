@@ -1,0 +1,14 @@
+.ao-field-input {
+    
+    input {
+        border-radius: 3px;
+        margin: 0;
+        width: 250px;
+        
+        &.error {
+            border: 1px solid $error-border-color;
+            background-color: $error-background-color;
+            @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
+        }
+    }
+}
