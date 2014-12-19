@@ -21,7 +21,7 @@ abstract class Controller
         if( file_exists( $this->get_script_path() ) ) 
         {
             ob_start();
-            include_once( $this->get_script_path() );
+            include( $this->get_script_path() );
             $rendered_image = ob_get_clean();
         } 
         else 
