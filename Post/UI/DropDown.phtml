@@ -1,0 +1,10 @@
+<p>
+    <label><?php echo $this->label; ?></label>
+</p>
+<p>
+    <select name="<?php echo $this->name; ?>" id="<?php echo $this->name; ?>">
+        <?php foreach( $this->choices as $label => $value ): ?>
+            <option value="<?php echo $value; ?>" <?php echo $this->value == $value ? 'selected' : ''?>><?php echo $label; ?></option>
+        <?php endforeach; ?>
+    </select>
+</p>
