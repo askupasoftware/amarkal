@@ -8,34 +8,34 @@ namespace Amarkal\Assets;
  * @see Amarkal\Loaders\AssetLoader for example usage.
  */
 class Script extends AbstractAsset {
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	public function get_defaults() {
-		return parent::get_defaults() + array(
-			/**
-			 * Array of data to localize with the 
-			 * script using wp_localize_script().
-			 * Value must be an array with keys 'name' and 'data':
-			 * array(
-			 *		'name'	=> 'myVar',
-			 *		'data'	=> array( 'One', 'Two', 'Three )
-			 * )
-			 */
-			'localize'		=> false,
-			
-			/**
-			 * If this parameter is true, the script 
-			 * is placed before the </body> end tag.
-			 */
-			'footer'		=> false
-		);
-	}
-	
-	/**
-	 * Enqueue the script and localize the data as needed
-	 */
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function get_defaults() {
+        return parent::get_defaults() + array(
+            /**
+             * Array of data to localize with the 
+             * script using wp_localize_script().
+             * Value must be an array with keys 'name' and 'data':
+             * array(
+             *        'name'    => 'myVar',
+             *        'data'    => array( 'One', 'Two', 'Three )
+             * )
+             */
+            'localize' => false,
+            
+            /**
+             * If this parameter is true, the script 
+             * is placed before the </body> end tag.
+             */
+            'footer' => false
+        );
+    }
+    
+    /**
+     * Enqueue the script and localize the data as needed
+     */
     public function register()
     {
         wp_register_script(
