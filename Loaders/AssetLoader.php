@@ -104,15 +104,14 @@ class AssetLoader {
             {
                 $specific_page = strstr( $facing, '-' );
                 $facing = $specific_page ? strstr( $facing, '-', true ) : $facing;
+                
                 if( 'admin' == $facing )
                 {
-                    if( $specific_page && $hook != $specific_page )
+                    if( !$specific_page || ( $specific_page && $hook == substr( $specific_page, 1 ) ) )
                     {
-                        return;
+                        $asset->register();
+                        $asset->enqueue();
                     }
-
-                    $asset->register();
-                    $asset->enqueue();
                 }
             }
         }
