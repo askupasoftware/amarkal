@@ -63,7 +63,7 @@ abstract class AbstractAsset {
             'handle'        => NULL,        // The script handle
             'url'           => false,       // The URL to the file
             'version'       => false,       // The version
-            'facing'        => 'public',    // Facing public/admin
+            'facing'        => array(),     // Facing [public|admin|admin-specific_page.php|
             'dependencies'  => array()      // List (array) of script handles on which this script depends
         );
     }

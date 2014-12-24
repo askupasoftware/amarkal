@@ -20,13 +20,13 @@ namespace Amarkal\Loaders;
  * $al->register_assets(array(
  *        new \Amarkal\Assets\Stylesheet(array(
  *            'handle'    => 'myStyle',
- *            'url'        => 'http://www.website.com/path/to/style.css',
- *            'facing'    => 'public'
+ *            'url'       => 'http://www.website.com/path/to/style.css',
+ *            'facing'    => array( 'public' )
  *        )),
  *        new \Amarkal\Assets\Script(array(
  *            'handle'    => 'myScript',
- *            'url'        => 'http://www.website.com/path/to/script.js',
- *            'facing'    => 'admin'
+ *            'url'       => 'http://www.website.com/path/to/script.js',
+ *            'facing'    => array( 'admin-edit.php' )
  *        ))
  * ));
  * 
@@ -35,7 +35,7 @@ namespace Amarkal\Loaders;
  *        new \Amarkal\Assets\Script(array(
  *            'handle'    => 'myScript',
  *            'url'       => 'http://www.website.com/path/to/script.js',
- *            'facing'    => 'public',
+ *            'facing'    => array( 'public' ),
  *            'localize   => array(
  *                'name'    => 'myVar'                    // The name of the variable holding the data
  *                'data'    => array('One', 'Two', 'Three')    // The data to be stored in the array
@@ -90,60 +90,46 @@ class AssetLoader {
     /**
      * Enqueues all registered assets.
      */
-    public function enqueue() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_scripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_styles' ) );
+    public function enqueue()
+    {
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
     }
     
-    /**
-     * Enqueue the registered assets of type $type.
-     * 
-     * Internally used to enqueue assets by type (Stylesheet/Script)
-     * and where it is facing (public/admin)
-     * 
-     * @param string    $facing    public/admin facing
-     * @param string    $type    Script/Stylesheet
-     */
-    public function enqueue_assets( $facing, $type ) {
+    public function enqueue_admin_assets( $hook )
+    {
+        foreach ( $this->assets as $asset )
+        {
+            foreach( $asset->facing as $facing )
+            {
+                $specific_page = strstr( $facing, '-' );
+                $facing = $specific_page ? strstr( $facing, '-', true ) : $facing;
+                if( 'admin' == $facing )
+                {
+                    if( $specific_page && $hook != $specific_page )
+                    {
+                        return;
+                    }
 
-        $type = 'Amarkal\\Assets\\'.$type;
-        
-        foreach ( $this->assets as $asset ) {
-            if ( $asset instanceof $type && $asset->facing == $facing ) {
-                $asset->register();
-                $asset->enqueue();
+                    $asset->register();
+                    $asset->enqueue();
+                }
             }
         }
     }
     
-    /**
-     * Enqueue admin facing scripts
-     */
-    public function enqueue_admin_scripts() {
-        $this->enqueue_assets( 'admin', 'Script' );
+    public function enqueue_public_assets( $hook )
+    {
+        foreach( $this->assets as $asset )
+        {
+            foreach( $asset->facing as $facing )
+            {
+                if( 'public' == $facing )
+                {
+                    $asset->register();
+                    $asset->enqueue();
+                }
+            }
+        }
     }
-    
-    /**
-     * Enqueue admin facing styles
-     */
-    public function enqueue_admin_styles() {
-        $this->enqueue_assets( 'admin', 'Stylesheet' );
-    }
-    
-    /**
-     * Enqueue public facing scripts
-     */
-    public function enqueue_public_scripts() {
-        $this->enqueue_assets( 'public', 'Script' );
-    }
-    
-    /**
-     * Enqueue public facing scripts
-     */
-    public function enqueue_public_styles() {
-        $this->enqueue_assets( 'public', 'Stylesheet' );
-    }
-    
 }
