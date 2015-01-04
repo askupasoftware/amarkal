@@ -176,7 +176,7 @@ class MetaBox {
         foreach( $this->settings['fields'] as $field )
         {
             if( '' != $_POST[$field->get_name()] )
-            {var_dump($_POST[$field->get_name()]);
+            {
                 $field->save( $post_id );
             }
         }
