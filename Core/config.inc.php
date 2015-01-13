@@ -42,24 +42,22 @@ return array(
          */
         'register'  => array(
             array(
-                'handle'    => 'amarkal-widget',
-                'url'       => AMARKAL_ASSETS_URL.'js/widget.min.js',
-                'facing'    => 'admin'
+                'handle'        => 'amarkal-script',
+                'url'           => AMARKAL_ASSETS_URL.'js/amarkal.min.js',
+                'facing'        => 'admin',
+                'dependencies'  => array('jquery','jquery-ui')
             ),
             array(
-                'handle'    => 'bootstrap-tooltip',
-                'url'       => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
-                'facing'    => 'admin'
+                'handle'        => 'bootstrap-tooltip',
+                'url'           => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
+                'facing'        => 'admin',
+                'dependencies'  => array('jquery')
             ),
             array(
-                'handle'    => 'amarkal-options-page',
-                'url'       => AMARKAL_ASSETS_URL.'js/options.min.js',
-                'facing'    => 'admin'
-            ),
-            array(
-                'handle'    => 'select2',
-                'url'       => AMARKAL_ASSETS_URL.'js/select2.min.js',
-                'facing'    => 'admin'
+                'handle'        => 'select2',
+                'url'           => AMARKAL_ASSETS_URL.'js/select2.min.js',
+                'facing'        => 'admin',
+                'dependencies'  => array('jquery')
             )
         )
     ),

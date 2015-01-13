@@ -1,0 +1,22 @@
+<div class="footer">
+    <div class="content">
+        <img class="icon" src="<?php echo $this->icon ?>" height="15" style="display:inline-block">
+        <p class="text"><?php echo $this->text ?></p>
+    </div>
+    <div class="form-control">
+        <button type="submit" class="orange form-control-button" data-action="export">
+            <i class="fa fa-caret-up append-control-menu"></i> Export
+            <ul>
+                <li class="form-control-button" data-action="exportAs">Export As...</li>
+                <li class="form-control-button" data-action="import">Import</li>
+            </ul>
+        </button>
+        <button type="submit" class="blue form-control-button" data-action="save">
+            <i class="fa fa-caret-up append-control-menu"></i> Save
+            <ul>
+                <li class="form-control-button" data-action="resetSection">Reset Section</li>
+                <li class="form-control-button" data-action="reset">Reset All</li>
+            </ul>
+        </button>
+    </div>
+</div>

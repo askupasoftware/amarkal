@@ -1,0 +1,14 @@
+<div class="banner">
+    <h1><?php echo $this->title ?></h1>
+    <p><?php echo $this->version ?></p>
+    <a href="<?php echo $this->author_url ?>"><?php echo $this->author ?></a>
+</div>
+<div class="main-menu">
+    <?php foreach( $this->sections as $section ): ?>
+        <a href="?page=<?php echo \Amarkal\Extensions\WordPress\Options\State::get('page'); ?>&section=<?php echo $section->get_slug() ?>" 
+           data-section="<?php echo $section->get_slug() ?>">
+            <i class="fa <?php echo $section->icon ?>"></i>
+            <?php echo $section->title ?>
+        </a>
+    <?php endforeach; ?>
+</div>

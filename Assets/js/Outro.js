@@ -1,0 +1,4 @@
+
+    Amarkal.Options.init();
+});
+

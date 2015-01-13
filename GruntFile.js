@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 files: [
                     {   // Copy widget UI .scss files to the sass dir
                         expand: true,
-                        cwd: 'Widget/UI/',
+                        cwd: 'Extensions/WordPress/Widget/UI/',
                         src: ['**/*.scss'], 
                         dest: '<%= pkg.directories.sass %>/', 
                         filter: 'isFile',
@@ -19,17 +19,17 @@ module.exports = function(grunt) {
                     },
                     {   // Copy widget UI .js files to the js dir
                         expand: true,
-                        cwd: 'Widget/UI/',
+                        cwd: 'Extensions/WordPress/Widget/UI/',
                         src: ['**/*.js'],
-                        dest: '<%= pkg.directories.js %>/', 
+                        dest: '<%= pkg.directories.js %>/Widget/fields/', 
                         filter: 'isFile',
                         rename: function(dest, src) {
-                            return dest + "_widget_field_" + src.split("/")[src.split("/").length-2] + '.js';
+                            return dest + src.split("/")[src.split("/").length-2] + '.js';
                         }
                     },
                     {   // Copy options UI .scss files to the sass dir
                         expand: true,
-                        cwd: 'Options/UI/',
+                        cwd: 'Extensions/WordPress/Options/UI/',
                         src: ['**/*.scss'], 
                         dest: '<%= pkg.directories.sass %>/', 
                         filter: 'isFile',
@@ -40,12 +40,12 @@ module.exports = function(grunt) {
                     },
                     {   // Copy options UI .js files to the js dir
                         expand: true,
-                        cwd: 'Options/UI/',
+                        cwd: 'Extensions/WordPress/Options/UI/',
                         src: ['**/*.js'],
-                        dest: '<%= pkg.directories.js %>/', 
+                        dest: '<%= pkg.directories.js %>/Options/fields/', 
                         filter: 'isFile',
                         rename: function(dest, src) {
-                            return dest + "_options_field_" + src.split("/")[src.split("/").length-2] + '.js';
+                            return dest + src.split("/")[src.split("/").length-2] + '.js';
                         }
                     }
                 ]
@@ -58,9 +58,19 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'Assets/sass/widget.min.scss': ['Assets/sass/_widget_core.scss','Assets/sass/_widget_field_*.scss'],
-                    'Assets/js/widget.min.js': ['Assets/js/_widget_core.js','Assets/js/_widget_field_*.js'],
                     'Assets/sass/options.min.scss': ['Assets/sass/_options_core.scss','Assets/sass/_options_field_*.scss'],
-                    'Assets/js/options.min.js': ['Assets/js/_options_core.js','Assets/js/_options_field_*.js']
+                    'Assets/js/amarkal.min.js': [
+                        'Assets/js/Intro.js',
+                        'Assets/js/Notifier.js',
+                        'Assets/js/Options/Options.js',
+                        'Assets/js/Options/Section.js',
+                        'Assets/js/Options/Sections.js',
+                        'Assets/js/Options/State.js',
+                        'Assets/js/Options/Fields/*.js',
+                        'Assets/js/Widget/Widget.js',
+                        'Assets/js/Widget/fields/*.js',
+                        'Assets/js/Outro.js'
+                    ]
                 }
             }
         },
@@ -81,9 +91,8 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'Assets/js/widget.min.js': ['Assets/js/widget.min.js'],
-                    'Assets/js/options.min.js': ['Assets/js/options.min.js'],
-                    'Assets/js/tooltip.min.js': ['Assets/js/_tooltip.js']
+                    'Assets/js/amarkal.min.js': ['Assets/js/amarkal.min.js'],
+                    'Assets/js/tooltip.min.js': ['Assets/js/tooltip.js']
                 }
             }
         }

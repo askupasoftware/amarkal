@@ -47,12 +47,12 @@ class Autoloader {
             return;
         }
         // Widget UI classes
-        if( strpos( $class, "Amarkal\Widget\UI" ) === 0 )
+        if( strpos( $class, "Amarkal\Extensions\WordPress\Widget\UI" ) === 0 )
         {
             $class .= "\controller";
         }
         // Options UI classes
-        if( strpos( $class, "Amarkal\Options\UI" ) === 0 )
+        if( strpos( $class, "Amarkal\Extensions\WordPress\Options\UI" ) === 0 )
         {
             $class .= "\controller";
         }
@@ -94,10 +94,11 @@ class Autoloader {
         foreach ( self::$config['js']['register'] as $asset ) {
             $ac->register_asset(
                 new Assets\Script(array(
-                    'handle'    => $asset['handle'],
-                    'url'       => $asset['url'],
-                    'version'   => AMARKAL_VERSION,
-                    'facing'    => array( $asset['facing'] )
+                    'handle'        => $asset['handle'],
+                    'url'           => $asset['url'],
+                    'version'       => AMARKAL_VERSION,
+                    'facing'        => array( $asset['facing'] ),
+                    'dependencies'  => $asset['dependencies']
                 ))    
             );
         };

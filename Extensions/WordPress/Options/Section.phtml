@@ -1,0 +1,37 @@
+<div class="section<?php echo $this->is_current_section() ? ' active' : ''; ?>" id="<?php echo $this->get_slug(); ?>">
+    <div class="section-fields">
+        <div class="sub-menu">
+            <?php if( $this->has_sub_sections() ): ?>
+                <?php foreach( $this->subsections as $subsection ): ?>
+                    <a href="<?php echo \Amarkal\Common\Tools::strtoslug($subsection['title']); ?>"><?php echo $subsection['title'] ?></a>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <div class="section-notifications"></div>
+        <?php foreach( $this->get_fields() as $field ): ?>
+            <div 
+                class="field-wrapper<?php echo ($field->disabled ? ' disabled' : ''); ?>"
+                for="<?php echo $field->name ?>"
+                data-subsection="<?php echo $field->subsection ?>">
+                <?php if( !$field->full_width ) : ?>
+                    <div class="field-title">
+                        <p class="title"><?php echo $field->title; ?></p>
+                        <?php if ( $field->help ): ?>
+                            <a class="help" data-toggle="tooltip" data-type="help" data-placement="bottom" title="<?php echo $field->help; ?>">?</a>
+                        <?php endif; ?>
+                        <?php if ( $field->description ): ?>
+                            <p class="description"><?php echo $field->description; ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                <div class="field<?php echo $field->full_width ? ' full-width' : '' ?>">
+                    <?php echo $field->render(); ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="section-help">
+        <h2><i class="<?php echo $this->get_icon_class(); ?>"></i> <?php echo $this->title; ?></h2>
+        <p><?php echo $this->description; ?></p>
+    </div>
+</div>

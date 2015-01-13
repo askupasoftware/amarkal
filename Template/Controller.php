@@ -38,6 +38,7 @@ abstract class Controller
     
     /**
      * Get the full path to the template file.
+     * 
      * @return string The full path.
      */
     private function get_script_path()
@@ -52,6 +53,7 @@ abstract class Controller
     
     /**
      * Get the directory of the file where the derived class is defined.
+     * 
      * @return string The directorty to the file.
      */
     protected function get_dir() 

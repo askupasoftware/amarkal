@@ -43,9 +43,11 @@ class ClassLoader {
      * @param    string    $class    The name of the class
      * @return    boolean            True/false if class was loaded
      */
-    private function load_class( $class ) {
+    private function load_class( $class ) 
+    {
         $file = $this->find_file( $class );
-        if( null !== $file ) {
+        if( null !== $file ) 
+        {
             require $file;
             return true;
         }
