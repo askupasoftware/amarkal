@@ -134,7 +134,7 @@ class MetaBox {
          * (and is actually from where you think it is) prior to processing any data.
          * @see http://wordpress.stackexchange.com/a/49460/25959
          */
-
+        
         // Check if our nonce is set.
         if ( ! isset( $_POST[$this->nonce_name()] ) )
         {
@@ -175,7 +175,10 @@ class MetaBox {
         // OK, it is safe to process data.
         foreach( $this->settings['fields'] as $field )
         {
-            $field->save( $post_id );
+            if( '' != $_POST[$field->get_name()] )
+            {
+                $field->save( $post_id );
+            }
         }
     }
 
