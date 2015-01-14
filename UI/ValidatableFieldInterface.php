@@ -28,7 +28,7 @@ interface ValidatableFieldInterface extends ValueFieldInterface {
 	 * 
 	 * @see self::render() to see how a field is rendered with or without a
 	 *					   validation error.
-	 * @see Amarkal\Widget\AbstractWidget::update() to see how errors
+	 * @see Amarkal\Extensions\WordPress\Widget\AbstractWidget::update() to see how errors
 	 *		are passed between saves.
 	 * 
 	 * @param	mixed $value	The field's (input) value.
