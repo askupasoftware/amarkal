@@ -41,7 +41,12 @@ Amarkal.Options.State.set = function( param, value )
  */
 Amarkal.Options.State.get = function( param )
 {
-    return Amarkal.Options.State.data[param];
+    var data = Amarkal.Options.State.data;
+    if( null !== data && data.hasOwnProperty(param) )
+    {
+        return data[param];
+    }
+    return false;
 };
 
 /**

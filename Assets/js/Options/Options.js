@@ -19,7 +19,7 @@ Amarkal.Options.init = function()
     
     // Display notifications
     var notifications = Amarkal.Options.State.get('notifications');
-    for( var i = 0; i < notifications.length; i++ )
+    for( var i = 0; i < notifications.length && notifications; i++ )
     {
         Amarkal.Notifier.notify( notifications[i].message, notifications[i].type );
     }
