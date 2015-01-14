@@ -17,7 +17,13 @@ $error-border-color: red;
 $break-small: 776px;
 $break-large: 920px;
 
+// rtl fixes
+body.rtl {
+    .amarkal-options {margin: 0 -20px 0 0;}
+    .amarkal-options .ao-notification {left:0}
+}
 #wpwrap {width:auto} // color-picker fix
+#wpcontent {padding-left:0 !important}
 
 .wrap {
     
@@ -31,23 +37,41 @@ $break-large: 920px;
     }
 }
 .amarkal-options {
-     margin: 0 -20px 0 0;
+     margin: 0;
     
     .banner {
+        position: relative;
         height: 145px;
         text-align: right;
         padding: 50px 100px;
+        overflow: hidden;
         
         h1 {
-            
+            position: absolute;
+            z-index: 1;
+            top: 30px;
+            right: 150px;
         }
         
         p {
+            position: absolute;
+            z-index: 1;
             margin: 5px 0;
+            right: 150px;
+            top: 65px;
         }
         
         a {
-            
+            position: absolute;
+            z-index: 1;
+            right: 150px;
+            top: 90px;
+        }
+        
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
         }
     }
     
@@ -370,7 +394,7 @@ $break-large: 920px;
     .ao-notification {
         background-color: white;
         position: fixed;
-        left: 0;
+        left: 160px;
         top: 32px;
         margin: 15px;
         padding: 2px;

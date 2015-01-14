@@ -16,6 +16,7 @@ class Layout extends \Amarkal\Template\Controller
             $config->version, 
             $config->author,
             $config->author_url,
+            $config->banner,
             $config->sections
         );
         
