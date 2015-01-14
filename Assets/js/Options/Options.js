@@ -38,6 +38,11 @@ Amarkal.Options.init = function()
             $('.form-control-button').removeClass('active');
         }
     });
+    
+    // Show help tooltips
+    $('[data-type="help"]').tooltip({
+        delay: { show: 0, hide: 250 }
+    });
 };
 
 Amarkal.Options.save = function()
