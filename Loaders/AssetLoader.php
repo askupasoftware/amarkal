@@ -27,6 +27,11 @@ namespace Amarkal\Loaders;
  *            'handle'    => 'myScript',
  *            'url'       => 'http://www.website.com/path/to/script.js',
  *            'facing'    => array( 'admin-edit.php' )
+ *        )),
+ *        new \Amarkal\Assets\Script(array(
+ *            'handle'    => 'myScript2',
+ *            'url'       => 'http://www.website.com/path/to/script.js',
+ *            'facing'    => array( 'admin-edit.php?action=edit' ) // Asset will only be registered if current script name has action=edit in its query
  *        ))
  * ));
  * 
@@ -104,14 +109,9 @@ class AssetLoader {
             {
                 $specific_page = strstr( $facing, '-' );
                 $facing = $specific_page ? strstr( $facing, '-', true ) : $facing;
-                
                 if( 'admin' == $facing )
                 {
-                    if( !$specific_page || ( $specific_page && $hook == substr( $specific_page, 1 ) ) )
-                    {
-                        $asset->register();
-                        $asset->enqueue();
-                    }
+                    $this->enqueue_admin_asset( $asset, substr( $specific_page, 1 ) );
                 }
             }
         }
@@ -130,5 +130,37 @@ class AssetLoader {
                 }
             }
         }
+    }
+    
+    private function enqueue_admin_asset( $asset, $page = null )
+    {
+        foreach( $asset->facing as $facing )
+        {
+            $query = array();
+            $script= parse_url( $page, PHP_URL_PATH );
+            parse_str( parse_url( $page, PHP_URL_QUERY ), $query );
+            
+            if( !$page || ( $page && $this->is_page( $script, $query ) ) )
+            {
+                $asset->register();
+                $asset->enqueue();
+            }
+        }
+    }
+    
+    private function is_page( $script_name, $query = array() )
+    {
+        if( $script_name == basename( $_SERVER['SCRIPT_NAME'] ) )
+        {
+            foreach( $query as $key => $val )
+            {
+                if( $_GET[$key] != $val )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

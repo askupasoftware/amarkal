@@ -79,7 +79,7 @@ class Autoloader {
                     'handle'    => $asset['handle'],
                     'url'       => $asset['url'],
                     'version'   => AMARKAL_VERSION,
-                    'facing'    => array( $asset['facing'] )
+                    'facing'    => $asset['facing']
                 ))    
             );
         };
@@ -97,7 +97,7 @@ class Autoloader {
                     'handle'        => $asset['handle'],
                     'url'           => $asset['url'],
                     'version'       => AMARKAL_VERSION,
-                    'facing'        => array( $asset['facing'] ),
+                    'facing'        => $asset['facing'],
                     'dependencies'  => $asset['dependencies']
                 ))    
             );

@@ -44,19 +44,19 @@ return array(
             array(
                 'handle'        => 'amarkal-script',
                 'url'           => AMARKAL_ASSETS_URL.'js/amarkal.min.js',
-                'facing'        => 'admin',
+                'facing'        => array('admin'),
                 'dependencies'  => array('jquery','jquery-ui')
             ),
             array(
                 'handle'        => 'bootstrap-tooltip',
                 'url'           => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
-                'facing'        => 'admin',
+                'facing'        => array('admin'),
                 'dependencies'  => array('jquery')
             ),
             array(
                 'handle'        => 'select2',
                 'url'           => AMARKAL_ASSETS_URL.'js/select2.min.js',
-                'facing'        => 'admin',
+                'facing'        => array('admin'),
                 'dependencies'  => array('jquery')
             )
         )
@@ -81,27 +81,27 @@ return array(
             array(
                 'handle'    => 'amarkal-widget',
                 'url'       => AMARKAL_ASSETS_URL.'css/widget.min.css',
-                'facing'    => 'admin'
+                'facing'    => array( 'admin-widgets.php' )
             ),
             array(
                 'handle'    => 'font-awesome',
                 'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
-                'facing'    => 'admin'
+                'facing'    => array( 'admin' )
             ),
             array(
                 'handle'    => 'bootstrap-tooltip',
                 'url'       => AMARKAL_ASSETS_URL.'css/tooltip.min.css',
-                'facing'    => 'admin'
+                'facing'    => array( 'admin' )
             ),
             array(
                 'handle'    => 'amarkal-options',
                 'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
-                'facing'    => 'admin'
+                'facing'    => array( 'admin-admin.php?page=mivhak&section=general' )
             ),
             array(
                 'handle'    => 'select2',
                 'url'       => AMARKAL_ASSETS_URL.'css/select2.min.css',
-                'facing'    => 'admin'
+                'facing'    => array( 'admin' )
             )
         )
     )
