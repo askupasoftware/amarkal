@@ -1,0 +1,14 @@
+<div class="afw-ui-component afw-ui-component-togglebutton<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+     data-multivalue="<?php echo ($this->multivalue ? 'true' : 'false'); ?>"
+     data-name="<?php echo $this->name; ?>"
+     data-value="<?php echo $this->value; ?>">
+    <input 
+        type="text"
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        value="<?php echo $this->value; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>/>
+    <?php foreach( $this->labels as $label ) : ?>
+        <label data-value="<?php echo $label; ?>" <?php echo (in_array($label, explode(',',$this->value)) ? 'class="active"' : ''); ?>><?php echo $label; ?></label>
+    <?php endforeach; ?>
+</div>

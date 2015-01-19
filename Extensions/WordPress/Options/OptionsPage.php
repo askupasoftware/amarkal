@@ -5,7 +5,8 @@ namespace Amarkal\Extensions\WordPress\Options;
 /**
  * Implements an admin options page.
  * 
- * This class can be used to develop options pages for plugins and themes.
+ * This class is a wrapper class to the \Amarkal\Extensions\WordPress\Admin\AdminPage
+ * class and can be used to develop options pages for plugins and themes.
  * 
  * Hooks fired on a typical request:
  * ao_init: Fires upon initiation
@@ -16,33 +17,56 @@ namespace Amarkal\Extensions\WordPress\Options;
  */
 class OptionsPage
 {
+    /**
+     * Options page configuration.
+     * @var OptionsConfig
+     */
     private $config;
     
-    private $fields;
+    /**
+     * Options page components array.
+     * @var array 
+     */
+    private $components;
     
-    private $old_instance;
+    /**
+     * Updater object. Used to update component values.
+     * @var Amarkal\Form\Updater
+     */
+    private $updater;
     
-    private $new_instance;
-    
+    /**
+     * WordPress admin page.
+     * @var AdminPage 
+     */
     private $page;
     
+    /**
+     * Create a new options page.
+     * 
+     * @see OptionsConfig
+     * @param array $config
+     */
     public function __construct( array $config )
     {
         $this->config       = new OptionsConfig( $config );
-        $this->fields       = $this->config->get_fields();
-        $this->page         = $this->get_page();
-        $this->old_instance = $this->get_old_instance();
-        $this->new_instance = $this->get_new_instance();
+        $this->components   = $this->config->get_fields();
+        $this->page         = $this->create_page();
+        $this->updater      = new \Amarkal\Form\Updater($this->components);
         
         // This is the initial activation, save the defaults to the db
         if(!$this->options_exists())
         {
             $this->reset();
         }
+        
         Notifier::reset();
         $this->do_action('ao_init');
     }
     
+    /**
+     * Register the options page.
+     */
     public function register()
     {
         // Only preprocess if this is the currently viewed page
@@ -55,28 +79,29 @@ class OptionsPage
         $this->set_global_variable();
     }
     
-    private function get_page()
+    /**
+     * Create a new AdminPage.
+     * 
+     * @return AdminPage
+     */
+    private function create_page()
     {
-        if( !isset( $this->page ) )
+        $self = $this;
+        $page = new \Amarkal\Extensions\WordPress\Admin\AdminPage(array(
+            'title'         => $this->config->sidebar_title,
+            'icon'          => $this->config->sidebar_icon,
+            'class'         => $this->config->sidebar_icon_class,
+            'style'         => $this->config->sidebar_icon_style
+        ));
+        foreach( $this->config->sections as $section )
         {
-            $self = $this;
-            $page = new \Amarkal\Extensions\WordPress\Admin\AdminPage(array(
-                'title'         => $this->config->sidebar_title,
-                'icon'          => $this->config->sidebar_icon,
-                'class'         => $this->config->sidebar_icon_class,
-                'style'         => $this->config->sidebar_icon_style
+            $page->add_page(array(
+                'title'         => $section->title,
+                'capability'    => 'manage_options',
+                'content'       => function() use ( $self ) { $self->render(); }
             ));
-            foreach( $this->config->sections as $section )
-            {
-                $page->add_page(array(
-                    'title'         => $section->title,
-                    'capability'    => 'manage_options',
-                    'content'       => function() use ( $self ) { $self->render(); }
-                ));
-            }
-            $this->page = $page;
         }
-        return $this->page;
+        return $page;
     }
     
     public function footer_credits()
@@ -121,14 +146,14 @@ class OptionsPage
     private function update()
     {
         $errors = array();
-        switch( $this->get_update_type() )
+        switch( State::get('action') )
         {
             case 'save':
                 $errors = $this->save();
                 Notifier::success('Settings saved.');
                 break;
             case 'reset-section':
-                $section = $this->config->get_section_by_slug($this->get_current_section());
+                $section = $this->config->get_section_by_slug(State::get('active_section'));
                 $this->reset( $section );
                 Notifier::success('<strong>'.$section->title.'</strong> section was reset to its default settings.');
                 break;
@@ -141,43 +166,46 @@ class OptionsPage
                 $this->load();
         }
         
-        foreach( $this->fields as $field )
+        $this->set_errors($errors);
+    }
+    
+    private function set_errors( $errors )
+    {
+        if( count( $errors ) == 0 )
         {
-            if( $field instanceof ValueFieldInterface )
+            return;
+        }
+        
+        $errors_array = array();
+        foreach( $this->config->get_sections() as $section )
+        {
+            foreach( $section->get_fields() as $component )
             {
-                // Set field value
-                $field->set_value( $this->new_instance[$field->get_name()] );
-
-                // Invalid user input: Set error flag.
-                if ( $field instanceof ValidatableFieldInterface &&
-                     in_array($field->get_name(), $errors) ) 
+                if( $component instanceof \Amarkal\UI\ValidatableComponentInterface && $errors[$component->get_name()] )
                 {
-                    $field->set_validity( ValidatableFieldInterface::INVALID );
+                    $errors_array[] = array(
+                        'section'=> $section->get_slug(),
+                        'message'=> $errors[$component->get_name()]
+                    );
                 }
             }
         }
+        State::set('errors', $errors_array);
     }
     
     private function load()
     {
-        // No update to field values
-        $this->new_instance = $this->old_instance;
+        $this->updater->update($this->get_old_instance());
     }
     
     private function save()
     {
-        $updater = new OptionsUpdater(
-            $this->fields,
-            $this->new_instance,
-            $this->old_instance
-        );
-        
         \update_option(
             $this->page->get_slug(), 
-            $this->new_instance = $updater->update()
+            $this->updater->update($this->get_old_instance())
         );
         
-        return $updater->get_error_fields();
+        return $this->updater->get_errors();
     }
     
     private function reset( Section $section = null )
@@ -185,29 +213,28 @@ class OptionsPage
         if( null != $section )
         {
             // Get default values for section
-            $new_instance = $this->get_old_instance();
+            $names = array();
             foreach( $section->fields as $field )
             {
                 if( $field instanceof ValueFieldInterface )
                 {
-                    $new_instance[$field->name] = $field->get_default_value();
+                    $names[] = $field->get_name();
                 }
             }
-            
-            // Update back to defaults
-            $updater = new OptionsUpdater( $this->fields, $new_instance, $this->get_old_instance() );
+            \update_option(
+                $this->page->get_slug(), 
+                $this->updater->reset( $names )
+            );
         }
         else 
         {
             // No values are passed to the OptionsUpdater so that the default values
             // Will be returned.
-            $updater = new OptionsUpdater( $this->fields );
+            \update_option(
+                $this->page->get_slug(), 
+                $this->updater->reset()
+            );
         }
-        
-        \update_option(
-            $this->page->get_slug(), 
-            $this->new_instance = $updater->update()
-        );
     }
     
     /**
@@ -225,33 +252,6 @@ class OptionsPage
         {
             return array();
         }
-    }
-    
-    /**
-     * Get the options instance from the $_post variable.
-     * @return type
-     */
-    private function get_new_instance()
-    {
-        $new_instance = \filter_input_array( INPUT_POST );
-        if( null != $new_instance )
-        {
-            return $new_instance;
-        }
-        else
-        {
-            return array();
-        }
-    }
-    
-    private function get_update_type()
-    {
-        return State::get('action');
-    }
-    
-    private function get_current_section()
-    {
-        return State::get('active_section');
     }
     
     /**

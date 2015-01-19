@@ -23,6 +23,14 @@ Amarkal.Options.init = function()
     {
         Amarkal.Notifier.notify( notifications[i].message, notifications[i].type );
     }
+    
+    // Display errors
+    var errors = Amarkal.Options.State.get('errors');
+    for( var i = 0; i < errors.length && errors; i++ )
+    {
+        var section = Amarkal.Options.Sections.getByID(errors[i].section);
+        section.addNotification(errors[i].message);
+    }
 
     // Control menu toggle
     $('.amarkal-options .append-control-menu').click(function(e){

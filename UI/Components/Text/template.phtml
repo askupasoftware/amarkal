@@ -1,0 +1,11 @@
+<div class="afw-ui-component afw-ui-component-text<?php echo $this->invalid ? ' afw-ui-component-error' : '' ?><?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+     data-name="<?php echo $this->name; ?>"
+     data-value="<?php echo $this->value; ?>">
+    <input 
+        type="text"
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        value="<?php echo $this->value; ?>"
+        placeholder="<?php echo $this->placeholder; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>/>
+</div>

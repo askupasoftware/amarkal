@@ -41,7 +41,7 @@ abstract class Controller
      * 
      * @return string The full path.
      */
-    private function get_script_path()
+    protected function get_script_path()
     {
         if( !isset( $this->script_path ) )
         {

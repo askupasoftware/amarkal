@@ -1,0 +1,11 @@
+<div class="afw-ui-composite-component<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?> <?php echo $this->class ?>"
+     data-name="<?php echo $this->name; ?>"
+     data-value="<?php echo $this->value; ?>">
+    <input type="hidden" name="<?php echo $this->name; ?>" value="<?php echo $this->value; ?>" data-template="<?php echo $this->template; ?>"/>
+    <?php foreach( $this->components as $component ) : ?>
+        <div class="afw-ui-component-wrapper">
+            <p class="title"><?php echo $component->title; ?></p>
+            <?php echo $component->render(); ?>
+        </div>
+    <?php endforeach; ?>
+</div>

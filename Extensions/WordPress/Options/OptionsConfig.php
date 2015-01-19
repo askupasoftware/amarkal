@@ -60,6 +60,11 @@ class OptionsConfig
         }
     }
     
+    public function get_sections()
+    {
+        return $this->config['sections'];
+    }
+    
     public function get_fields()
     {
         if( !isset( $this->fields ) )

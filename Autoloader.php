@@ -46,6 +46,11 @@ class Autoloader {
         if (0 !== strpos($class, __NAMESPACE__)) {
             return;
         }
+        // UI classes
+        if( strpos( $class, "Amarkal\UI\Components" ) === 0 )
+        {
+            $class .= "\controller";
+        }
         // Widget UI classes
         if( strpos( $class, "Amarkal\Extensions\WordPress\Widget\UI" ) === 0 )
         {

@@ -96,7 +96,7 @@ return array(
             array(
                 'handle'    => 'amarkal-options',
                 'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
-                'facing'    => array( 'admin-admin.php?page=mivhak&section=general' )
+                'facing'    => array( 'admin-admin.php' )
             ),
             array(
                 'handle'    => 'select2',

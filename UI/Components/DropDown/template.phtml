@@ -1,0 +1,14 @@
+<div class="afw-ui-component afw-ui-component-dropdown<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+     data-name="<?php echo $this->name; ?>"
+     data-value="<?php echo $this->value; ?>">
+    <?php $is_assoc = Amarkal\Common\Tools::is_assoc($this->options); ?>
+    <select 
+        id="<?php echo $this->name; ?>"
+        name="<?php echo $this->name; ?>"
+        <?php echo ($this->disabled ? 'disabled' : ''); ?>>
+        <?php foreach($this->options as $option => $value) : ?>
+            <?php if( !$is_assoc ) $option = $value; ?>
+            <option value="<?php echo $value; ?>"<?php echo ($this->value == $value ? ' selected' : ''); ?>><?php echo $option; ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

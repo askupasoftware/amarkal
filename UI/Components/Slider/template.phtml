@@ -1,0 +1,37 @@
+<div 
+    class="afw-ui-component afw-ui-component-slider<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+    data-min="<?php echo $this->min; ?>"
+    data-max="<?php echo $this->max; ?>"
+    data-step="<?php echo $this->step; ?>"
+    data-type="<?php echo $this->type; ?>"
+    data-name="<?php echo $this->name; ?>"
+    data-value="<?php echo $this->value; ?>">
+    
+    <?php if( is_array( $this->default ) && count( $this->default ) == 2 ) : ?>
+        <input 
+            id="<?php echo $this->name.'[0]'; ?>"
+            name="<?php echo $this->name.'[0]'; ?>"
+            value="<?php echo $this->value[0]; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+        <div class="slider-wrapper">
+            <div class="slider range"></div>
+        </div>
+        <input 
+            id="<?php echo $this->name.'[1]'; ?>"
+            name="<?php echo $this->name.'[1]'; ?>"
+            value="<?php echo $this->value[1]; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+    <?php else : ?>
+        <input 
+            id="<?php echo $this->name; ?>"
+            name="<?php echo $this->name; ?>"
+            value="<?php echo $this->value; ?>"
+            <?php echo ($this->disabled ? 'disabled' : ''); ?>
+            readonly="readonly"/>
+        <div class="slider-wrapper">
+            <div class="slider"></div>
+        </div>
+    <?php endif; ?>
+</div>

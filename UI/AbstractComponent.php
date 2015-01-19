@@ -2,25 +2,38 @@
 
 namespace Amarkal\UI;
 
-/**
- * Implements an abstract UI component.
- */
-abstract class AbstractComponent 
-extends \Amarkal\Template\Controller 
-implements ComponentInterface 
+abstract class AbstractComponent
+extends \Amarkal\Template\Controller
+implements ComponentInterface
 {
     /**
-     * The component's configurations array. The data varies between
-     * each component's implementation.
+     * The field's configurations array. The data varies between each field 
+     * implementation.
      * 
      * @var mixed[] The configurations array.
      */
     protected $config;
-
+    
+    /**
+     * @see FieldInterface
+     */
+    public function required_settings()
+    {
+        return array();
+    }
+    
+    /**
+     * @see FieldInterface
+     */
+    public function default_settings() 
+    {
+        return array();
+    }
+    
     /**
      * Component constructor.
      * 
-     * @param    mixed[] $config    The component's configuration.
+     * @param     mixed[] $config    The component's configuration.
      * @throws    RequiredParameterException If user did not provide a required
      *            parameter as specified in ComponentInterface::required_settings()
      */
@@ -36,26 +49,50 @@ implements ComponentInterface
         }
         
         // Combine defaults with user-provided settings.
-        $defaults = $this->default_settings();
-        $this->config = array_merge( $defaults, $config );
+        $this->config = array_merge( $this->default_settings(), $config );
     }
     
     /**
-     * Get the configuration settings value.
-     * @param string $name the configuration array index
-     * @return mixed
+     * Get the path to the template (script).
+     * @return string    The path.
      */
-    public function __get( $name ) 
+    protected function get_script_path() 
+    {
+        $class_name =  substr( get_called_class() , strrpos( get_called_class(), '\\') + 1);
+        return __DIR__ . '/Components/' . $class_name . '/template.phtml';
+    }
+    
+    /**
+     * Get field's configuration.
+     * 
+     * @return mixed[]
+     */
+    public function get_config()
+    {
+        return $this->config;
+    }
+    
+    /**
+     * Get field settings by name.
+     * 
+     * @param string $name The settings' parameter name.
+     * 
+     * @return mixed the settings' parameter value.
+     */
+    public function __get( $name )
     {
         return $this->config[$name];
     }
     
     /**
+     * Set field settings by name.
      * 
-     * @param type $name
-     * @param type $value
+     * @param string $name The settings' parameter name.
+     * @param mixed $value The value to set.
+     * 
+     * @return mixed the settings' parameter value.
      */
-    public function __set( $name, $value ) 
+    public function __set( $name, $value )
     {
         $this->config[$name] = $value;
     }
