@@ -7,8 +7,17 @@ namespace Amarkal\UI\Components;
  * A composite component consists of multiple UI components that are combined
  * together.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>template</b> <i>string</i> A string representing the template to use for constructing the field's value. Use <% sub_component_name %> as a placeholder.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>class</b> <i>string</i> Custom CSS class to be used for the component.</li>
+ * <li><b>components</b> <i>array</i> A list of UI components.</li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * $field = new Composite(array(
  *        'name'            => 'composite_component',
  *        'template'        => '<% spinner %>px <% ddl %> <% color %>',
@@ -28,6 +37,7 @@ namespace Amarkal\UI\Components;
  *              )
  *        )
  * ));
+ * </pre>
  */
 class Composite
 extends \Amarkal\UI\AbstractComponent

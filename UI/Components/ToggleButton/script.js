@@ -9,16 +9,17 @@ Amarkal.UI.register({
             var value = [];
             var parent = $(this).parent();
             var input = parent.children('input');
-            var disabled = input.attr('disabled');
 
-            if( !disabled )
+            if( input.attr('disabled') )
             {
-                if(parent.attr('data-multivalue') === 'false')
-                {
-                    parent.find('label').removeClass('active');
-                }
-                $(this).toggleClass('active');
+                return;
             }
+            
+            if(parent.attr('data-multivalue') === 'false')
+            {
+                parent.find('label').removeClass('active');
+            }
+            $(this).toggleClass('active');
 
             parent.find('.active').each(function(){
                 value.push( $(this).attr('data-value') );

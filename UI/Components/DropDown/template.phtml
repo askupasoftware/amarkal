@@ -6,9 +6,9 @@
         id="<?php echo $this->name; ?>"
         name="<?php echo $this->name; ?>"
         <?php echo ($this->disabled ? 'disabled' : ''); ?>>
-        <?php foreach($this->options as $option => $value) : ?>
-            <?php if( !$is_assoc ) $option = $value; ?>
-            <option value="<?php echo $value; ?>"<?php echo ($this->value == $value ? ' selected' : ''); ?>><?php echo $option; ?></option>
+        <?php foreach($this->options as $key => $value) : ?>
+            <?php if( !$is_assoc ) $key = $value; ?>
+            <option value="<?php echo $key; ?>"<?php echo ($this->value == $key ? ' selected' : ''); ?>><?php echo $value; ?></option>
         <?php endforeach; ?>
     </select>
 </div>

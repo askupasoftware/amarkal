@@ -9,8 +9,19 @@ namespace Amarkal\UI\Components;
  * If you choose a range type slider, the default value you provide MUST be
  * an array of 2 values, the first of which is less than the second value.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>default</b> <i>number|number[]</i> The component's default value. If the parameter 'type' is set to 'range', this must be an array of 2 values.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>min</b> <i>number</i> The minimum value.</li>
+ * <li><b>max</b> <i>number</i> The maximum value.</li>
+ * <li><b>step</b> <i>number</i> The step value.</li>
+ * <li><b>type</b> <i>string</i> One of [single|range|min|max].</li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * // Single value
  * $field = new Text(array(
  *      'name'          => 'slider_1',
@@ -31,6 +42,7 @@ namespace Amarkal\UI\Components;
  *      'step'          => 5,
  *      'disabled'      => false
  * ));
+ * </pre>
  */
 class Slider
 extends \Amarkal\UI\AbstractComponent

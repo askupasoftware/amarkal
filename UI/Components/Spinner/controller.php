@@ -5,8 +5,18 @@ namespace Amarkal\UI\Components;
 /**
  * Implements a spinner UI component.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>default</b> <i>number</i> The component's default value.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>min</b> <i>number</i> The minimum value.</li>
+ * <li><b>max</b> <i>number</i> The maximum value.</li>
+ * <li><b>step</b> <i>number</i> The step value.</li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * $field = new Spinner(array(
  *        'name'          => '',
  *        'disabled'      => false,
@@ -15,6 +25,7 @@ namespace Amarkal\UI\Components;
  *        'max'           => null,
  *        'step'          => 1
  * ));
+ * </pre>
  */
 class Spinner
 extends \Amarkal\UI\AbstractComponent

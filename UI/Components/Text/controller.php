@@ -5,8 +5,24 @@ namespace Amarkal\UI\Components;
 /**
  * Implements a Text UI component.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>default</b> <i>number|number[]</i> The component's default value.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>placeholder</b> <i>string</i> Text to be used when the input is empty.</li>
+ * <li><b>filter</b> <i>function</i> Filter callback function, accepts the value as an argument.</li>
+ * <li><b>validation</b> <i>function</i> Validation callback function, accepts two arguments:
+ *  <ul>
+ *      <li><b>$v</b> <i>mixed</i> The component's value.</li>
+ *      <li><b>&$e</b> <i>mixed</i> The error message.</li>
+ *      <li><b>Returns</b> True if valid, false otherwise.</li>
+ *  </ul>
+ * </li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * $field = new Amarkal\UI\Components\Text(array(
  *        'name'            => 'textfield_1',
  *        'default'         => 'Enter your title here',
@@ -19,6 +35,7 @@ namespace Amarkal\UI\Components;
  *                                  return $valid;
  *                             }
  * ));
+ * </pre>
  */
 class Text
 extends \Amarkal\UI\AbstractComponent
@@ -109,6 +126,6 @@ implements \Amarkal\UI\ValueComponentInterface,
      */
     public function set_validity( $validity ) 
     {
-        $this->validity = ( $validity == self::INVALID );
+        $this->invalid = ( $validity == self::INVALID );
     }
 }

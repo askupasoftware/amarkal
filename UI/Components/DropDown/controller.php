@@ -5,8 +5,16 @@ namespace Amarkal\UI\Components;
 /**
  * Implements a dropdown (select2) UI component.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>default</b> <i>string</i> The component's default value.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>options</b> <i>array</i> A list of choices, either associative or not.</li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * $field = new DropDown(array(
  *        'name'            => 'textfield_1',
  *        'default'         => 'Enter your title here',
@@ -16,6 +24,7 @@ namespace Amarkal\UI\Components;
  *            'key2'    => 'value2'
  *        )
  * ));
+ * </pre>
  */
 class DropDown
 extends \Amarkal\UI\AbstractComponent

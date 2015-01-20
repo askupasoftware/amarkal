@@ -5,8 +5,17 @@ namespace Amarkal\UI\Components;
 /**
  * Implements a component able to run a function.
  * 
- * Usage Example:
+ * Parameters:
+ * <ul>
+ * <li><b>name</b> <i>string</i> The component's name.</li>
+ * <li><b>label</b> <i>string</i> The button's label.</li>
+ * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
+ * <li><b>callback</b> <i>function</i> The callback function.</li>
+ * <li><b>hook</b> <i>string</i> The hook to which the callback function will be attached.</li>
+ * </ul>
  * 
+ * Usage Example:
+ * <pre>
  * $field = new Process(array(
  *      'name'          => 'process_1',
  *      'label'         => 'My Button',
@@ -14,6 +23,7 @@ namespace Amarkal\UI\Components;
  *      'callback'      => function() {}
  *      'hook'          => 'afw_options_pre_process'
  * ));
+ * </pre>
  */
 class Process
 extends \Amarkal\UI\AbstractComponent

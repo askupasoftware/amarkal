@@ -5,9 +5,9 @@ Amarkal.UI.register({
     },
     init: function( wrapper ) {
         
-        var max = parseInt( $(wrapper).attr('data-max') );
-        var min = parseInt( $(wrapper).attr('data-min') );
-        var step = parseInt( $(wrapper).attr('data-step') );
+        var max = parseFloat( $(wrapper).attr('data-max') );
+        var min = parseFloat( $(wrapper).attr('data-min') );
+        var step = parseFloat( $(wrapper).attr('data-step') );
         var type = $(wrapper).attr('data-type');
         var disabled = $(wrapper).hasClass('afw-ui-component-disabled');
 
