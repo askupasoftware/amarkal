@@ -8,12 +8,12 @@ if(!class_exists('EnvironmentValidator'))
     /**
      * Implements an environment validator for Amarkal based plugins and themes.
      * 
-     * This file MUST be included by the plugin/theme to verify that Amarkal is
-     * installed AND activated.
+     * This file MUST be included by the plugin/theme to verify that the PHP 
+     * environment (i.e. the PHP version) is sufficient to run Amarkal.
      * 
-     * Example Usage (for plugins):
+     * <b> Example Usage (for plugins): </b><br/>
      * ----------------------------
-     * 
+     * <pre>
      * // Put the following code in the main plugin file
      * function my_plugin_bootstrap()
      * {
@@ -25,10 +25,10 @@ if(!class_exists('EnvironmentValidator'))
      *     // Continue plugin execution
      * }
      * add_action( 'plugins_loaded', 'my_plugin_bootstrap' );
-     * 
-     * Example Usage (for themes):
+     * </pre>
+     * <b> Example Usage (for themes): </b><br/>
      * ---------------------------
-     * 
+     * <pre>
      * // Put the following code at the beginning of the theme's functions.php file
      * 
      * $validator = require_once 'vendor/askupa-software/amarkal-framework/EnvironmentValidator.php';
@@ -36,6 +36,7 @@ if(!class_exists('EnvironmentValidator'))
      * {
      *     return; // Stop theme execution
      * }
+     * </pre>
      */
     class EnvironmentValidator
     {
