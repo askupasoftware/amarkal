@@ -59,6 +59,7 @@ class OptionsPage
         $this->page         = $this->create_page();
         $this->updater      = new \Amarkal\Form\Updater($this->components);
         Notifier::reset();
+        State::set('errors', array());
     }
     
     /**
