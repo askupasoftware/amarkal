@@ -58,6 +58,7 @@ class OptionsPage
         $this->components   = $this->config->get_fields();
         $this->page         = $this->create_page();
         $this->updater      = new \Amarkal\Form\Updater($this->components);
+        Notifier::reset();
     }
     
     /**
@@ -77,7 +78,6 @@ class OptionsPage
             $this->preprocess();
         }
         
-        Notifier::reset();
         $this->page->register();
         $this->set_global_variable();
         $this->do_action('afw_options_init');
