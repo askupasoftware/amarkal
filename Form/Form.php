@@ -51,7 +51,7 @@ class Form
             
             if( ! $c instanceof \Amarkal\UI\AbstractComponent )
             {
-                throw new WrongTypeException('Form component must be of type \Amarkal\UI\AbstractComponent, '.\gettype( $c ).' given in '.$caller['file'].' line '.$caller['line'] );
+                throw new WrongTypeException( \gettype( $c ) );
             }
             
             if( !in_array( $c->get_name(), $names ) )
@@ -60,7 +60,7 @@ class Form
             }
             else
             {
-                throw new DuplicateNameException('Form component names must be unique, duplication detected for the name '.$c->get_name().' in '.$caller['file'].' line '.$caller['line'] );
+                throw new DuplicateNameException( $c->get_name() );
             }
         }
         $this->components = $components;
