@@ -10,14 +10,14 @@
         <div class="section-notifications"></div>
         <?php foreach( $this->get_fields() as $field ): ?>
             <div 
-                class="field-wrapper<?php echo ($field->disabled ? ' disabled' : ''); ?>"
+                class="field-wrapper<?php echo ($field->disabled ? ' field-disabled' : ''); ?>"
                 for="<?php echo $field->name ?>"
                 data-subsection="<?php echo $field->subsection ?>">
                 <?php if( !$field->full_width ) : ?>
                     <div class="field-title">
                         <p class="title"><?php echo $field->title; ?></p>
                         <?php if ( $field->help ): ?>
-                            <a class="help" data-toggle="tooltip" data-type="help" data-placement="right" title="<?php echo $field->help; ?>">?</a>
+                            <a class="help" data-toggle="tooltip" data-type="help" data-placement="right" title="<?php echo htmlspecialchars($field->help); ?>">?</a>
                         <?php endif; ?>
                         <?php if ( $field->description ): ?>
                             <p class="description"><?php echo $field->description; ?></p>
