@@ -20,7 +20,7 @@ class OptionsConfig
      */
     public function __construct( array $config = array() )
     {
-        $this->config = $this->validate_config( $config );
+        $this->config = $this->validate_config( array_merge( include('OptionsConfigDefaults.php'), $config ) );
         $this->set_section_slugs();
     }
     
@@ -32,25 +32,46 @@ class OptionsConfig
      */
     private function validate_config( $config )
     {
-        $names  = array();
-        $merged_conf = array_merge( include('OptionsConfigDefaults.php'), $config );
+        $this->field_names    = array();
+        $this->section_names  = array();
         
-        foreach( $merged_conf['sections'] as $section )
+        foreach( $config['sections'] as $section )
         {
-            foreach( $section->fields as $field )
+            
+            if( in_array( $section->title, $this->section_names ) )
             {
-                if( $field instanceof ValueFieldInterface && in_array( $field->name, $names ) )
-                {
-                    throw new DuplicateNameException( 'A field with with the name '.$field->name.' already exist. Field names MUST be unique.' );
-                }
-                else
-                {
-                    $names[] = $field->name;
-                }
+                throw new DuplicateSectionException( $section->title );
             }
+            
+            $this->validate_fields( $section->get_fields() );
+            $this->section_names[] = $section->title;
         }
-        
-        return $merged_conf;
+        return $config;
+    }
+    
+    /**
+     * Internally used to validate each field in the OptionsConfig.
+     * 
+     * @param \Amarkal\UI\AbstractComponent[] $fields
+     * @throws \Amarkal\Form\DuplicateNameException
+     */
+    private function validate_fields( $fields )
+    {
+        foreach( $fields as $field )
+        {
+            if( $field instanceof \Amarkal\UI\Components\Composite )
+            {
+                $this->validate_fields( $field->components );
+                continue;
+            }
+            
+            if( $field instanceof \Amarkal\UI\ValueComponentInterface && in_array( $field->name, $this->field_names ) )
+            {
+                throw new \Amarkal\Form\DuplicateNameException( $field->name );
+            }
+            
+            $this->field_names[] = $field->name;
+        }
     }
     
     /**
