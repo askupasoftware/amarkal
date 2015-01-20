@@ -9,11 +9,16 @@ namespace Amarkal\Extensions\WordPress\Options;
  * class and can be used to develop options pages for plugins and themes.
  * 
  * Hooks fired on a typical request:
- * ao_init: Fires upon initiation
- * ao_preprocess: Fires before the fields are updated.
- * ao_postprocess: Fires after the fields are updated.
- * ao_before_render: Fires before the options page is rendered.
- * ao_after_render: Fires after the options page is rendered.
+ * <ul>
+ * <li><b>afw_options_init</b>: Fires upon initiation.</li>
+ * <li><b>afw_options_pre_process</b>: Fires before the fields are updated.</li>
+ * <li><b>afw_options_post_process</b>: Fires after the fields are updated.</li>
+ * <li><b>afw_options_pre_render</b>: Fires before the options page is rendered.</li>
+ * <li><b>afw_options_post_render</b>: Fires after the options page is rendered.</li>
+ * </ul>
+ * 
+ * @see OptionsConfig for configuration instructions.
+ * @see OptionsConfigDefaults for a sample configuration and more info.
  */
 class OptionsPage
 {
@@ -53,15 +58,6 @@ class OptionsPage
         $this->components   = $this->config->get_fields();
         $this->page         = $this->create_page();
         $this->updater      = new \Amarkal\Form\Updater($this->components);
-        
-        // This is the initial activation, save the defaults to the db
-        if(!$this->options_exists())
-        {
-            $this->reset();
-        }
-        
-        Notifier::reset();
-        $this->do_action('ao_init');
     }
     
     /**
@@ -69,14 +65,22 @@ class OptionsPage
      */
     public function register()
     {
+        // This is the initial activation, save the defaults to the db
+        if(!$this->options_exists())
+        {
+            $this->reset();
+        }
+        
         // Only preprocess if this is the currently viewed page
         if( $this->page->get_slug() == filter_input(INPUT_GET, 'page') )
         {
             $this->preprocess();
         }
         
+        Notifier::reset();
         $this->page->register();
         $this->set_global_variable();
+        $this->do_action('afw_options_init');
     }
     
     /**
@@ -104,45 +108,32 @@ class OptionsPage
         return $page;
     }
     
-    public function footer_credits()
+    /**
+     * Internally used to render the page.
+     * Called by AdminPage to generate the admin page's content.
+     */
+    private function render()
     {
-        echo '<span id="footer-thankyou">Created with <a href="https://github.com/amarkal/amarkal">Amarkal</a> v'.AMARKAL_VERSION.'</span>';
-    }
-    
-    public function render()
-    {
-        $this->do_action('ao_before_render');
+        $this->do_action('afw_options_pre_render');
         $layout = new Layout\Layout( $this->config );
         $layout->render(true);
-        add_filter('admin_footer_text', array( $this, 'footer_credits' ) );
-        $this->do_action('ao_after_render');
+        add_filter('admin_footer_text', array( __CLASS__, 'footer_credits' ) );
+        $this->do_action('afw_options_post_render');
     }
     
+    /**
+     * Internally used to update the options page's components.
+     */
     private function preprocess()
     {
-        $this->do_action('ao_preprocess');
-        $this->set_section_slugs();
+        $this->do_action('afw_options_pre_process');
         $this->update();
-        $this->do_action('ao_postprocess');
+        $this->do_action('afw_options_post_process');
     }
     
-    private function set_section_slugs()
-    {
-        if( count($this->config->sections) > 1 )
-        {
-            foreach( $this->config->sections as $section )
-            {
-                $slug = \Amarkal\Common\Tools::strtoslug( $section->title );
-                $section->set_slug( $slug );
-            }
-        }
-        else
-        {
-            $slug = \Amarkal\Common\Tools::strtoslug( $this->config->settings['admin-title'] );
-            $this->config->sections[0]->set_slug( $slug );
-        }
-    }
-    
+    /**
+     * Save/reset/load component values.
+     */
     private function update()
     {
         $errors = array();
@@ -169,6 +160,11 @@ class OptionsPage
         $this->set_errors($errors);
     }
     
+    /**
+     * Set the state with the given errors.
+     * 
+     * @param array $errors
+     */
     private function set_errors( $errors )
     {
         if( count( $errors ) == 0 )
@@ -291,5 +287,13 @@ class OptionsPage
         {
             do_action( $hook );
         }
+    }
+    
+    /**
+     * Renders Amarkal's credits on the options page footer.
+     */
+    static function footer_credits()
+    {
+        echo '<span id="footer-thankyou">Created with <a href="https://github.com/amarkal/amarkal">Amarkal</a> v'.AMARKAL_VERSION.'</span>';
     }
 }

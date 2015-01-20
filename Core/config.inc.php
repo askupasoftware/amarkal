@@ -4,7 +4,7 @@
  * Globally defined constants.
  */
 $defines = array(
-   'AMARKAL_VERSION'       => '0.1',
+   'AMARKAL_VERSION'       => '0.3',
    'AMARKAL_DIR'           => plugin_dir_path( __DIR__ ),
    'AMARKAL_URL'           => plugin_dir_url( __DIR__ ),
    'AMARKAL_ASSETS_URL'    => plugin_dir_url( __DIR__ ).'Assets/'

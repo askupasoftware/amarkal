@@ -1,26 +1,23 @@
 <?php
 
-namespace Amarkal\Extensions\WordPress\Options\UI;
+namespace Amarkal\UI\Components;
 
 /**
- * Implements a field that is able to run a function.
+ * Implements a component able to run a function.
  * 
  * Usage Example:
  * 
- * $field = new Text(array(
+ * $field = new Process(array(
  *      'name'          => 'process_1',
- *      'title'         => 'Title',
  *      'label'         => 'My Button',
  *      'disabled'      => false,
- *      'help'          => 'Some helpful text',
- *      'description'   => 'This is the title',
  *      'callback'      => function() {}
- *      'hook'          => 'ao_preprocess'
+ *      'hook'          => 'afw_options_pre_process'
  * ));
  */
 class Process
-extends \Amarkal\Extensions\WordPress\Options\AbstractField
-implements \Amarkal\Extensions\WordPress\Options\DisableableFieldInterface
+extends \Amarkal\UI\AbstractComponent
+implements \Amarkal\UI\DisableableComponentInterface
 {
     public function __construct( $config )
     {
@@ -34,20 +31,23 @@ implements \Amarkal\Extensions\WordPress\Options\DisableableFieldInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function default_settings()
     {
         return array(
             'name'          => '',
-            'title'            => '',
             'label'         => '',
-            'disabled'        => false,
-            'help'            => null,
-            'description'    => '',
+            'disabled'      => false,
             'callback'      => function(){},
-            'hook'          => 'ao_init'
+            'hook'          => 'afw_options_init'
         );
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function required_settings()
     {
         return array('name');

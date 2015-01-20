@@ -21,6 +21,7 @@ class OptionsConfig
     public function __construct( array $config = array() )
     {
         $this->config = $this->validate_config( $config );
+        $this->set_section_slugs();
     }
     
     /**
@@ -29,7 +30,7 @@ class OptionsConfig
      * @param array $config
      * @throws DuplicateNameException On duplicate field name
      */
-    public function validate_config( $config )
+    private function validate_config( $config )
     {
         $names  = array();
         $merged_conf = array_merge( include('OptionsConfigDefaults.php'), $config );
@@ -50,6 +51,27 @@ class OptionsConfig
         }
         
         return $merged_conf;
+    }
+    
+    /**
+     * Set slugs to each section, according the number of sections.
+     */
+    private function set_section_slugs()
+    {
+        // For more than 1 sections, set section specific slugs
+        if( count( $this->sections ) > 1 )
+        {
+            foreach( $this->sections as $section )
+            {
+                $section->set_slug( \Amarkal\Common\Tools::strtoslug( $section->title ) );
+            }
+        }
+        
+        // For a single section, use the page's title as the slug
+        else
+        {
+            $this->sections[0]->set_slug( \Amarkal\Common\Tools::strtoslug( $this->title ) );
+        }
     }
 
     public function __get( $name ) 

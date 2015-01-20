@@ -468,7 +468,7 @@ body.rtl {
 }
 
 
-.ao-field-process {
+.afw-ui-component-process {
     button {
         font-size: 14px;
         padding: 3px 9px;
@@ -543,6 +543,7 @@ body.rtl {
                 @include background-image(linear-gradient($theme-color-1, $theme-color-2));
                 @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5) );
                 @include text-shadow( 1px 1px 0 rgba(255,255,255,0.3) );
+                @include border-radius( 4px );
 
                 &:hover {@include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));}
             }
