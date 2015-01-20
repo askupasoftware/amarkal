@@ -23,6 +23,8 @@
         vertical-align: middle;
         padding-right: 25px;
         
+        &:last-child {padding-right: 0}
+        
         .slider {
             height: 10px;
             position: relative;

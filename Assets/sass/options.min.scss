@@ -9,13 +9,13 @@ $background-color: rgb(236, 240, 241);
 $theme-color-1: #a9b5bc;
 $theme-color-2: #88949a;
 $theme-color-3: #547c90;
-
-$error-background-color: rgb(255, 244, 244);
-$error-border-color: red; 
+$error-border-color: rgb(218, 52, 52); 
 
 // Responsive media break points
 $break-small: 776px;
 $break-large: 920px;
+
+$field-title-width: 150px;
 
 // rtl fixes
 body.rtl {
@@ -39,10 +39,6 @@ body.rtl {
 }
 .amarkal-options {
      margin: 0;
-    
-     a {
-         
-     }
      
     .banner {
         position: relative;
@@ -212,7 +208,7 @@ body.rtl {
 
                     .field-title {
                         display: table-cell;
-                        width: 120px;
+                        width: $field-title-width;
                         background-color: $theme-color-1;
                         border-top: 1px solid rgba(255, 255, 255, 0.2);
                         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -273,11 +269,17 @@ body.rtl {
                         padding: 5px 15px;
                         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                         vertical-align: middle;
+                        
+                        .afw-ui-component-disabled {@include opacity( 0.6 )}
                     }
                     
                     &.field-updated {
                         border-left: 5px solid rgb(255, 150, 63);
-                        .field-title {width: 115px;}
+                        .field-title {width: $field-title-width - 5;}
+                    }
+                    
+                    &.field-disabled {
+                        @include opacity( 0.8 );
                     }
                 }
             }
@@ -518,6 +520,8 @@ body.rtl {
         vertical-align: middle;
         padding-right: 25px;
         
+        &:last-child {padding-right: 0}
+        
         .slider {
             height: 10px;
             position: relative;
@@ -600,20 +604,22 @@ body.rtl {
 }
 .afw-ui-component-text {
     
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
     input {
         border-radius: 3px;
         margin: 0;
         width: 250px;
-        
-        &.error {
-            border: 1px solid $error-border-color;
-            background-color: $error-background-color;
-            @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
-        }
     }
 }
 .afw-ui-component-textarea {
     position: relative;
+    
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
     
     .ui-wrapper {
         position: relative !important;
@@ -665,12 +671,6 @@ body.rtl {
             min-width: 250px !important;
             min-height: 150px !important;
             @include border-radius( 3px 0 0 0 );
-
-            &.error {
-                border: 1px solid $error-border-color;
-                background-color: $error-background-color;
-                @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
-            }
         }
     }
 }

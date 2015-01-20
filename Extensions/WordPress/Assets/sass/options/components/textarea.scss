@@ -1,6 +1,10 @@
 .afw-ui-component-textarea {
     position: relative;
     
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
     .ui-wrapper {
         position: relative !important;
         min-width: 250px !important;
@@ -51,12 +55,6 @@
             min-width: 250px !important;
             min-height: 150px !important;
             @include border-radius( 3px 0 0 0 );
-
-            &.error {
-                border: 1px solid $error-border-color;
-                background-color: $error-background-color;
-                @include box-shadow( 0 0 5px rgba(255, 0, 0, 0.4) );
-            }
         }
     }
 }
