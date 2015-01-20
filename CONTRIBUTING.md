@@ -1,7 +1,7 @@
 # Contributing to Amarkal
 ### Creating a new widget UI component
 
-- Create a new directory under `Widget/UI/`. The name of the new directory will be used as the component's class name. for example, the directory `Widget/UI/ComponentName/` represents the UI component `ComponentName`. The new component can be instantiated in PHP with the code `new \Amarkal\Widget\UI\ComponentName()`.
+- Create a new directory under `Widget/UI/`. The name of the new directory will be used as the component's class name. for example, the directory `Widget/UI/ComponentName/` represents the UI component `ComponentName`. The new component can be instantiated in PHP with the code `new \Amarkal\Extensions\WordPress\Widget\UI\ComponentName()`.
 - Each component directory contains the files required for the component:
  - `controller.php` is the php class of the component. The class should have the same name as the directory name (`ComponentName`).
  - `template.php` is the component's template file.
