@@ -23,11 +23,11 @@ class Form
      * 
      * Example usage:
      * 
-     * Amarkal\Registration\Form::add_callback( 
+     * Amarkal\Extensions\WordPress\Registration\Form::add_callback( 
      *     function( $user_id ) { //Do something with the user id } 
      * );
      * 
-     * @param \Amarkal\Registration\callable $func
+     * @param \Amarkal\Extensions\WordPress\Registration\callable $func
      */
     static function add_callback( callable $func )
     {
