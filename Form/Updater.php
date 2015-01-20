@@ -250,6 +250,7 @@ class Updater
                 $this->old_instance[$name]
             );
             $this->errors[$name] = $error;
+            $component->set_validity($component::INVALID);
         }
         else
         {
