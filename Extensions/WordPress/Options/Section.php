@@ -54,6 +54,7 @@ class Section extends \Amarkal\Template\Controller
      *      <li>[icon] <i>string</i> One of the icon classes from Font Awesome or Dashicons.</li>
      *      <li>[parent] <i>string</i> The parent's title, if applicable.</li>
      *      <li>[fields] <i>array</i> The section's fields.</li>
+     *      <li>[subsections] <i>array</i> An array holding subsections, each of which has a title and an array of fields. If this parameter is provided, the 'fields' parameter is ignored</li>
      * </ul>
      */
     public function __construct( array $config = array() )
