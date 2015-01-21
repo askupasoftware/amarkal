@@ -70,6 +70,11 @@ return array(
     'subfooter_text'        => '',
     
     /**
+     * @var string The name of the global variable
+     */
+    'global_variable'       => null,
+    
+    /**
      * @var array An array of Section() objects
      */
     'sections'              => array()
