@@ -58,8 +58,6 @@ class OptionsPage
         $this->components   = $this->config->get_fields();
         $this->page         = $this->create_page();
         $this->updater      = new \Amarkal\Form\Updater($this->components);
-        Notifier::reset();
-        State::set('errors', array());
     }
     
     /**
@@ -128,6 +126,8 @@ class OptionsPage
     private function preprocess()
     {
         $this->do_action('afw_options_pre_process');
+        Notifier::reset();
+        State::set('errors', array());
         $this->update();
         $this->do_action('afw_options_post_process');
     }
@@ -269,9 +269,9 @@ class OptionsPage
     {
         $var_name = "";
         
-        if( isset($this->config->settings['global_variable']) )
+        if( null != $this->config->global_variable )
         {
-            $var_name = $this->config->settings['global_variable'];
+            $var_name = $this->config->global_variable;
         }
         else
         {
