@@ -50,7 +50,7 @@ implements \Amarkal\UI\ValueComponentInterface,
             'name'          => '',
             'disabled'      => false,
             'default'       => '',
-            'placeholder'   => 'Enter text...',
+            'placeholder'   => '',
             'filter'        => function( $v ) { return $v; },
             'validation'    => function( $v, &$e ) { return true; }
         );
