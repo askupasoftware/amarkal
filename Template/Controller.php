@@ -52,6 +52,16 @@ abstract class Controller
     }
     
     /**
+     * Set a custom script path.
+     * 
+     * @param string $path
+     */
+    public function set_script_path( $path )
+    {
+        $this->script_path = $path;
+    }
+    
+    /**
      * Get the directory of the file where the derived class is defined.
      * 
      * @return string The directorty to the file.
