@@ -1,0 +1,19 @@
+.afw-ui-component-text {
+    
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
+    input {
+        border-radius: 3px;
+        margin: 0;
+        width: 250px;
+        border: 1px solid rgb(223, 223, 223);
+        border-top-color: rgb(200, 200, 200);
+    border-left-color: rgb(200, 200, 200);
+        padding: 6px 10px;
+        font-size: 14px;
+        outline: none;
+        @include box-shadow( inset 3px 3px 3px rgba(0, 0, 0, 0.08) );
+    }
+}
