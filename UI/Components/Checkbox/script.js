@@ -10,7 +10,7 @@ Amarkal.UI.register({
             var parent = $(this).parent();
             var input = parent.children('input');
 
-            if( input.attr('disabled') )
+            if( $(wrapper).hasClass('afw-ui-component-disabled') )
             {
                 return;
             }

@@ -11,7 +11,6 @@ namespace Amarkal\UI\Components;
  * <li><b>default</b> <i>string</i> Comma seperated list of values that will be checked by default.</li>
  * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
  * <li><b>options</b> <i>array</i> List of available options as value => label or just values.</li>
-
  * </ul>
  * 
  * Usage Example:
