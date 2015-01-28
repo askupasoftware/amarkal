@@ -94,9 +94,19 @@ return array(
                 'facing'    => array( 'admin' )
             ),
             array(
+                'handle'    => 'amarkal-ui',
+                'url'       => AMARKAL_ASSETS_URL.'css/ui.min.css',
+                'facing'    => array( 'admin' )
+            ),
+            array(
                 'handle'    => 'amarkal-options',
                 'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
                 'facing'    => array( 'admin-admin.php' )
+            ),
+            array(
+                'handle'    => 'amarkal-editor',
+                'url'       => AMARKAL_ASSETS_URL.'css/editor.min.css',
+                'facing'    => array( 'admin-post.php', 'admin-post-new.php' )
             ),
             array(
                 'handle'    => 'select2',
