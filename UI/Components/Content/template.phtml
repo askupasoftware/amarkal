@@ -1,3 +1,7 @@
-<div class="afw-ui-component afw-ui-component-content">
-    <?php include($this->template); ?>
+<div class="afw-ui-component afw-ui-component-content<?php echo $this->ajax ? ' afw-ui-component-ajaxified' : ''; ?>">
+    <?php if( !$this->ajax ): ?>
+        <?php include( $this->template ); ?>
+    <?php else: ?>
+        <iframe class="afw-ui-iframe" src="<?php echo $this->template.'?'.http_build_query($this->args) ?>" width="100%"></iframe>
+    <?php endif; ?>
 </div>
