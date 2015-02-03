@@ -35,7 +35,17 @@ class OptionsPage
     private $components;
     
     /**
-     * Updater object. Used to update component values.
+     *The form object. Used to render the form and validate component 
+     * name uniqueness.
+     * 
+     * @var Amarkal\Form\Form 
+     */
+    private $form;
+    
+    /**
+     * Updater object, referenced from the form object. 
+     * Used to update component values.
+     * 
      * @var Amarkal\Form\Updater
      */
     private $updater;
@@ -57,7 +67,8 @@ class OptionsPage
         $this->config       = new OptionsConfig( $config );
         $this->components   = $this->config->get_fields();
         $this->page         = $this->create_page();
-        $this->updater      = new \Amarkal\Form\Updater($this->components);
+        $this->form         = new \Amarkal\Form\Form( $this->components );
+        $this->updater      = $this->form->updater;
     }
     
     /**

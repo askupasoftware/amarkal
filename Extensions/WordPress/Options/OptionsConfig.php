@@ -15,11 +15,18 @@ class OptionsConfig
     private $config;
     
     /**
+     * Array of references to all components.
+     * @var type 
+     */
+    private $fields;
+    
+    /**
      * 
      * @param array $config
      */
     public function __construct( array $config = array() )
     {
+        $this->fields = array();
         $this->config = $this->validate_config( array_merge( include('OptionsConfigDefaults.php'), $config ) );
         $this->set_section_slugs();
     }
@@ -32,7 +39,6 @@ class OptionsConfig
      */
     private function validate_config( $config )
     {
-        $this->field_names    = array();
         $this->section_names  = array();
         
         foreach( $config['sections'] as $section )
@@ -43,35 +49,15 @@ class OptionsConfig
                 throw new DuplicateSectionException( $section->title );
             }
             
-            $this->validate_fields( $section->get_fields() );
+            // Component name uniqueness is validated by the from object, not here
+            foreach( $section->get_fields() as $field )
+            {
+                $this->fields[] = $field;
+            }
+            
             $this->section_names[] = $section->title;
         }
         return $config;
-    }
-    
-    /**
-     * Internally used to validate each field in the OptionsConfig.
-     * 
-     * @param \Amarkal\UI\AbstractComponent[] $fields
-     * @throws \Amarkal\Form\DuplicateNameException
-     */
-    private function validate_fields( $fields )
-    {
-        foreach( $fields as $field )
-        {
-            if( $field instanceof \Amarkal\UI\Components\Composite )
-            {
-                $this->validate_fields( $field->components );
-                continue;
-            }
-            
-            if( $field instanceof \Amarkal\UI\ValueComponentInterface && in_array( $field->name, $this->field_names ) )
-            {
-                throw new \Amarkal\Form\DuplicateNameException( $field->name );
-            }
-            
-            $this->field_names[] = $field->name;
-        }
     }
     
     /**
@@ -110,18 +96,6 @@ class OptionsConfig
     
     public function get_fields()
     {
-        if( !isset( $this->fields ) )
-        {
-            $fields = array();
-            foreach( $this->config['sections'] as $section )
-            {
-                foreach( $section->get_fields() as $field )
-                {
-                    $fields[] = $field;
-                }
-            }
-            $this->fields = $fields;
-        }
         return $this->fields;
     }
     
