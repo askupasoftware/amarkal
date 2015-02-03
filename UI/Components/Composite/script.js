@@ -3,6 +3,10 @@ Amarkal.UI.register({
     getInput: function( wrapper ) {
         return $(wrapper).children('input');
     },
+    setValue: function( wrapper, value ) {
+        // Can't reverse composite value into individual component values.
+        throw "Composite components cannot dynamically change value";
+    },
     init: function( wrapper ) {
         $(wrapper).find('.afw-ui-component').change(function(){
             var input       = $(this).parent().parent().children('input'),

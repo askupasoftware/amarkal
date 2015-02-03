@@ -3,8 +3,12 @@ Amarkal.UI.register({
     getInput: function( wrapper ) {
         return $(wrapper).find('input');
     },
+    setValue: function( wrapper, value ) {
+        $(wrapper).attr('data-value',value);
+        this.getInput(wrapper).spinner( "value", value );
+    },
     init: function( wrapper ) {
-        var input    = $(wrapper).find('input');
+        var input    = this.getInput(wrapper);
         var max      = input.attr('data-max');
         var min      = input.attr('data-min');
         var step     = input.attr('data-step');

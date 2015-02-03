@@ -3,8 +3,12 @@ Amarkal.UI.register({
     getInput: function( wrapper ) {
         return $(wrapper).children('select');
     },
+    setValue: function( wrapper, value ) {
+        $(wrapper).attr('data-value',value);
+        this.getInput(wrapper).select2("val", value);
+    },
     init: function( wrapper ) {
-        $(wrapper).children('select')
+        this.getInput(wrapper)
             .select2({width:'resolve'})
             .change(function(){
                 // Fire change event

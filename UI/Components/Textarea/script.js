@@ -1,10 +1,14 @@
 Amarkal.UI.register({
     wrapper: '.afw-ui-component-textarea',
     getInput: function( wrapper ) {
-        return $(wrapper).children('textarea');
+        return $(wrapper).find('textarea');
+    },
+    setValue: function( wrapper, value ) {
+        $(wrapper).attr('data-value',value);
+        this.getInput(wrapper).val( value );
     },
     init: function( wrapper ) {
-        $(wrapper).children('textarea').resizable({
+        this.getInput(wrapper).resizable({
             minHeight: 150,
             minWidth: 250
         });

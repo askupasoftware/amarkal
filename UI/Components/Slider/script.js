@@ -3,6 +3,18 @@ Amarkal.UI.register({
     getInput: function( wrapper ) {
         return $(wrapper).children('input');
     },
+    // value must be array if this is a range type slider
+    setValue: function( wrapper, value ) {
+        $(wrapper).attr('data-value',value);
+        if( $(wrapper).attr('data-type') === 'range' )
+        {
+            $(wrapper).find('.slider').slider('values', value);
+        }
+        else
+        {
+            $(wrapper).find('.slider').slider('value', value);
+        }
+    },
     init: function( wrapper ) {
         
         var max = parseFloat( $(wrapper).attr('data-max') );
