@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    {   // Copy UI .js files to the js dir
+                    {   // Copy UI script files to the js dir
                         expand: true,
                         cwd: 'UI/Components/',
                         src: ['**/*.js'],
@@ -14,6 +14,16 @@ module.exports = function(grunt) {
                         filter: 'isFile',
                         rename: function(dest, src) {
                             return dest + src.split("/")[src.split("/").length-2] + '.js';
+                        }
+                    },
+                    {   // Copy UI style files to the js dir
+                        expand: true,
+                        cwd: 'UI/Components/',
+                        src: ['**/*.scss'],
+                        dest: '<%= pkg.directories.sass %>/UI/Components/', 
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            return dest + '_' + src.split("/")[src.split("/").length-2] + '.scss';
                         }
                     }
                 ]
@@ -25,10 +35,17 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    //'Assets/sass/widget.min.scss': ['Assets/sass/_widget_core.scss','Assets/sass/_widget_field_*.scss'],
+                    'Assets/sass/widget.min.scss': ['Extensions/WordPress/Assets/sass/widget/widget.scss'],
+                    'Assets/sass/ui.min.scss': [
+                        'Assets/sass/UI/_ui.scss',
+                        'Assets/sass/UI/Components/*.scss'
+                    ],
+                    'Assets/sass/editor.min.scss': [
+                        'Extensions/WordPress/Assets/sass/editor/editor.scss',
+                        'Extensions/WordPress/Assets/sass/editor/form.scss'
+                    ],
                     'Assets/sass/options.min.scss': [
-                        'Extensions/WordPress/Assets/sass/options/options.scss',
-                        'Extensions/WordPress/Assets/sass/options/components/*.scss'
+                        'Extensions/WordPress/Assets/sass/options/options.scss'
                     ],
                     'Assets/js/amarkal.min.js': [
                         'Assets/js/Intro.js',
@@ -39,8 +56,10 @@ module.exports = function(grunt) {
                         'Assets/js/Options/State.js',
                         'Assets/js/UI/UI.js',
                         'Assets/js/UI/Components/*.js',
-                        //'Assets/js/Widget/Widget.js',
-                        //'Assets/js/Widget/fields/*.js',
+                        'Assets/js/Editor/Editor.js',
+                        'Assets/js/Editor/PopupForm.js',
+                        'Assets/js/Editor/Plugins/*.js',
+                        'Assets/js/Widget/Widget.js',
                         'Assets/js/Outro.js'
                     ]
                 }

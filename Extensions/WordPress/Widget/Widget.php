@@ -8,22 +8,31 @@ namespace Amarkal\Extensions\WordPress\Widget;
  * Use this class as a parent class to your widget. WidgetConfig should 
  * the self::widget() function to generate their widget code.
  * 
- * @see Widget\ControlPanel For instructions on how to create a control panel
- *      for the widget.
- * @see Widget\WidgetConfig For instructions on how to create a configuration object.
- * 
- * Example Usage:
- * 
+ * <b>Example Usage:</b>
+ * <pre>
  * $widget = new Widget( new WidgetConfig(array(
  *      ...
  * )));
  * $widget->register();
- *
+ *</pre>
+ * 
+ * @see Widget\WidgetConfig For instructions on how to create a configuration object.
  */
-class Widget extends \WP_Widget implements WidgetInterface {
-    
+class Widget extends \WP_Widget implements WidgetInterface 
+{   
+    /**
+     * The widget's configuration.
+     * 
+     * @var WidgetConfig 
+     */
     private $config;
-    private $cpanel;
+    
+    /**
+     * The widget's form class, used to render and update the widget's form.
+     * 
+     * @var type 
+     */
+    private $form;
     
     /**
      * Widget constructor
@@ -34,20 +43,20 @@ class Widget extends \WP_Widget implements WidgetInterface {
      */
     public function __construct( WidgetConfig $config )
     {
-        $this->config = $config;
-        
         // Set the widget's parameters
         parent::__construct(
-            $this->config->slug ,
-            __( $this->config->name , $this->config->slug ), // This is shown in the 'widgets' panel
+            $config->slug,
+            $config->name, // This is shown in the 'widgets' panel
             array(
-                'classname'        =>    $this->config->slug.'-class' ,
-                'description'    =>    __( $this->config->description, $this->config->slug )
+                'classname'   =>  $config->slug.'-class',
+                'description' =>  $config->description
             )
         );
         
-        // This line must be called after the parent's constructor
-        $this->set_control_panel( $config->cpanel );
+        $this->config = $config;
+        $this->form   = new \Amarkal\Form\Form( $config->fields );
+        $this->form->set_script_path(dirname(__FILE__).'/Form.phtml');
+        $this->set_field_names();
         
         // Hooks fired when the Widget is activated and deactivated
         register_activation_hook( __FILE__, array( $this, 'on_activation' ) );
@@ -59,23 +68,26 @@ class Widget extends \WP_Widget implements WidgetInterface {
      * 
      * Call this function to bind the widget to the 'widgets_init' hook.
      */
-    public function register() {
+    public function register() 
+    {
         // A little hack to allow a constructor with arguments
         add_action('widgets_init', function(){
             global $wp_widget_factory;
             $class = $this->config->slug;
-            $wp_widget_factory->widgets[$class] = new Widget( $this->config );
+            $wp_widget_factory->widgets[$class] = $this;
         });
     }
     
     /**
-     * Set a control panel for the widget.
-     * 
-     * @param \Amarkal\Extensions\WordPress\Widget\ControlPanel $panel The control panel to set.
+     * Since the widget's form sets custom names and ids to each field,
+     * the original field name must be stored seperately using this function.
      */
-    public function set_control_panel( ControlPanel $panel )
+    private function set_field_names()
     {
-        $this->cpanel = $panel;
+        foreach ( $this->config->fields as $field )
+        {
+            $field->init_name = $field->name;
+        }
     }
     
     /**
@@ -84,26 +96,26 @@ class Widget extends \WP_Widget implements WidgetInterface {
      * @param array $instance    The array of keys and 
      *                            values for the widget
      */
-    public function form( $instance ) {
+    public function form( $instance ) 
+    {
+        // Reset the names so that the form's update function works properly
+        foreach ( $this->config->fields as $field )
+        {
+            $field->name = $field->init_name;
+        }
+        // Update values
+        $this->form->updater->set_new_instance( $instance );
+        $this->form->updater->update();
         
-        // Field id's and names must be generated as a part 
-        // of the form function process.
-        foreach( $this->cpanel->get_components() as $component ) {
-            if ( $component instanceof ValueComponentInterface ) {
-                $name = $component->get_name();
-                $component->set_id_attribute( $this->get_field_id( $name ) );
-                $component->set_name_attribute( $this->get_field_name( $name ) );
-            }
+        // Set the widget specific field names and ids
+        foreach ( $this->config->fields as $field )
+        {
+            $field->id   = $this->get_field_id( $field->init_name );
+            $field->name = $this->get_field_name( $field->init_name );
         }
         
-        // Merge defaults with new values
-        $instance = array_merge( 
-            $this->cpanel->get_defaults(), 
-            (array) $instance 
-        );
-        
-        // Render the form
-        $this->cpanel->render( $instance );
+        // Print the form
+        $this->form->render(true);
     }
     
     /**
@@ -114,15 +126,20 @@ class Widget extends \WP_Widget implements WidgetInterface {
      * @param    array    old_instance    The new instance of 
      *                                    values to be generated via the update.
      */
-    public function update( $new_instance, $old_instance ) {
+    public function update( $new_instance, $old_instance ) 
+    {   
+        $this->form->updater->set_new_instance( $new_instance );
+        return $this->form->updater->update( $old_instance );
+    }
+    
+    public function widget( $args, $instance ) 
+    {
+        $callable = $this->config->callback;
         
-        $updater = new WidgetUpdater(
-            $this->cpanel->get_components(),
-            $new_instance,
-            $old_instance
-        );
-        
-        return  $updater->update();
+        if( is_callable( $callable ) ) 
+        {
+            $callable( $args, $instance );
+        }
     }
     
     /**
@@ -150,7 +167,8 @@ class Widget extends \WP_Widget implements WidgetInterface {
      *                                action, false if WPMU is disabled or plugin 
      *                                is activated on an individual blog.
      */
-    public function on_activation( $network_wide ) {
+    public function on_activation( $network_wide )
+    {
         // Override in child's class to define activation functionality.
     }
 
@@ -161,16 +179,8 @@ class Widget extends \WP_Widget implements WidgetInterface {
      *                                action, false if WPMU is disabled or plugin 
      *                                is activated on an individual blog.
      */
-    public function on_deactivation( $network_wide ) {
+    public function on_deactivation( $network_wide ) 
+    {
         // Override in child's class to define deactivation functionality.
     }
-
-    public function widget( $args, $instance ) {
-        $callable = $this->config->callback;
-        
-        if( is_callable( $callable ) ) {
-            $callable( $args, $instance );
-        }
-    }
-
 }

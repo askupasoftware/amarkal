@@ -1,6 +1,6 @@
-jQuery(document).ready(function($){
-
-    /**
-     * Amarkal namespace
-     */
-    function Amarkal() {}
+/**
+ * Amarkal namespace
+ */
+function Amarkal() {}
+    
+jQuery(document).ready(function($){ 

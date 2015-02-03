@@ -1,0 +1,60 @@
+.afw-ui-component-textarea {
+    position: relative;
+    
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
+    .ui-wrapper {
+        position: relative !important;
+        min-width: 250px !important;
+        min-height: 150px !important;
+        
+        .ui-resizable-handle {
+            position: absolute;
+            font-size: 10px;
+            line-height: 6px;
+            text-align: center;
+            color: rgb(158, 158, 158);
+            text-shadow: 0 1px 0 white;
+            
+            
+            
+            &.ui-resizable-e {
+                width: 12px;
+                background: rgb(233, 233, 233);
+                top: 0;
+                bottom: 12px;
+                right: 12px;
+                @include border-radius( 0 3px 3px 0 );
+                
+                i {
+                    position: absolute;
+                    right: 3px;
+                    top: 47%;
+                }
+            }
+            &.ui-resizable-s {
+                height: 12px;
+                background: rgb(233, 233, 233);
+                left: 0;
+                right: 12px;
+                bottom: 12px;
+                @include border-radius( 0 0 3px 3px );
+            }
+            &.ui-resizable-se {
+                height: 12px;
+                width: 12px;
+                right: 12px;
+            }
+        }
+        
+        textarea {
+            margin: 0 !important;
+            padding: 5px;
+            min-width: 250px !important;
+            min-height: 150px !important;
+            @include border-radius( 3px 0 0 0 );
+        }
+    }
+}

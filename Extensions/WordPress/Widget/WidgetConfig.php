@@ -7,26 +7,24 @@ namespace Amarkal\Extensions\WordPress\Widget;
  */
 class WidgetConfig {
     
-    private $configuration;
+    private $config;
     
     public function __construct( array $config ) {
         
         $defaults = array(
-            'name'            => 'My Plugin',
-            'description'     => 'My Plugin\'s description',
-            'version'         => '1.0',
-            'callback'        => function( $args, $instance ){},  // Overrides WP_Widget::widget()
-            'cpanel'          => new \Amarkal\Extensions\WordPress\Widget\ControlPanel()
+            'name'          => 'My Plugin',
+            'description'   => 'My Plugin\'s description',
+            'version'       => '1.0',
+            'slug'          => \Amarkal\Common\Tools::strtoslug( $config['name'] ),
+            'callback'      => function( $args, $instance ){},  // Overrides WP_Widget::widget()
+            'fields'        => array()
         );
         
-        $config = array_merge( $defaults, $config );
-        
-        $config['slug'] = \Amarkal\Common\Tools::strtoslug( $config['name'] );
-        
-        $this->configuration = $config;
+        $this->config = array_merge( $defaults, $config );
     }
     
-    public function __get( $name ) {
-        return $this->configuration[ $name ];
+    public function __get( $name ) 
+    {
+        return $this->config[ $name ];
     }
 }

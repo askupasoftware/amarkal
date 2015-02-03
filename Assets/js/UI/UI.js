@@ -54,3 +54,20 @@ Amarkal.UI.register = function( obj )
 {
     Amarkal.UI.components.push(obj);
 };
+
+/**
+ * Set the given value to the given component.
+ * 
+ * @param {Node} Amarkal UI component DOM Node
+ */
+Amarkal.UI.setValue = function( component, value )
+{
+    for( var i = 0; i < Amarkal.UI.components.length; i++ )
+    {
+        // Find the corresponding registered UI component script
+        if( $(component).hasClass( Amarkal.UI.components[i].wrapper.replace('.','') ) )
+        {
+            Amarkal.UI.components[i].setValue( component, value );
+        }
+    }
+};

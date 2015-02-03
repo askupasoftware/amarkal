@@ -1,0 +1,15 @@
+<div class="afw-widget-form">
+    <?php foreach( $this->get_components() as $component ): ?>
+        <div class="afw-form-row">
+            <div class="afw-form-component-label">
+                <?php if ( $component->help ): ?>
+                    <a class="help" data-toggle="tooltip" data-type="help" data-placement="right" title="<?php echo htmlspecialchars($component->help); ?>">?</a>
+                <?php endif; ?>
+                <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
+            </div>
+            <div class="afw-form-component-wrapper">
+                <?php echo $component->render( $echo ); ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>

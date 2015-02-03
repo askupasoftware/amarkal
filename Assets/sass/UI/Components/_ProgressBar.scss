@@ -1,0 +1,26 @@
+.afw-ui-component-progressbar {
+    .progressbar {
+        display: table;
+        width: 100%;
+        
+        .progressbar-outer {
+            display: table-cell;
+            vertical-align: middle;
+            width: 100%;
+            padding: 3px;
+            border: 1px solid  $theme-color-2;
+            @include border-radius( 3px );
+        }
+        .progressbar-inner {
+            height: 15px;
+            @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        }
+        .progressbar-label {
+            display: table-cell;
+            vertical-align: middle;
+            width: 50px;
+            font-size: 13px;
+            padding-left: 10px;
+        }
+    }
+}

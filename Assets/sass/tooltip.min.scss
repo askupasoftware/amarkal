@@ -6,7 +6,7 @@ $tooltip-arrow-color: #000;
 $tooltip-bg: #000;
 $tooltip-color: white;
 $tooltip-max-width: 200px;
-$tooltip-opacity: 0.8;
+$tooltip-opacity: 1;
 $tooltip-border-radius: 5px;
 
 /* Tooltips (Taken from Bootstrap http://getbootstrap.com)
@@ -33,7 +33,7 @@ $tooltip-border-radius: 5px;
 .tooltip-inner {
   max-width: $tooltip-max-width;
   word-break: keep-all;
-  padding: 3px 8px;
+  padding: 8px;
   color: $tooltip-color;
   text-align: center;
   text-decoration: none;
