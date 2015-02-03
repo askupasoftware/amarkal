@@ -38,10 +38,11 @@ class ClassLoader {
     private $filters = array();
     
     /**
-     * Loads the given class or interface
+     * Loads the given class or interface.
+     * This function is registered by PHP's spl_autoload_register()
      * 
      * @param    string    $class    The name of the class
-     * @return    boolean            True/false if class was loaded
+     * @return   boolean            True/false if class was loaded
      */
     private function load_class( $class ) 
     {
@@ -150,14 +151,16 @@ class ClassLoader {
      *
      * @param bool    $prepend
      */
-    public function register( $prepend = false ) {
+    public function register( $prepend = false ) 
+    {
         spl_autoload_register( array($this, 'load_class'), true, $prepend );
     }
 
     /**
      * Removes this instance from the registered autoloaders.
      */
-    public function unregister() {
+    public function unregister() 
+    {
         spl_autoload_unregister( array( $this, 'load_class' ) );
     }
 }
