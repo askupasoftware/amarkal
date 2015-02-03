@@ -1,3 +1,3 @@
-#Amarkal extensions directory
+#Amarkal WordPress Extension
 
-Upload your Amarkal plugins and themes to this directory.
+Contains library classes to be used for developing plugins and themes for the WordPress CMS.
