@@ -262,6 +262,17 @@ class Updater
     }
     
     /**
+     * Set a custom new instance, to override the values taken from the 
+     * $_POST array by default
+     * 
+     * @param type $instance
+     */
+    public function set_new_instance( $instance )
+    {
+        $this->new_instance = $instance;
+    }
+    
+    /**
      * Get the list of error messages for components that could not be validated.
      * Structure: components_name => error_message
      * 
