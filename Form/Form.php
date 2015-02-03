@@ -2,20 +2,28 @@
 
 namespace Amarkal\Form;
 
+use Amarkal\UI;
+
 /**
+ * Implements a Form controller.
  * 
+ * The form object is used to encapsulate UI components and the update/validation 
+ * process into a single entity. The template script can be overriden by a child
+ * class or by 'Form::set_script_path()' to tailor the form rendering output to
+ * the application needs.
  */
-class Form 
+class Form extends \Amarkal\Template\Controller
 {
     private $components;
     
-    private $updater;
-
-
+    public $updater;
+    
     public function __construct( array $components = array() )
     {
-        $this->set_components( $components );
+        $this->components = $components;
         $this->updater    = new Updater( $components );
+        $this->comp_names = array();
+        $this->validate_components($components);
     }
     
     public function get_components()
@@ -23,46 +31,33 @@ class Form
         return $this->components;
     }
     
-    public function update( $old_instance )
+    /**
+     * Internally used to validate each form component.
+     * 
+     * @param \Amarkal\UI\AbstractComponent[] $components
+     * @throws \Amarkal\Form\DuplicateNameException
+     */
+    private function validate_components( $components )
     {
-        return $this->updater->update( $old_instance );
-    }
-    
-    public function get_errors()
-    {
-        return $this->updater->get_errors();
-    }
-    
-    public function render( $echo = false )
-    {
-        foreach( $this->get_components() as $component )
+        foreach( $components as $component )
         {
-            $component->render( $echo );
-        }
-    }
-    
-    private function set_components( $components )
-    {
-        $names = array();
-        foreach( $components as $c )
-        {
-            $call_stack = debug_backtrace();
-            $caller = $call_stack[1];
-            
-            if( ! $c instanceof \Amarkal\UI\AbstractComponent )
+            if( ! $component instanceof UI\AbstractComponent )
             {
-                throw new WrongTypeException( \gettype( $c ) );
+                throw new WrongTypeException( \gettype( $component ) );
             }
             
-            if( !in_array( $c->get_name(), $names ) )
+            if( $component instanceof UI\Components\Composite )
             {
-                $names[] = $c->get_name();
+                $this->validate_components( $component->components );
+                continue;
             }
-            else
+            
+            if( $component instanceof UI\ValueComponentInterface && in_array( $component->name, $this->comp_names ) )
             {
-                throw new DuplicateNameException( $c->get_name() );
+                throw new DuplicateNameException( $component->name );
             }
+            
+            $this->comp_names[] = $component->name;
         }
-        $this->components = $components;
     }
 }

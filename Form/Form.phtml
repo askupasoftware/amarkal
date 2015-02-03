@@ -1,0 +1,18 @@
+<form action="<?php echo $this->action ?>" 
+      method="<?php echo $this->method ?>" 
+      enctype="<?php echo $this->enctype ?>"
+      class="afw-form">
+    <?php foreach( $this->get_components() as $component ): ?>
+        <div class="afw-form-row">
+            <div class="afw-form-component-label">
+                <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
+            </div>
+            <div class="afw-form-component-wrapper">
+                <?php echo $component->render( $echo ); ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <div class="afw-form-control">
+        <button type="submit"><?php echo $this->submit_label ?></button>
+    </div>
+</form>
