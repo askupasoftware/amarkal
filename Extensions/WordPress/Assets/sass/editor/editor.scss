@@ -1,0 +1,44 @@
+@import 'compass/css3';
+
+// Allow the usage of font-awesome and dashicons as button icons.
+.mce-ico {
+    &.mce-i-fa {font: 400 20px/1 "fontAwesome"}
+    &.mce-i-dashicons {font: 400 20px/1 "dashicons"}
+}
+
+.mce-container-body {
+    .afw-editor-popup-icon {
+        width: 80px;
+        text-align: center;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 5px;
+        position: relative;
+        margin: 0 15px 15px 0;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        @include transition( all 200ms ease-out );
+
+        &.disabled {opacity: 0.6}
+        
+        &:hover {
+            border-color: silver;
+            border-bottom-color: rgb(158, 158, 158);
+            @include box-shadow( 0 2px 1px rgba(0, 0, 0, 0.1) );
+        }
+        
+        h3 {
+            text-align: center;
+            font-size: 10px;
+            white-space: pre-wrap;
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 5px;
+            @include transition( all 200ms ease-out );
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@import 'compass/css3';
+
+.afw-widget-form {
+    font-size: 0;
+    margin-top: 15px;
+    
+    .afw-form-row {
+        margin-bottom: 15px;
+        
+        .afw-form-component-label {
+            margin-bottom: 5px;
+            font-size: 13px;
+            
+            .help {
+                width: 18px;
+                height: 18px;
+                display: inline-block;
+                text-align: center;
+                background-color: rgb(240, 240, 240);
+                border: 1px solid rgb(203, 219, 226);
+                line-height: 18px;
+                margin-right: 5px;
+                cursor: help;
+                @include border-radius( 50% );
+            }
+        }
+        
+        .afw-ui-component-text input {width: 100%}
+    }
+}
