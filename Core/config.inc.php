@@ -1,24 +1,9 @@
 <?php
 
 /**
- * Globally defined constants.
- */
-$defines = array(
-   'AMARKAL_VERSION'       => '0.3',
-   'AMARKAL_DIR'           => plugin_dir_path( __DIR__ ),
-   'AMARKAL_URL'           => plugin_dir_url( __DIR__ ),
-   'AMARKAL_ASSETS_URL'    => plugin_dir_url( __DIR__ ).'Assets/'
-);
-foreach( $defines as $name => $value ) {
-    define( $name , $value );
-}
-
-/**
  * Configuration Array.
  */
 return array(
-    
-    'required_php_version'      => '5.3.0',
     
     /**
      * The list of JavaScript files to load.

@@ -39,18 +39,13 @@ if(!class_exists('EnvironmentValidator'))
      * </pre>
      */
     class EnvironmentValidator
-    {
+    {   
         /**
-         * The required PHP version.
-         * @var string The required PHP version. 
+         * The contents of package.json, decoded to PHP.
+         * 
+         * @var StdCalss
          */
-        private $php_version = '5.4.3';
-        
-        /**
-         * Used for the error message.
-         * @var string Either 'plugin' or 'theme'.
-         */
-        private $type;
+        static $package;
         
         /**
          * Constructor.
@@ -68,25 +63,32 @@ if(!class_exists('EnvironmentValidator'))
          */
         public function is_valid( $type, $name, $php_version = '' )
         {
-            if( $php_version != '' && version_compare( $this->php_version, $php_version, '<' ) )
+            $this->type     = $type;
+            $this->name     = $name;
+            $this->php      = self::get_package()->php;      // PHP min version
+            $this->amarkal  = self::get_package()->version;  // Amarkal version
+            
+            if( $php_version != '' && version_compare( $this->php, $php_version, '<' ) )
             {
-                $this->php_version = $php_version;
+                $this->php = $php_version;
             }
             
-            $this->type = $type;
-            $this->name = $name;
-            
             // Invalid environment, display admin notification
-            if ( version_compare( $this->php_version, phpversion(), '>' ) )
+            if ( version_compare( $this->php, phpversion(), '>' ) )
             {
                 add_action( 'admin_notices', array( $this, 'print_message' ) );
                 return false;
             }
             
-            // Valid Environment, initiate Amarkal.
+            // Valid Environment, initiate Amarkal for the first time.
             if(!class_exists('\\Amarkal\\Autoloader'))
             {
                 require_once 'Autoloader.php';
+            }
+            // Amarkal already instantiated, compare versions
+            else
+            {
+                
             }
             return true;
         }
@@ -103,7 +105,7 @@ if(!class_exists('EnvironmentValidator'))
                 ),
                 $this->type,
                 $this->name,
-                $this->php_version,
+                $this->php,
                 phpversion() 
             ), 
             'error' );
@@ -120,6 +122,22 @@ if(!class_exists('EnvironmentValidator'))
         public function render_message( $message, $type = 'updated' ) 
         {
             return '<div class="'.$type.'"><p>'.$message.'</p></div>';
+        }
+        
+        /**
+         * returns package.json contents decoded to PHP.
+         * 
+         * @return StdClass
+         */
+        public static function get_package()
+        {
+            if( null == self::$package )
+            {
+                ob_start();
+                include('package.json');
+                self::$package = json_decode(ob_get_clean());
+            }
+            return self::$package;
         }
     }
 }

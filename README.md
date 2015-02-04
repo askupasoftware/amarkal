@@ -2,7 +2,7 @@
 
 - Version: 0.2-alpha
 - Website: [askupasoftware.com](http://www.askupasoftware.com/)
-- Tested up to WordPress 4.0
+- Tested up to WordPress 4.1
 
 ## Contents
 
@@ -22,7 +22,7 @@ This framework is currently in it's alpha stage and is not ready for production.
 
 ## Requirements
 
-- PHP version 5.3 or above
+- PHP version 5.4.3 or above
 - WordPress 3.7 or above
 
 ## Installation

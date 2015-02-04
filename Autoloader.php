@@ -21,29 +21,22 @@ class Autoloader
      */
     static function init()
     {
+        Autoloader::generate_defines();
         self::$config = include('Core/config.inc.php');
-        
         Autoloader::register_classes();
         Autoloader::register_assets();
-        //set_exception_handler( '\\Amarkal\\Autoloader::exception_handler' );
     }
     
-    static function exception_handler( \Exception $ex )
+    /**
+     * Generate global defines using package.json
+     */
+    public static function generate_defines()
     {
-        // Check the exception's namespace
-        $namespace = array_slice(explode('\\', get_class($ex)), 0, -1);
-        if( __NAMESPACE__ == $namespace[0] )
-        {
-            echo "Amarkal Framework Uncaught exception: " , $ex->getMessage(), "\n";
-        }
-        
-        // If the excpetion thrown is not in the Amarkal namespace,
-        // use the default exception handler
-        else
-        {
-            restore_exception_handler();
-            throw $ex; //This triggers the previous exception handler
-        }
+        $p = \EnvironmentValidator::get_package();
+        define( 'AMARKAL_VERSION' , $p->version );
+        define( 'AMARKAL_DIR' , dirname( __FILE__ ) );
+        define( 'AMARKAL_URL' , \plugin_dir_url( __FILE__ ) );
+        define( 'AMARKAL_ASSETS_URL' , \plugin_dir_url( __FILE__ ).'Assets/' );
     }
     
     /**
