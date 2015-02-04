@@ -18,7 +18,7 @@ if(!class_exists('EnvironmentValidator'))
      * function my_plugin_bootstrap()
      * {
      *     $validator = require_once 'vendor/askupa-software/amarkal-framework/EnvironmentValidator.php';
-     *     if ( !$validator->is_valid('plugin') )
+     *     if ( !$validator->is_valid('plugin', 'Plugin Name') )
      *     {
      *         return; // Stop plugin execution
      *     }
@@ -32,7 +32,7 @@ if(!class_exists('EnvironmentValidator'))
      * // Put the following code at the beginning of the theme's functions.php file
      * 
      * $validator = require_once 'vendor/askupa-software/amarkal-framework/EnvironmentValidator.php';
-     * if ( !$validator->is_valid() )
+     * if ( !$validator->is_valid('theme', 'Theme Name') )
      * {
      *     return; // Stop theme execution
      * }
@@ -44,7 +44,7 @@ if(!class_exists('EnvironmentValidator'))
          * The required PHP version.
          * @var string The required PHP version. 
          */
-        private $php_version = '5.3';
+        private $php_version = '5.4.3';
         
         /**
          * Used for the error message.
@@ -66,7 +66,7 @@ if(!class_exists('EnvironmentValidator'))
          * 
          * @return boolean True if Amarkal can be run on this system.
          */
-        public function is_valid( $type, $php_version = '' )
+        public function is_valid( $type, $name, $php_version = '' )
         {
             if( $php_version != '' && version_compare( $this->php_version, $php_version, '<' ) )
             {
@@ -74,6 +74,7 @@ if(!class_exists('EnvironmentValidator'))
             }
             
             $this->type = $type;
+            $this->name = $name;
             
             // Invalid environment, display admin notification
             if ( version_compare( $this->php_version, phpversion(), '>' ) )
@@ -97,10 +98,11 @@ if(!class_exists('EnvironmentValidator'))
         {
             echo $this->render_message( sprintf(
                 __(
-                    'This %s requires PHP %s or newer to run (currently installed version: %s). please upgrade your PHP or contact your system administrator.',
+                    'The %s <strong>%s</strong> requires PHP %s or newer to run (currently installed version: %s). please upgrade your PHP or contact your system administrator.',
                     'amarkal'
                 ),
                 $this->type,
+                $this->name,
                 $this->php_version,
                 phpversion() 
             ), 
