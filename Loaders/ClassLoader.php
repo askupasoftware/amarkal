@@ -93,16 +93,30 @@ class ClassLoader {
             {
                 foreach ( $dirs as $dir )
                 {
-                    // Apply filters
-                    foreach( $this->filters[$namespace] as $filter )
-                    {
-                        $file = $filter($class, $namespace, $dir);
-                        
-                        if ( file_exists( $file ) ) 
-                        {
-                            return $file;
-                        }
-                    }
+                    return $this->apply_namespace_filters( $namespace, $class, $dir );
+                }
+            }
+        }
+    }
+    
+    /**
+     * Internally used by find_file() to apply namespace filters.
+     * 
+     * @param string $namespace
+     * @param string $class
+     * @param string $dir
+     * @return string File path
+     */
+    private function apply_namespace_filters( $namespace, $class, $dir )
+    {
+        foreach( $this->filters[$namespace] as $filter )
+        {
+            if( is_callable( $filter ) )
+            {
+                $file = call_user_func_array( $filter, array( $class, $namespace, $dir ) );
+                if ( file_exists( $file ) ) 
+                {
+                    return $file;
                 }
             }
         }
