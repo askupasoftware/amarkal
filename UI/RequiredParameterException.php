@@ -7,6 +7,6 @@ namespace Amarkal\UI;
  * 
  * The required parameters are defined on a per-field basis.
  * 
- * @see FieldInterface::required_settings()
+ * @see FieldInterface::required_parameters()
  */
 class RequiredParameterException extends \RuntimeException { }

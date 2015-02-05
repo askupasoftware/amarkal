@@ -31,7 +31,7 @@ extends \Amarkal\UI\AbstractComponent
 implements \Amarkal\UI\ValueComponentInterface,
            \Amarkal\UI\DisableableComponentInterface
 {
-    public function default_settings() 
+    public function default_model() 
     {
         return array(
             'name'          => '',
@@ -41,7 +41,7 @@ implements \Amarkal\UI\ValueComponentInterface,
         );
     }
     
-    public function required_settings() 
+    public function required_parameters() 
     {
         return array('name','options');
     }
@@ -51,7 +51,7 @@ implements \Amarkal\UI\ValueComponentInterface,
      */
     public function get_default_value() 
     {
-        return $this->config['default'];
+        return $this->model['default'];
     }
 
     /**
@@ -59,7 +59,7 @@ implements \Amarkal\UI\ValueComponentInterface,
      */
     public function get_name() 
     {
-        return $this->config['name'];
+        return $this->model['name'];
     }
 
     /**
@@ -75,6 +75,6 @@ implements \Amarkal\UI\ValueComponentInterface,
      */
     public function is_disabled() 
     {
-        return $this->config['disabled'];
+        return $this->model['disabled'];
     }
 }

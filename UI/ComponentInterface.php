@@ -20,7 +20,7 @@ interface ComponentInterface {
      * 
      * @return array The list of default field settings
      */
-    public function default_settings();
+    public function default_model();
     
     /**
      * Get the names of the required setting keys.
@@ -30,5 +30,5 @@ interface ComponentInterface {
      * 
      * @return array The required settings.
      */
-    public function required_settings();
+    public function required_parameters();
 }

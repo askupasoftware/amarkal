@@ -43,9 +43,9 @@ class Composite
 extends \Amarkal\UI\AbstractComponent
 implements \Amarkal\UI\ValueComponentInterface
 {
-    public function __construct( array $config )
+    public function __construct( array $model )
     {
-        parent::__construct($config);
+        parent::__construct($model);
         
         $this->pre_process();
     }
@@ -67,7 +67,10 @@ implements \Amarkal\UI\ValueComponentInterface
         }
     }
     
-    public function default_settings()
+    /**
+     * {@inheritdoc}
+     */
+    public function default_model()
     {
         return array(
             'name'          => '',
@@ -78,7 +81,10 @@ implements \Amarkal\UI\ValueComponentInterface
         );
     }
     
-    public function required_settings() 
+    /**
+     * {@inheritdoc}
+     */
+    public function required_parameters() 
     {
         return array('name','template');
     }
@@ -102,7 +108,7 @@ implements \Amarkal\UI\ValueComponentInterface
      */
     public function get_name() 
     {
-        return $this->config['name'];
+        return $this->model['name'];
     }
 
     /**

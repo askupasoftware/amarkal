@@ -29,22 +29,22 @@ class Process
 extends \Amarkal\UI\AbstractComponent
 implements \Amarkal\UI\DisableableComponentInterface
 {
-    public function __construct( $config )
+    public function __construct( $model )
     {
-        parent::__construct( $config );
+        parent::__construct( $model );
         
-        $callable = $this->config['callback'];
+        $callable = $this->model['callback'];
         
         if( is_callable( $callable ) && isset( $_POST[$this->name] ) )
         {
-            add_action($this->config['hook'],$callable,4);
+            add_action($this->model['hook'],$callable,4);
         }
     }
     
     /**
      * {@inheritdoc}
      */
-    public function default_settings()
+    public function default_model()
     {
         return array(
             'name'          => '',
@@ -58,7 +58,7 @@ implements \Amarkal\UI\DisableableComponentInterface
     /**
      * {@inheritdoc}
      */
-    public function required_settings()
+    public function required_parameters()
     {
         return array('name');
     }
@@ -68,6 +68,6 @@ implements \Amarkal\UI\DisableableComponentInterface
      */
     public function is_disabled()
     {
-        return $this->config['disabled'];
+        return $this->model['disabled'];
     }
 }

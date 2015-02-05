@@ -31,11 +31,11 @@ namespace Amarkal\UI\Components;
 class Content
 extends \Amarkal\UI\AbstractComponent
 {
-    public function __construct(array $config) 
+    public function __construct(array $model) 
     {
-        parent::__construct($config);
+        parent::__construct($model);
         
-        $callable = $this->config['callout'];
+        $callable = $this->model['callout'];
         
         if( is_callable( $callable ) )
         {
@@ -43,7 +43,7 @@ extends \Amarkal\UI\AbstractComponent
         }
     }
     
-    public function default_settings() 
+    public function default_model() 
     {
         return array(
             'template'  => null,
@@ -53,7 +53,7 @@ extends \Amarkal\UI\AbstractComponent
         );
     }
     
-    public function required_settings() 
+    public function required_parameters() 
     {
         return array('template');
     }

@@ -22,7 +22,7 @@ namespace Amarkal\UI\Components;
 class ProgressBar
 extends \Amarkal\UI\AbstractComponent
 {
-    public function default_settings() 
+    public function default_model() 
     {
         return array(
             'value'     => null,
@@ -30,7 +30,7 @@ extends \Amarkal\UI\AbstractComponent
         );
     }
     
-    public function required_settings() 
+    public function required_parameters() 
     {
         return array('max');
     }
