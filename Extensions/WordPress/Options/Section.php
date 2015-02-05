@@ -10,12 +10,6 @@ namespace Amarkal\Extensions\WordPress\Options;
 class Section extends \Amarkal\Template\Controller
 {
     /**
-     * Configuration array.
-     * @var mixed[] 
-     */
-    private $config;
-    
-    /**
      * Current section state.
      * @var boolean True if this is the current section.
      */
@@ -31,7 +25,7 @@ class Section extends \Amarkal\Template\Controller
      * Construct default settings.
      * @return mixed[] The default settings.
      */
-    public function defaults()
+    public function default_model()
     {
         return array(
             'title'         => '',      // The section's title. MUST be unique.
@@ -47,7 +41,7 @@ class Section extends \Amarkal\Template\Controller
     /**
      * Option page section.
      * 
-     * @param array $config
+     * @param array $model
      * <ul>
      *      <li>[title] <i>string</i> The section's title. MUST be unique.</li>
      *      <li>[description] <i>string</i> The section's description.</li>
@@ -57,19 +51,9 @@ class Section extends \Amarkal\Template\Controller
      *      <li>[subsections] <i>array</i> An array holding subsections, each of which has a title and an array of fields. If this parameter is provided, the 'fields' parameter is ignored</li>
      * </ul>
      */
-    public function __construct( array $config = array() )
+    public function __construct( array $model = array() )
     {
-        $this->config = array_merge( $this->defaults(), $config );
-    }
-    
-    /**
-     * Get section's properties.
-     * @param string $name The property name
-     * @return mixed Property value
-     */
-    public function __get( $name )
-    {
-        return $this->config[$name];
+        parent::__construct( $model );
     }
     
     /**
@@ -83,7 +67,7 @@ class Section extends \Amarkal\Template\Controller
      */
     public function get_icon_class()
     {
-        return preg_replace( '/(fa|dashicons)(-[\w\-]+)/', '$1 $1$2', $this->config['icon'] );
+        return preg_replace( '/(fa|dashicons)(-[\w\-]+)/', '$1 $1$2', $this->model['icon'] );
     }
     
     /**
@@ -124,7 +108,7 @@ class Section extends \Amarkal\Template\Controller
      */
     public function has_sub_sections()
     {
-        return is_array( $this->config['subsections'] );
+        return is_array( $this->model['subsections'] );
     }
     
     /**
@@ -140,12 +124,12 @@ class Section extends \Amarkal\Template\Controller
         {
             if( !$this->has_sub_sections() )
             {
-                $this->fields = $this->config['fields'];
+                $this->fields = $this->model['fields'];
             }
             else
             {
                 $this->fields = array();
-                foreach( $this->config['subsections'] as $subsection )
+                foreach( $this->model['subsections'] as $subsection )
                 {
                     foreach( $subsection['fields'] as $field )
                     {
