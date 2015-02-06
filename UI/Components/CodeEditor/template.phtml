@@ -3,7 +3,7 @@
      data-value="<?php echo htmlspecialchars( $this->value ); ?>">
     
     <textarea style="display:none" id="<?php echo $this->name; ?>" name="<?php echo $this->name; ?>"><?php echo $this->value; ?></textarea>
-    <div class="afw-ui-ace-editor"
+    <div class="afw-ui-ace-editor<?php echo ($this->disabled ? ' afw-ui-ace-editor-disabled' : '') ?>"
          data-theme="<?php echo $this->theme; ?>"
          data-lang="<?php echo $this->language; ?>"><?php echo htmlspecialchars( $this->value ); ?></div>
 </div>
