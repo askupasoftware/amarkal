@@ -60,6 +60,7 @@ Amarkal.Options.Section.prototype.show = function()
     Amarkal.Options.State.set( 'active_section', this.id );
     this.button.addClass('active');
     $('#'+this.id).show();
+    Amarkal.UI.refresh();
 };
 
 /**
@@ -80,6 +81,7 @@ Amarkal.Options.Section.prototype.showSubsection = function( id )
 {
     $('[href="'+id+'"]').addClass('active');
     $('[data-subsection="'+id+'"]').show();
+    Amarkal.UI.refresh();
 };
 
 /**
