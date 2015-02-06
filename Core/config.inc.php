@@ -43,6 +43,12 @@ return array(
                 'url'           => AMARKAL_ASSETS_URL.'js/select2.min.js',
                 'facing'        => array('admin'),
                 'dependencies'  => array('jquery')
+            ),
+            array(
+                'handle'        => 'ace-editor',
+                'url'           => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',
+                'facing'        => array( 'admin' ),
+                'dependencies'  => array('jquery')
             )
         )
     ),

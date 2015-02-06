@@ -1,0 +1,9 @@
+<div class="afw-ui-component afw-ui-component-code-editor<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+     data-name="<?php echo $this->name; ?>"
+     data-value="<?php echo htmlspecialchars( $this->value ); ?>">
+    
+    <textarea style="display:none" id="<?php echo $this->name; ?>" name="<?php echo $this->name; ?>"><?php echo $this->value; ?></textarea>
+    <div class="afw-ui-ace-editor"
+         data-theme="<?php echo $this->theme; ?>"
+         data-lang="<?php echo $this->language; ?>"><?php echo htmlspecialchars( $this->value ); ?></div>
+</div>
