@@ -2,6 +2,10 @@
 
 namespace Amarkal\Extensions\WordPress\Editor;
 
+/**
+ * Defines an editor plugin
+ * Used as the parent class to all Editor\Editor plugins.
+ */
 abstract class AbstractEditorPlugin
 {
     public function register() 
@@ -44,6 +48,9 @@ abstract class AbstractEditorPlugin
         return $buttons;
     }
     
+    /**
+     * Register the plugin in the front end using JavaScript
+     */
     function config_script()
     {
         $type = $this->get_type();
@@ -56,8 +63,23 @@ abstract class AbstractEditorPlugin
         return AMARKAL_ASSETS_URL.'js/Editor/Placeholder.js';
     }
     
+    /**
+     * Returns the plugin configuration, to be later used by JavaScript
+     */
     abstract public function get_config();
+    
+    /**
+     * Returns the plugin type, to be later used by JavaScript
+     */
     abstract public function get_type();
+    
+    /**
+     * Returns the plugin's slug, used to register the plugin
+     */
     abstract public function get_slug();
+    
+    /**
+     * Returns the row number in which the button should be placed
+     */
     abstract public function get_row();
 }
