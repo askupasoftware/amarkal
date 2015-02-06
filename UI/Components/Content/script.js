@@ -4,14 +4,16 @@ Amarkal.UI.register({
         return false;
     },
     setValue: function( wrapper, value ) {},
-    init: function( wrapper ) {
-        
+    init: function( wrapper ) {},
+    onShow: function() {
         // Resize the iframe's height to fit its content
-        if( $(wrapper).hasClass('afw-ui-component-ajaxified') )
-        {
-            $(wrapper).find('.afw-ui-iframe').load(function() {
-                $(this).height( $(this).contents().find("html").outerHeight() );
-            });
-        }
+        $(this.wrapper).each(function(){
+            if( $(this).hasClass('afw-ui-component-ajaxified') && $(this).is(":visible") )
+            {
+                var iframe = $(this).find('.afw-ui-iframe');
+                iframe.height( iframe.contents().find("html").outerHeight() );
+            }
+        });
+        
     }
 });
