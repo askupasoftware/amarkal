@@ -18,11 +18,13 @@ class Form extends \Amarkal\Template\Controller
     
     public $updater;
     
+    private $names;
+    
     public function __construct( array $components = array() )
     {
         $this->components = $components;
         $this->updater    = new Updater( $components );
-        $this->comp_names = array();
+        $this->names = array();
         $this->validate_components($components);
     }
     
@@ -52,12 +54,12 @@ class Form extends \Amarkal\Template\Controller
                 continue;
             }
             
-            if( $component instanceof UI\ValueComponentInterface && in_array( $component->name, $this->comp_names ) )
+            if( $component instanceof UI\ValueComponentInterface && in_array( $component->name, $this->names ) )
             {
                 throw new DuplicateNameException( $component->name );
             }
             
-            $this->comp_names[] = $component->name;
+            $this->names[] = $component->name;
         }
     }
 }
