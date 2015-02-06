@@ -8,7 +8,7 @@ namespace Amarkal\UI\Components;
  * Parameters:
  * <ul>
  * <li><b>name</b> <i>string</i> The component's name.</li>
- * <li><b>default</b> <i>number|number[]</i> The component's default value.</li>
+ * <li><b>default</b> <i>string</i> The component's default value.</li>
  * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
  * <li><b>placeholder</b> <i>string</i> Text to be used when the input is empty.</li>
  * <li><b>filter</b> <i>function</i> Filter callback function, accepts the value as an argument.</li>
