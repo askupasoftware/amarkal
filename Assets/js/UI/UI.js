@@ -71,3 +71,18 @@ Amarkal.UI.setValue = function( component, value )
         }
     }
 };
+
+/**
+ * Refresh UI components.
+ * Some UI components run a special script when shown. This function
+ * calls the 'onshow' function of the UI component, if applicable.
+ */
+Amarkal.UI.refresh = function()
+{
+    $.each(Amarkal.UI.components, function(i, c){
+        if(c.hasOwnProperty('onShow'))
+        {
+            c.onShow();
+        }
+    });
+};
