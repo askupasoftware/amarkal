@@ -9,10 +9,10 @@ Amarkal.UI.register({
     },
     init: function( wrapper ) {
         
-        var node = $(wrapper).children('.afw-ui-ace-editor'),
-            theme = node.attr('data-theme'),
-            lang  = node.attr('data-lang'),
-            editor = ace.edit(node[0]);
+        var node    = $(wrapper).children('.afw-ui-ace-editor'),
+            theme   = node.attr('data-theme'),
+            lang    = node.attr('data-lang'),
+            editor  = ace.edit(node[0]);
         
         // Push each editor to the list of editors to be used later by onShow()
         this.editors.push(editor);
