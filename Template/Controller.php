@@ -83,7 +83,7 @@ abstract class Controller
      */
     protected function get_script_path()
     {
-        if( !isset( $this->script_path ) )
+        if( null == $this->script_path )
         {
             $class_name =  substr( get_called_class() , strrpos( get_called_class(), '\\') + 1);
             $this->script_path = $this->get_dir() . '/' . $class_name . '.phtml';
