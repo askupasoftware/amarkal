@@ -8,7 +8,10 @@
         name="<?php echo $this->name; ?>"
         value="<?php echo $this->value; ?>"
         <?php echo ($this->disabled ? 'disabled' : ''); ?>/>
-    <?php foreach( $this->labels as $label ) : ?>
-        <label data-value="<?php echo $label; ?>" <?php echo (in_array($label, explode(',',$this->value)) ? 'class="active"' : ''); ?>><?php echo $label; ?></label>
+    
+    <?php $is_assoc = Amarkal\Common\Tools::is_assoc($this->labels); ?>
+    <?php foreach( $this->labels as $value => $label ) : ?>
+        <?php if( !$is_assoc ) $value = $label; ?>
+        <label data-value="<?php echo $value; ?>" <?php echo (in_array($value, explode(',',$this->value)) ? 'class="active"' : ''); ?>><?php echo $label; ?></label>
     <?php endforeach; ?>
 </div>

@@ -10,7 +10,7 @@ namespace Amarkal\UI\Components;
  * <li><b>name</b> <i>string</i> The component's name.</li>
  * <li><b>default</b> <i>number|number[]</i> The component's default value.</li>
  * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
- * <li><b>labels</b> <i>array</i> List of labesl, also used as the values.</li>
+ * <li><b>labels</b> <i>array</i> List of labesl, also used as the values. Can be either associative or regular array.</li>
  * <li><b>multivalue</b> <i>boolean</i> Set to true to allow multiple values to be selected.</li>
 
  * </ul>
