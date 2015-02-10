@@ -5,7 +5,7 @@ Amarkal.UI.register({
     },
     setValue: function( wrapper, value ) {
         $(wrapper).attr('data-value',value);
-        this.getInput(wrapper).val( value );
+        ace.edit($(wrapper).children('.afw-ui-ace-editor')[0]).setValue(value, 1);
     },
     init: function( wrapper ) {
         
