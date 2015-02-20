@@ -49,6 +49,7 @@ module.exports = function(grunt) {
                     ],
                     'Assets/js/amarkal.min.js': [
                         'Assets/js/Intro.js',
+                        'Assets/js/Utility.js',
                         'Assets/js/Notifier.js',
                         'Assets/js/Options/Options.js',
                         'Assets/js/Options/Section.js',
@@ -57,7 +58,8 @@ module.exports = function(grunt) {
                         'Assets/js/UI/UI.js',
                         'Assets/js/UI/Components/*.js',
                         'Assets/js/Editor/Editor.js',
-                        'Assets/js/Editor/PopupForm.js',
+                        'Assets/js/Editor/FloatingToolbar.js',
+                        'Assets/js/Editor/Form.js',
                         'Assets/js/Editor/Plugins/*.js',
                         'Assets/js/Widget/Widget.js',
                         'Assets/js/Outro.js'

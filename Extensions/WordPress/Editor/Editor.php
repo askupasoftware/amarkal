@@ -17,7 +17,7 @@ class Editor
      * Add a button to the tinyMCE text editor
      * @param \Amarkal\Extensions\WordPress\Editor\AbstractEditorPlugin $plugin
      */
-    static function add_button( AbstractEditorPlugin $plugin )
+    static function add_button( Plugin $plugin )
     {
         $plugin->register();
     }

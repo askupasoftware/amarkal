@@ -27,7 +27,7 @@ return array(
          */
         'register'  => array(
             array(
-                'handle'        => 'amarkal-script',
+                'handle'        => 'amarkal',
                 'url'           => AMARKAL_ASSETS_URL.'js/amarkal.min.js',
                 'facing'        => array('admin'),
                 'dependencies'  => array('jquery','jquery-ui')

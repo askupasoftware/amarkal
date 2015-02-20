@@ -48,37 +48,13 @@ Amarkal.Editor.Plugins.IconBoxPopup = function( config )
                     // Close the previous dialog
                     editor.windowManager.close(); 
                     
-                    // Open a new ajax window
-                    editor.windowManager.open({
+                    // Open a new ajax popup form window
+                    Amarkal.Editor.Form.open( editor, {
                         title: title,
                         url: url,
                         width: width,
                         height: height,
-                        buttons: [{
-                            text: 'Insert',
-                            classes: 'widget btn primary first abs-layout-item',
-                            disabled: false,
-                            onclick: function(e){
-                                //editor.insertContent( '<h3>' + e.data.title + '</h3>');
-                                var args = tinymce.activeEditor.windowManager.getParams();
-                                var iframe = $('iframe[src$="'+action+'"]').contents();
-                                var values = {};
-                                iframe.find('.afw-ui-component').each(function(){
-                                    var name  = $(this).attr('data-name');
-                                    var value = $(this).attr('data-value') == 'undefined' ? '' : $(this).attr('data-value');
-                                    values[name] = value;
-                                });
-                                editor.insertContent( Amarkal.Editor.parseTemplate( args.template, values ) );
-                                editor.windowManager.close();
-                            }
-                        }, 
-                        {
-                            text: 'Close',
-                            onclick: function() {editor.windowManager.close();}
-                        }]
-                    }, { /* parameters. see http://www.tinymce.com/wiki.php/Tutorials:Creating_custom_dialogs */
-                        template: config.buttons[id].template,
-                        selection: tinymce.activeEditor.selection.getContent()
+                        template: config.buttons[id].template
                     });
                 });
             } 

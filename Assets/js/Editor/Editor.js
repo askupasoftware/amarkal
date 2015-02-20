@@ -46,3 +46,25 @@ Amarkal.Editor.parseTemplate = function( template, values )
         return values[p2.trim()];
     });
 };
+
+Amarkal.Editor.scripts = [];
+
+Amarkal.Editor.bindScript = function( slug, func )
+{
+    Amarkal.Editor.scripts.push({
+        slug: slug,
+        func: func
+    });
+};
+
+Amarkal.Editor.runScripts = function( slug, editor )
+{
+    for( var i = 0; i < Amarkal.Editor.scripts.length; i++ )
+    {
+        var script = Amarkal.Editor.scripts[i];
+        if( script.slug === slug )
+        {
+            script.func( editor );
+        }
+    }
+};

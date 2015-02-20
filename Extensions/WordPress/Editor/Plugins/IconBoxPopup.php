@@ -15,7 +15,7 @@ class IconBoxPopup extends \Amarkal\Extensions\WordPress\Editor\AbstractEditorPl
      * <b>Parameters</b>
      * <ul>
      * <li><b>slug</b> <i>string</i> The plugin's slug, must be unique.</li>
-     * <li><b>text</b> <i>string</i> The button's label.</li>
+     * <li><b>text</b> <i>string</i> (optional) The button's label.</li>
      * <li><b>icon</b> <i>string</i> A CSS class for the button's icon.</li>
      * <li><b>title</b> <i>string</i> The button's title (shown in tooltip).</li>
      * <li><b>row</b> <i>number</i> The row in which the button will be placed.</li>
