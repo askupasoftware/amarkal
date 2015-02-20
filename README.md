@@ -1,4 +1,7 @@
-# Amarkal Framework [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Amarkal Powered](http://www.askupasoftware.com/poweredby.gif)](http://www.askupasoftware.com/)
+# Amarkal Framework 
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Amarkal Powered](http://www.askupasoftware.com/poweredby.gif)](http://www.askupasoftware.com/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/amarkal/amarkal/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/amarkal/amarkal/?branch=master)
+[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/amarkal/amarkal/badges/build.png?b=master)](https://scrutinizer-ci.com/g/amarkal/amarkal/?branch=master)
 
 - Version: 0.3.1-alpha
 - Website: [askupasoftware.com](http://www.askupasoftware.com/)
