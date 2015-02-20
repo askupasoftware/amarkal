@@ -38,13 +38,18 @@ abstract class AbstractAsset {
      * 
      * @throws \RuntimeException    If a handle was not provided
      */
-    public function __construct( array $config ) {
+    public function __construct( array $config )
+    {
         
         if( !isset($config['handle']) || '' == $config['handle'] )
+        {
             throw new \RuntimeException("Assets MUST have a handle");
+        }
         
         if( !isset($config['facing']) || '' == $config['facing'] )
+        {
             throw new \RuntimeException("Assets MUST have a \"facing\" attribute");
+        }
         
         $config = array_merge( $this->get_defaults(), $config );    
         
@@ -58,7 +63,8 @@ abstract class AbstractAsset {
      * 
      * @return array    List of default parameter values
      */
-    public function get_defaults() {
+    public function get_defaults() 
+    {
         return array(
             'handle'        => NULL,        // The script handle
             'url'           => false,       // The URL to the file
@@ -74,7 +80,8 @@ abstract class AbstractAsset {
      * @param    sting    $name    Parameter name
      * @return    mixed            Parameter value
      */
-    public function __get( $name ) {
+    public function __get( $name ) 
+    {
         return $this->config[ $name ];
     }
     
