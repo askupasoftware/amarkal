@@ -96,7 +96,7 @@ class OptionsPage
     /**
      * Create a new AdminPage.
      * 
-     * @return AdminPage
+     * @return \Amarkal\Extensions\WordPress\Admin\AdminPage
      */
     private function create_page()
     {
@@ -292,6 +292,9 @@ class OptionsPage
         $GLOBALS[$var_name] = $this->get_old_instance();
     }
     
+    /**
+     * @param string $hook
+     */
     private function do_action( $hook )
     {
         // Make sure the action has not been called before
