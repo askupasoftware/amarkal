@@ -51,7 +51,7 @@ class Autoloader
      * Loads the given class or interface
      * 
      * @param    string    $class    The name of the class
-     * @return    boolean            True/false if class was loaded
+     * @return    null|boolean            True/false if class was loaded
      */
     public static function autoload( $class ) 
     {    

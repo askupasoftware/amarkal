@@ -104,6 +104,9 @@ class OptionsConfig
         return $this->get_section_by_slug( $section_slug )->fields;
     }
     
+    /**
+     * @return null|Section
+     */
     public function get_section_by_slug( $section_slug )
     {
         foreach( $this->config['sections'] as $section )
