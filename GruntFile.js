@@ -60,7 +60,6 @@ module.exports = function(grunt) {
                         'Assets/js/Editor/Editor.js',
                         'Assets/js/Editor/FloatingToolbar.js',
                         'Assets/js/Editor/Form.js',
-                        'Assets/js/Editor/Plugins/*.js',
                         'Assets/js/Widget/Widget.js',
                         'Assets/js/Outro.js'
                     ]
