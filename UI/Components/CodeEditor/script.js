@@ -5,7 +5,21 @@ Amarkal.UI.register({
     },
     setValue: function( wrapper, value ) {
         $(wrapper).attr('data-value',value);
-        ace.edit($(wrapper).children('.afw-ui-ace-editor')[0]).setValue(value, 1);
+        this.getEditor($(wrapper).children('.afw-ui-ace-editor')[0]).setValue(value, 1);
+    },
+    setMode: function( wrapper, lang ) {
+        // Set the editor's language dynamically
+        this.getEditor($(wrapper).children('.afw-ui-ace-editor')[0]).getSession().setMode("ace/mode/"+lang);
+    },
+    getEditor: function( node ) {
+        for( var i = 0; i < this.editors.length; i++ )
+        {
+            if( this.editors[i].container === node )
+            {
+                return this.editors[i];
+            }
+        }
+        throw "Amarkal Framework: Ace editor could not be found";
     },
     init: function( wrapper ) {
         
