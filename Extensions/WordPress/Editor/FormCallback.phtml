@@ -18,23 +18,25 @@
         <script src="<?php echo AMARKAL_ASSETS_URL; ?>js/amarkal.min.js" ></script>
     </head>
     <body style="background-color: #f5f5f5;">
-        <div class="afw-editor-popup-form">
+        <table class="afw-editor-popup-form">
             <?php foreach( $this->get_components() as $component ): ?>
-                <div class="afw-form-row">
-                    <div class="afw-form-component-label">
-                        <?php if ( $component->help ): ?>
-                            <a class="help" data-toggle="tooltip" data-type="help" data-placement="right" title="<?php echo htmlspecialchars($component->help); ?>">?</a>
-                        <?php endif; ?>
-                        <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
-                        <?php if ( $component->description ): ?>
-                            <p class="description"><?php echo $component->description; ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="afw-form-component-wrapper">
+                <tr class="afw-form-row">
+                    <?php if ( !$component->full ): ?>
+                        <td class="afw-form-component-label">
+                            <?php if ( $component->help ): ?>
+                                <a class="help" data-toggle="tooltip" data-type="help" data-placement="right" title="<?php echo htmlspecialchars($component->help); ?>">?</a>
+                            <?php endif; ?>
+                            <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
+                            <?php if ( $component->description ): ?>
+                                <p class="description"><?php echo $component->description; ?></p>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                    <td class="afw-form-component-wrapper" <?php echo $component->full ? 'colspan="2"' : ''; ?>>
                         <?php echo $component->render( $echo ); ?>
-                    </div>
-                </div>
+                    </td>
+                </tr>
             <?php endforeach; ?>
-        </div>
+        </table>
     </body>
 </html>
