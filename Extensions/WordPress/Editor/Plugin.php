@@ -18,7 +18,7 @@ class Plugin
      * <li><b>slug</b> <i>string</i> The plugin's slug, must be unique.</li>
      * <li><b>row</b> <i>number</i> The row to which the button will be added.</li>
      * <li><b>script</b> <i>string</i> A url to the plugin's script.</li>
-     * <li><b>callback</b> <i>AbstractCallback</i> The callback to use for the popup once the button is clicked.</li>
+     * <li><b>callback</b> <i>AbstractCallback|array</i> The callback or an array of callbacks to use for the popup once the button is clicked. If an array is used, the action of each callback is the plugin's slug + the array index: slug_{index}</li>
      * </ul>
      */
     public function __construct( array $config )
@@ -27,12 +27,25 @@ class Plugin
     }
 
     /**
-     * Register the plugin to the TinyMCE plugin registry and add
+     * Register the plugin to the TinyMCE plugin registry and add a form callback
+     * or callbacks.
      */
     public function register() 
     {
-        add_action( 'admin_head', array( $this, 'add_filters' ) );  
-        $this->config['callback']->register( $this->config['slug'] );
+        add_action( 'admin_head', array( $this, 'add_filters' ) );
+        
+        if( is_array( $this->config['callback'] ) )
+        {
+            $i = 0;
+            foreach( $this->config['callback'] as $callback )
+            {
+                $callback->register( $this->config['slug'].'_'.$i++ );
+            }
+        }
+        else
+        {
+            $this->config['callback']->register( $this->config['slug'] );
+        }
     }
     
     /**
