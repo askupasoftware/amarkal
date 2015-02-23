@@ -4,45 +4,6 @@
 Amarkal.Editor.Form = function() {};
 
 /**
- * Initiate the popup form.
- * This is called once the popup iframe has been loaded.
- * @see Outro.js
- */
-Amarkal.Editor.Form.init = function()
-{
-    // Only initiate if a popup for exists
-    var form = $('.afw-editor-popup-form');
-    
-    if( 0 !== form.length ) 
-    {
-        var args = top.tinymce.activeEditor.windowManager.getParams()
-        
-        this.setValues();
-        args.oninit();
-    }       
-};
-
-/**
- * Set UI components values using the values passed to the windowManager
- */
-Amarkal.Editor.Form.setValues = function()
-{
-    var values = top.tinymce.activeEditor.windowManager.getParams().values;
-    
-    if( typeof values !== 'undefined' )
-    {
-        $('.afw-editor-popup-form').find('.afw-ui-component').each(function()
-        {
-            var name = $(this).attr('data-name');
-            if( values.hasOwnProperty( name ) )
-            {
-                Amarkal.UI.setValue( this, values[name] );
-            }
-        });
-    }
-};
-
-/**
  * This function opens an ajax popup with a form based on the Amarkal UI framework.
  * The param.url parameter should specify an ajax script registered by wordpress
  * 'wp_ajax_*' action. The script should have the rendered UI.
@@ -60,7 +21,8 @@ Amarkal.Editor.Form.setValues = function()
  * <li><b>height</b> <i>string</i> The popup's height.</li>
  * <li><b>template</b> <i>string</i> The template (will be inserted to the current active editor)</li>
  * <li><b>values</b> <i>object</i> A list of initial values for the form UI components (overrides the default values)</li>
- * <li><b>callback</b> <i>function</i> A callback function to be called once the insert button is clicked.</li>
+ * <li><b>on_insert</b> <i>function</i> A callback function to be called once the insert button is clicked.</li>
+ * <li><b>on_init</b> <i>function</i> A callback function to be called once the insert button is clicked.</li>
  * </ul>
  */
 Amarkal.Editor.Form.open = function( editor, p )
@@ -87,7 +49,7 @@ Amarkal.Editor.Form.open = function( editor, p )
                 });
                 
                 // Call the callback
-                params.callback( editor, values );
+                params.on_insert( editor, values );
                 
                 editor.windowManager.close();
             }
@@ -96,13 +58,19 @@ Amarkal.Editor.Form.open = function( editor, p )
             text: 'Close',
             onclick: function() {editor.windowManager.close();}
         }]
-    }, { /* parameters. see http://www.tinymce.com/wiki.php/Tutorials:Creating_custom_dialogs */
-        template: params.template,
-        values: params.values,
-        oninit: params.oninit
-    });
+    },
+        /**
+         * Pass parameters to the popup. 
+         * @see http://www.tinymce.com/wiki.php/Tutorials:Creating_custom_dialogs 
+         */
+        params 
+    );
 };
 
+/**
+ * 
+ * @returns {Amarkal.Editor.Form.defaults.FormAnonym$5}
+ */
 Amarkal.Editor.Form.defaults = function()
 {
     return {
@@ -111,12 +79,68 @@ Amarkal.Editor.Form.defaults = function()
         width:      500,
         height:     500,
         template:   '',
-        oninit:     function() {},
-        callback:   function( editor, values ) {
+        on_init:    function() {},
+        on_insert:  function( editor, values ) {
             // Default function
             var args = editor.windowManager.getParams();
-            editor.insertContent( Amarkal.Editor.parseTemplate( args.template, values ) );
+            editor.insertContent( Amarkal.Editor.Form.parseTemplate( args.template, values ) );
         },
         values:     {}
     };
+};
+
+/**
+ * Initiate the popup form.
+ * This is called once the popup iframe has been loaded.
+ * @see Outro.js
+ */
+Amarkal.Editor.Form.init = function()
+{
+    // Only initiate if a popup for exists
+    var form = $('.afw-editor-popup-form');
+    
+    if( 0 !== form.length ) 
+    {
+        var args = top.tinymce.activeEditor.windowManager.getParams()
+        
+        this.setValues();
+        args.on_init( window ); // Need to pass iframe context, since the on_init function is declared in a different scope.
+    }       
+};
+
+/**
+ * Set UI components values using the values passed to the windowManager
+ */
+Amarkal.Editor.Form.setValues = function()
+{
+    var values = top.tinymce.activeEditor.windowManager.getParams().values;
+    
+    if( typeof values !== 'undefined' )
+    {
+        $('.afw-editor-popup-form').find('.afw-ui-component').each(function()
+        {
+            var name = $(this).attr('data-name');
+            if( values.hasOwnProperty( name ) )
+            {
+                Amarkal.UI.setValue( this, values[name] );
+            }
+        });
+    }
+};
+
+/**
+ * Parse a given template, replacing the placeholders with the given values.
+ * Placeholders are specified using the notation <% placeholder_name %>.
+ * The value 'values.placeholder_name' will replace the placeholder.
+ * 
+ * @param {string} template
+ * @param {object} values
+ * @returns {string} parsed template.
+ */
+Amarkal.Editor.Form.parseTemplate = function( template, values )
+{
+    return template.replace(/(<%([^\%\<\>]*)%>)/g,function replacer( match, p1, p2 ) 
+    {
+        return values[p2.trim()];
+    });
 };

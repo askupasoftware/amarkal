@@ -50,7 +50,7 @@
     .afw-form-row {
         display: table-row;
         
-        &:last-child > div {border: none;}
+        &:last-child > td {border: none;}
         
         .afw-form-component-label {
             display: table-cell;

@@ -11,7 +11,7 @@ Amarkal.Editor.Plugins.FormPopup = function( config )
     tinymce.PluginManager.add( config.slug, function( editor, url ) {
         
         // Bind a command to the given slug to allow for execution outside this script
-        editor.addCommand(config.slug, function(ui, v) {
+        editor.addCommand( config.slug, function(ui, v ) {
 
             v = Amarkal.Utility.extend( Amarkal.Editor.Form.defaults(), v );
             
@@ -22,9 +22,9 @@ Amarkal.Editor.Plugins.FormPopup = function( config )
                 width: config.width,
                 height: config.height,
                 template: config.template,
-                oninit: v.oninit,
+                on_init: v.on_init,
+                on_insert: v.on_insert,
                 values: v.values,
-                callback: v.callback
             });
         });
         
