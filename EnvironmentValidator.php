@@ -13,8 +13,8 @@ if(!class_exists('EnvironmentValidator'))
      * 
      * <b> Example Usage (for plugins): </b><br/>
      * ----------------------------
+     * Add the following code to the plugin's bootstrap file
      * <pre>
-     * // Put the following code in the main plugin file
      * function my_plugin_bootstrap()
      * {
      *     $validator = require_once 'vendor/askupa-software/amarkal-framework/EnvironmentValidator.php';
@@ -24,8 +24,10 @@ if(!class_exists('EnvironmentValidator'))
      * </pre>
      * <b> Example Usage (for themes): </b><br/>
      * ---------------------------
+     * Add the following code to the theme's functions.php file.
      * <pre>
-     * // Not yet implemented
+     * $validator = require_once dirname( __FILE__ ) . '/vendor/askupa-software/amarkal-framework/EnvironmentValidator.php';
+     * $validator->set_theme( 'Theme Name', dirname( __FILE__ ).'/path/to/MainFile.php' );
      * </pre>
      */
     class EnvironmentValidator
@@ -43,7 +45,15 @@ if(!class_exists('EnvironmentValidator'))
          * @see EnvironmentValidator::on_plugins_loaded
          * @var array 
          */
-        static $plugins;
+        static $plugins = array();
+        
+        /**
+         * Contains the name and path of the theme, if applicable.
+         * 
+         * @see EnvironmentValidator::set_theme()
+         * @var type 
+         */
+        static $theme;
         
         /**
          * An absolute path the the Amarkal autoloader.
@@ -68,12 +78,13 @@ if(!class_exists('EnvironmentValidator'))
          */
         public function __construct( $package, $path ) 
         { 
+            // Set the autoloader path and the package if null, or compare the current version with the new version if not null
             if( null == self::$package->version || version_compare( self::$package->version, $package->version, '<' ))
             {
                 self::$autoloader = $path.'/Autoloader.php';
                 self::$package = $package;
             }
-            $this->register_plugins();
+            $this->set_activation_hook();
         }
         
         /**
@@ -85,11 +96,6 @@ if(!class_exists('EnvironmentValidator'))
          */
         public function add_plugin( $name, $path )
         {
-            if( null == self::$plugins )
-            {
-                self::$plugins = array();
-            }
-            
             self::$plugins[] = array(
                 'name'      => $name,
                 'path'      => $path
@@ -97,14 +103,29 @@ if(!class_exists('EnvironmentValidator'))
         }
         
         /**
+         * Register a theme to be activated after the environment
+         * has been validated.
+         * 
+         * @param type $name
+         * @param type $path
+         */
+        public function set_theme( $name, $path )
+        {
+            self::$theme = array(
+                'name'  => $name,
+                'path'  => $path
+            );
+        }
+        
+        /**
          * Add an action to the plugins_loaded hook to activate plugins after
          * the environment has been validated.
          */
-        public function register_plugins()
+        public function set_activation_hook()
         {
             if( null == self::$activated )
             {
-                add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ));
+                add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ));
                 
                 // Only hook once
                 self::$activated = true;
@@ -112,42 +133,98 @@ if(!class_exists('EnvironmentValidator'))
         }
         
         /**
-         * This function is called after the plugins_loaded hook has been
+         * This function is called after the after_setup_theme hook has been
          * fired. It validates the PHP version, initiates the Amarkal autoloader
          * and activates all the plugins that has been registered by 
          * EnvironmentValidator::add_plugin. If the PHP version is below the required
          * version, an error message will be printed and the process will be aborted
          * without breaking the application.
          */
-        function on_plugins_loaded()
+        function after_setup_theme()
         {
             // Invalid environment, display admin notification
             if ( version_compare( self::$package->php, phpversion(), '>' ) )
             {
-                add_action( 'admin_notices', array( $this, 'print_message' ) );
+                add_action( 'admin_notices', array( __CLASS__, 'print_message' ) );
             }
             
             // Initiate the autoloader and activate all plugins.
+            self::generate_defines();
             require_once self::$autoloader;
+
             foreach( self::$plugins as $plugin )
             {
                 require_once $plugin['path'];
             }
+            
+            if( null != self::$theme )
+            {
+                require_once self::$theme['path'];
+            }
+        }
+        
+        /**
+         * Generate global defines using package.json
+         */
+        static function generate_defines()
+        {
+            $afw_url = self::get_framework_url();
+            define( 'AMARKAL_VERSION' , self::$package->version );
+            define( 'AMARKAL_DIR' , dirname( __FILE__ ) );
+            define( 'AMARKAL_URL' , $afw_url );
+            define( 'AMARKAL_ASSETS_URL' , $afw_url.'Assets/' );
+        }
+        
+        /**
+         * Get the url to the Amarkal Framework root directory.
+         * This function is able to determine whether this is a plugin or a
+         * theme, and return the appropriate url.
+         * 
+         * @return type
+         */
+        static function get_framework_url()
+        {
+            // Theme relative url
+            $path = dirname( __FILE__ );
+            $str = 'wp-content/themes';
+            $pos = strpos( $path, $str );
+            
+            if( $pos !== false )
+            {
+                return substr( get_template_directory_uri(), 0, strpos( get_template_directory_uri(), $str ) ).substr($path, $pos).'/';
+            }
+            // Plugin relative url
+            return \plugin_dir_url( __FILE__ );
         }
         
         /**
          * Echo the error message.
          */
-        public function print_message()
+        static function print_message()
         {
+            $message = __(
+                '<strong>Amarkal Framework has detected an error:</strong><br/>The %s <strong>%s</strong> requires PHP %s or newer to run (currently installed version: %s). Please upgrade your PHP version.',
+                'amarkal'
+            );
+            // Render error messages for plugins
             foreach( self::$plugins as $plugin )
             {
-                echo $this->render_message( sprintf(
-                    __(
-                        '<strong>Amarkal Framework has detected an error:</strong><br/>The plugin <strong>%s</strong> requires PHP %s or newer to run (currently installed version: %s). Please upgrade your PHP version.',
-                        'amarkal'
-                    ),
+                echo self::render_message( sprintf(
+                    $message,
+                    'plugin',
                     $plugin['name'],
+                    self::$package->php,
+                    phpversion() 
+                ), 
+                'error' );
+            }
+            // Render error message for theme
+            if( null != self::$theme )
+            {
+                echo self::render_message( sprintf(
+                    $message,
+                    'theme',
+                    self::$theme['name'],
                     self::$package->php,
                     phpversion() 
                 ), 
@@ -163,19 +240,9 @@ if(!class_exists('EnvironmentValidator'))
          * 
          * @return string The HTML representation of the message.
          */
-        public function render_message( $message, $type = 'updated' ) 
+        static function render_message( $message, $type = 'updated' ) 
         {
             return '<div class="'.$type.'"><p>'.$message.'</p></div>';
-        }
-        
-        /**
-         * returns package.json contents decoded to PHP.
-         * 
-         * @return StdClass
-         */
-        public static function get_package()
-        {
-            return self::$package;
         }
     }
 }
