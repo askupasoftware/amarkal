@@ -21,22 +21,9 @@ class Autoloader
      */
     static function init()
     {
-        Autoloader::generate_defines();
         self::$config = include('Core/config.inc.php');
         Autoloader::register_classes();
         Autoloader::register_assets();
-    }
-    
-    /**
-     * Generate global defines using package.json
-     */
-    public static function generate_defines()
-    {
-        $p = \EnvironmentValidator::get_package();
-        define( 'AMARKAL_VERSION' , $p->version );
-        define( 'AMARKAL_DIR' , dirname( __FILE__ ) );
-        define( 'AMARKAL_URL' , \plugin_dir_url( __FILE__ ) );
-        define( 'AMARKAL_ASSETS_URL' , \plugin_dir_url( __FILE__ ).'Assets/' );
     }
     
     /**
