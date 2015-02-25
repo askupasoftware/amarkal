@@ -12,6 +12,8 @@ class MetaBox {
      */
     private $settings;
     
+    private $form;
+    
     /**
      * Add a meta box to the administrative interface of a post.
      * 
@@ -24,6 +26,7 @@ class MetaBox {
      * <li>id (string) (optional) HTML 'id' attribute of the edit screen section. Also used for the nonce. Auto generated if none provided.</li>
      * <li>context (string) (optional) The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side')</li>
      * <li>priority (string) (optional) The priority within the context where the boxes should show ('high', 'core', 'default' or 'low')</li>
+     * <li>fields</li>
      * </ul>
      */
     public function __construct( array $settings = array() )
@@ -42,6 +45,9 @@ class MetaBox {
         }
         
         $this->settings = array_merge( $this->default_settings(), $settings );
+        
+        $this->form = new \Amarkal\Form\Form($this->settings['components']);
+        $this->form->set_script_path(dirname(__FILE__).'/MetaBox.phtml');
     }
     
     /**
@@ -55,7 +61,8 @@ class MetaBox {
             'title'         => null,
             'post_types'    => array(),
             'context'       => 'advanced',
-            'priority'      => 'default'
+            'priority'      => 'default',
+            'components'    => array()
         );
     }
     
@@ -121,8 +128,8 @@ class MetaBox {
      *
      * @param int $post_id The ID of the post being saved.
      */
-    public function save( $post_id ) {
-    
+    public function save( $post_id ) 
+    {
         /**
          * A note on security:
          * 
@@ -173,11 +180,11 @@ class MetaBox {
         }
 
         // OK, it is safe to process data.
-        foreach( $this->settings['fields'] as $field )
+        foreach( $this->settings['components'] as $components )
         {
-            if( '' != $_POST[$field->get_name()] )
+            if( '' != $_POST[$components->get_name()] )
             {
-                $field->save( $post_id );
+                $components->save( $post_id );
             }
         }
     }
@@ -187,14 +194,10 @@ class MetaBox {
      *
      * @param WP_Post $post The post object.
      */
-    public function render( $post ) {
-    
+    public function render( $post ) 
+    {
         // Add an nonce field so we can check for it later.
         wp_nonce_field( $this->action_name(), $this->nonce_name() );
-
-        foreach( $this->settings['fields'] as $field )
-        {
-            $field->render( $post );
-        }
+        $this->form->render(true);
     }
 }
