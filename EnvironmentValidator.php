@@ -79,7 +79,7 @@ if(!class_exists('EnvironmentValidator'))
         public function __construct( $package, $path ) 
         { 
             // Set the autoloader path and the package if null, or compare the current version with the new version if not null
-            if( null == self::$package->version || version_compare( self::$package->version, $package->version, '<' ))
+            if( null == self::$package || version_compare( self::$package->version, $package->version, '<' ))
             {
                 self::$autoloader = $path.'/Autoloader.php';
                 self::$package = $package;
