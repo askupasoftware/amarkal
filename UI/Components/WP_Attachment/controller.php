@@ -7,7 +7,7 @@ namespace Amarkal\UI\Components;
  * 
  * <b>Note:</b> This field can only be used in a WordPress environment.
  */
-class WPAttachment
+class WP_Attachment
 extends \Amarkal\UI\AbstractComponent
 implements \Amarkal\UI\ValueComponentInterface,
            \Amarkal\UI\DisableableComponentInterface

@@ -3,6 +3,5 @@
      data-value="<?php echo $this->value; ?>">
     <input type="hidden" name="<?php echo $this->name ?>" value="<?php echo $this->value ?>"/>
     <div class="afw-ui-attachment-button"><?php echo $this->value ? 'Change' : 'Choose'?> attachment</div>
-    <button class="choose_attachment">Choose Attachment</button>
     <?php echo wp_get_attachment_image( $this->value ); ?>
 </div>
