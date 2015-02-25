@@ -8,7 +8,7 @@
                 <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
             </div>
             <div class="afw-form-component-wrapper">
-                <?php echo $component->render( $echo ); ?>
+                <?php $component->render( true ); ?>
             </div>
         </div>
     <?php endforeach; ?>
