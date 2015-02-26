@@ -21,6 +21,8 @@ implements \Amarkal\UI\ValueComponentInterface,
      * <li><b>default</b> <i>string</i> Comma seperated list of values that will be checked by default.</li>
      * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
      * <li><b>multi</b> <i>boolean</i> True to allow multiple attachments.</li>
+     * <li><b>uploader_title</b> <i>string</i> The media uploader popup title.</li>
+     * <li><b>uploader_button_text</b> <i>string</i> The media uploader button text.</li>
      * </ul>
      * 
      * <b>Usage Example:</b>
@@ -29,7 +31,9 @@ implements \Amarkal\UI\ValueComponentInterface,
      *        'name'          => 'my_checkbox',
      *        'disabled'      => false,
      *        'default'       => 'val1',
-     *        'multi'         => false
+     *        'multi'         => false,
+     *        'uploader_title' => 'Insert Media',
+     *        'uploader_button_text' => 'Insert'
      * ));
      * </pre>
      */
