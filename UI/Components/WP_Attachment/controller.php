@@ -20,7 +20,7 @@ implements \Amarkal\UI\ValueComponentInterface,
      * <li><b>name</b> <i>string</i> The component's name.</li>
      * <li><b>default</b> <i>string</i> Comma seperated list of values that will be checked by default.</li>
      * <li><b>disabled</b> <i>boolean</i> True to disabled component. False otherwise.</li>
-     * <li><b>multiple</b> <i>boolean</i> True to allow multiple attachments.</li>
+     * <li><b>multi</b> <i>boolean</i> True to allow multiple attachments.</li>
      * </ul>
      * 
      * <b>Usage Example:</b>
@@ -29,22 +29,25 @@ implements \Amarkal\UI\ValueComponentInterface,
      *        'name'          => 'my_checkbox',
      *        'disabled'      => false,
      *        'default'       => 'val1',
-     *        'multiple'      => false
+     *        'multi'         => false
      * ));
      * </pre>
      */
     public function __construct( array $model ) 
     {
         parent::__construct( $model );
+        add_action( 'admin_enqueue_scripts', function(){ wp_enqueue_media( $args ); });
     }
     
     public function default_model() 
     {
         return array(
-            'name'          => '',
-            'disabled'      => false,
-            'default'       => '',
-            'multiple'      => false,
+            'name'       => '',
+            'disabled'   => false,
+            'default'    => '',
+            'multi'      => false,
+            'uploader_title' => 'Insert Media',
+            'uploader_button_text' => 'Insert'
         );
     }
     

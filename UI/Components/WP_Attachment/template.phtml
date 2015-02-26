@@ -1,7 +1,21 @@
-<div class="afw-ui-component afw-ui-component-wp-attachment<?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
+<div class="afw-ui-component afw-ui-component-wp-attachment<?php echo ($this->disabled ? ' afw-ui-component-disabled' : ''),($this->multi ? ' afw-wp-multi-attachment' : ''); ?>"
+     data-uploader-title="<?php echo $this->uploader_title; ?>"
+     data-uploader-button-text="<?php echo $this->uploader_button_text; ?>"
      data-name="<?php echo $this->name; ?>"
      data-value="<?php echo $this->value; ?>">
     <input type="hidden" name="<?php echo $this->name ?>" value="<?php echo $this->value ?>"/>
-    <div class="afw-ui-attachment-button"><?php echo $this->value ? 'Change' : 'Choose'?> attachment</div>
-    <?php echo wp_get_attachment_image( $this->value ); ?>
+    <div class="afw-ui-wp-attachments">
+        <?php if( $this->multi ): foreach( explode(',',$this->value) as $id ): ?>
+            <div class="afw-ui-wp-attachment">
+                <?php echo wp_get_attachment_image( $id, array(64,64), !wp_attachment_is_image( $id ) ); ?>
+            </div>
+        <?php endforeach;else: ?>
+            <div class="afw-ui-wp-attachment">
+                <?php echo wp_get_attachment_image( $this->value, array(64,64), !wp_attachment_is_image( $id ) ); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php if( $this->multi || !$this->value ): ?>
+        <div class="afw-ui-attachment-button"><i class="fa fa-plus"></i></div>
+    <?php endif; ?>
 </div>
