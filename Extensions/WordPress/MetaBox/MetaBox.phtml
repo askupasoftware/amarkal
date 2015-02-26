@@ -1,0 +1,15 @@
+<div class="afw-wp-metabox">
+    <?php foreach( $this->get_components() as $component ): ?>
+        <div class="afw-wp-metabox-row">
+            <div class="afw-wp-metabox-component-label">
+                <label for="<?php echo $component->name; ?>"><?php echo $component->title; ?></label>
+            </div>
+            <div class="afw-wp-metabox-component-wrapper">
+                <?php $component->render( true ); ?>
+                <?php if( $component->description ): ?>
+                    <p class="description"><?php echo $component->description; ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
