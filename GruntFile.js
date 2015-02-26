@@ -35,17 +35,14 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'Assets/sass/widget.min.scss': ['Extensions/WordPress/Assets/sass/widget/widget.scss'],
-                    'Assets/sass/ui.min.scss': [
+                    'Assets/sass/amarkal.min.scss': [
                         'Assets/sass/UI/_ui.scss',
-                        'Assets/sass/UI/Components/*.scss'
-                    ],
-                    'Assets/sass/editor.min.scss': [
+                        'Assets/sass/UI/Components/*.scss',
+                        'Extensions/WordPress/Assets/sass/options/options.scss',
                         'Extensions/WordPress/Assets/sass/editor/editor.scss',
-                        'Extensions/WordPress/Assets/sass/editor/form.scss'
-                    ],
-                    'Assets/sass/options.min.scss': [
-                        'Extensions/WordPress/Assets/sass/options/options.scss'
+                        'Extensions/WordPress/Assets/sass/editor/form.scss',
+                        'Extensions/WordPress/Assets/sass/metabox/metabox.scss',
+                        'Extensions/WordPress/Assets/sass/widget/widget.scss'
                     ],
                     'Assets/js/amarkal.min.js': [
                         'Assets/js/Intro.js',
