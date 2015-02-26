@@ -1,0 +1,969 @@
+@import 'compass/css3';
+
+$theme-color-1: #a9b5bc;
+$theme-color-2: #88949a;
+$theme-color-3: #547c90;
+$error-border-color: rgb(218, 52, 52); 
+
+$component-height: 28px;
+.afw-ui-component-checkbox {
+    label {
+        display: block;
+        vertical-align: middle;
+        line-height: 20px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        
+        input {
+            vertical-align: middle;
+            margin: 0;
+        }
+    }
+}
+.afw-ui-component-code-editor {
+    
+    .afw-ui-ace-editor {
+        border-radius: 3px;
+        margin: 0;
+        height: 200px;
+        margin: 10px 0;
+        border: 3px solid $theme-color-2;
+    }
+}
+.afw-ui-composite-component {
+    
+    .afw-ui-component-wrapper {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
+        
+        .title {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+    }
+}
+.afw-ui-component-content {
+    font-size: 14px;
+    
+    .aligncenter {clear: both; display: block; margin-left:auto; margin-right: auto;}
+    .alignleft {float:left;margin-right:10px}
+    .alignright {float:right;margin-left:10px}
+    
+    img {margin-top:10px;margin-bottom:10px}
+    
+    ul {
+        padding-left: 28px;
+        list-style-type: square;
+    }
+}
+.afw-ui-component-dropdown {
+    font-size: 13px;
+}
+
+
+.afw-ui-component-process {
+    button {
+        font-size: 14px;
+        padding: 3px 9px;
+        border: 1px solid rgba(0,0,0,0.3);
+        color: #444;
+        text-decoration: none;
+        outline: none;
+        cursor: pointer;
+        @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0, 0, 0, 0.3) );
+        @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+        @include border-radius( 5px );
+        
+        &:hover {@include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));}
+    }
+}
+.afw-ui-component-progressbar {
+    .progressbar {
+        display: table;
+        width: 100%;
+        
+        .progressbar-outer {
+            display: table-cell;
+            vertical-align: middle;
+            width: 100%;
+            padding: 3px;
+            border: 1px solid  $theme-color-2;
+            @include border-radius( 3px );
+        }
+        .progressbar-inner {
+            height: 15px;
+            @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        }
+        .progressbar-label {
+            display: table-cell;
+            vertical-align: middle;
+            width: 50px;
+            font-size: 13px;
+            padding-left: 10px;
+        }
+    }
+}
+.afw-ui-component-slider {
+    display: table-row;
+    
+    input {
+        display: table-cell;
+        width: 50px;
+        margin: 0;
+        vertical-align: middle;
+        padding: 2px 8px;
+        background-color: white;
+        background-color: rgb(228, 228, 228);
+        border: 1px solid rgb(159, 159, 159);
+        text-align: center;
+        @include border-radius( 3px );
+        @include box-shadow( inset 0 2px 1px rgba(0,0,0,0.1) );
+        
+        &:first-child {margin-right: 25px}
+    }
+    
+    .slider-wrapper {
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+        padding-right: 25px;
+        
+        &:last-child {padding-right: 0}
+        
+        .slider {
+            height: 10px;
+            position: relative;
+            width: 100%;
+            display: block;
+            border-top: 1px solid rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 1);
+            @include border-radius( 3px );
+            @include background-image(linear-gradient( #C4C4C4, #EBEBEB ));
+
+            .ui-slider-range {
+                height: 10px;
+                position: absolute;
+                @include border-radius( 3px );
+                @include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));
+
+                &.ui-slider-range-max {right:0}
+                &.ui-slider-range-min {left:0}
+            }
+
+            .ui-slider-handle {
+                margin-left: -14px;
+                top:-7px;
+                position: absolute;
+                font-size: 13px;
+                padding: 2px 6px;
+                border: 1px solid rgba(0,0,0,0.3);
+                color: #444;
+                outline: none;
+                cursor: pointer;
+                @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+                @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0, 0, 0, 0.3) );
+                @include text-shadow( 1px 1px 0 rgba(255,255,255,0.3) );
+                @include border-radius( 4px );
+
+                &:hover {@include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));}
+            }
+        }
+    }
+    
+}
+.afw-ui-component-spinner {
+
+    .ui-spinner {
+        font-size: 0;
+        
+        .ui-spinner-button {
+            display: inline-block;
+            font-size: 14px;
+            padding: 0 6px;
+            border: 1px solid rgba(0,0,0,0.3);
+            color: #444;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            line-height: $component-height;
+            height: $component-height;
+            vertical-align: middle;
+            @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+            @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0, 0, 0, 0.3) );
+            @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+            @include box-sizing( border-box );
+            
+            &:first-child {@include border-radius( 5px 0 0 5px )}
+            &:last-child {@include border-radius( 0 5px 5px 0 )}
+            &:hover {@include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));}
+            
+            .fa {vertical-align: middle;}
+        }
+        
+        .ui-spinner-input {
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #ccc;
+            border-left: none;
+            border-right: none;
+            width: 50px;
+            text-align: center;
+            outline: none;
+            padding: 0 6px;
+            margin:0;
+            line-height: $component-height;
+            height: $component-height;
+            vertical-align: middle;
+            font-size: 14px;
+            @include box-sizing( border-box );
+            @include user-select(none);
+        }
+    }
+}
+.afw-ui-component-text {
+    
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
+    input {
+        border-radius: 3px;
+        margin: 0;
+        width: 250px;
+        border: 1px solid rgb(223, 223, 223);
+        border-top-color: rgb(200, 200, 200);
+    border-left-color: rgb(200, 200, 200);
+        padding: 6px 10px;
+        font-size: 14px;
+        outline: none;
+        @include box-shadow( inset 3px 3px 3px rgba(0, 0, 0, 0.08) );
+    }
+}
+.afw-ui-component-textarea {
+    position: relative;
+    
+    &.afw-ui-component-error {
+        input {border: 2px solid $error-border-color;}
+    }
+    
+    .ui-wrapper {
+        position: relative !important;
+        min-width: 250px !important;
+        min-height: 150px !important;
+        
+        .ui-resizable-handle {
+            position: absolute;
+            font-size: 10px;
+            line-height: 6px;
+            text-align: center;
+            color: rgb(158, 158, 158);
+            text-shadow: 0 1px 0 white;
+            
+            
+            
+            &.ui-resizable-e {
+                width: 12px;
+                background: rgb(233, 233, 233);
+                top: 0;
+                bottom: 12px;
+                right: 12px;
+                @include border-radius( 0 3px 3px 0 );
+                
+                i {
+                    position: absolute;
+                    right: 3px;
+                    top: 47%;
+                }
+            }
+            &.ui-resizable-s {
+                height: 12px;
+                background: rgb(233, 233, 233);
+                left: 0;
+                right: 12px;
+                bottom: 12px;
+                @include border-radius( 0 0 3px 3px );
+            }
+            &.ui-resizable-se {
+                height: 12px;
+                width: 12px;
+                right: 12px;
+            }
+        }
+        
+        textarea {
+            margin: 0 !important;
+            padding: 5px;
+            min-width: 250px !important;
+            min-height: 150px !important;
+            @include border-radius( 3px 0 0 0 );
+        }
+    }
+}
+.afw-ui-component-togglebutton {
+    display: inline-block;
+    font-size: 0;
+    
+    input {display: none;}
+    
+    label {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 0 11px;
+        border: 1px solid rgba(0,0,0,0.3);
+        cursor: pointer;
+        line-height: $component-height;
+        height: $component-height;
+        @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        @include box-shadow( inset 0 -1px rgba(0,0,0,0.1), inset 0 1px rgba(255,255,255,0.5), 0 1px 2px rgba(0, 0, 0, 0.3) );
+        @include text-shadow( 0 1px 0 rgba(255,255,255,0.3) );
+        @include box-sizing( border-box );
+        
+        &.active {
+            background: rgb(228, 228, 228);
+            color: $theme-color-2;
+            @include box-shadow(inset 0 2px 1px rgba(0,0,0,0.1));
+        }
+        
+        &:first-of-type {@include border-radius( 4px 0 0 4px );}
+        &:last-of-type {@include border-radius( 0 4px 4px 0 );}
+        &:hover:not(.active) {@include background-image(linear-gradient( $theme-color-2, $theme-color-1 ));}
+    }
+}
+.afw-ui-component-wp-attachment {
+    .afw-ui-wp-attachments {
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    .afw-ui-attachment-button,
+    .afw-ui-wp-attachment {
+        text-align: center;
+        font-size: 11px;
+        border: 3px solid black;
+        width: 64px;
+        height: 64px;
+        border: 3px solid rgb(224, 224, 224);
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 5px;
+        cursor: pointer;
+        overflow: hidden;
+        
+        .fa-plus {
+            line-height: 64px;
+            font-size: 28px;
+            color: silver;
+        }
+        
+        img{max-width: 500%;}
+    }
+}
+.afw-ui-component-wp-editor {
+    
+}
+@import 'compass/css3';
+@import '_transition';
+
+/* Options Page Header 
+------------------------*/
+$border: 1px solid #C4C4C4;
+$background-color: rgb(236, 240, 241);
+
+$theme-color-1: #a9b5bc;
+$theme-color-2: #88949a;
+$theme-color-3: #547c90;
+$error-border-color: rgb(218, 52, 52); 
+
+// Responsive media break points
+$break-small: 776px;
+$break-large: 920px;
+
+$field-title-width: 150px;
+
+// rtl fixes
+body.rtl {
+    .amarkal-options {margin: 0 -20px 0 0 !important;}
+    .amarkal-options .ao-notification {left:0}
+}
+body {
+    .amarkal-options {margin-left: -20px;}
+}
+
+#wpwrap {width:auto} // color-picker fix
+
+.amarkal-options {
+     margin: 0;
+     
+     .updated,
+    .error {
+        position: absolute;
+        width: 94%;
+        top: 10px;
+        right: 2%;
+        padding: 5px 1% !important;
+    }
+     
+    .banner {
+        position: relative;
+        height: 145px;
+        text-align: right;
+        padding: 50px 100px;
+        overflow: hidden;
+        
+        h1 {
+            position: absolute;
+            z-index: 1;
+            top: 30px;
+            right: 150px;
+        }
+        
+        p {
+            position: absolute;
+            z-index: 1;
+            margin: 5px 0;
+            right: 150px;
+            top: 65px;
+        }
+        
+        a {
+            position: absolute;
+            z-index: 1;
+            right: 150px;
+            top: 90px;
+            text-decoration: none;
+            
+            &:hover {border-bottom: 2px solid}
+        }
+        
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+    
+    .main-menu {
+        font-size: 0;
+        border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+        border-top: 3px solid rgba(255, 255, 255, 0.4);
+        @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        
+        a {
+            position: relative;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 15px 20px;
+            display: inline-block;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            outline: none;
+            @include text-shadow( 0 -1px rgba(0, 0, 0, 0.35) );
+            @include border-radius( 3px );
+            
+            &:hover, &.active {
+                color: white;
+                @include background-image(linear-gradient($theme-color-2, $theme-color-1));
+                @include box-shadow( inset 0 5px 10px rgba(0, 0, 0, 0.3) );
+            }
+            
+            &.active {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    border-width: 10px;
+                    border-color: transparent;
+                    border-style: solid;
+                    border-bottom-color: rgba(0, 0, 0, 0.3);
+                    bottom: -4px;
+                    left: 50%;
+                    margin-left: -10px;
+                }
+                &:after {
+                    content: "";
+                    position: absolute;
+                    border-width: 10px;
+                    border-color: transparent;
+                    border-style: solid;
+                    border-bottom-color: $theme-color-3;
+                    bottom: -6px;
+                    left: 50%;
+                    margin-left: -10px;
+                }
+            }
+            
+            .fa-exclamation-triangle {
+                color: rgb(255, 242, 0);
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            
+            .number {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: rgb(255, 150, 63);
+                display: inline-block;
+                text-align: center;
+                font-size: 10px;
+                line-height: 15px;
+                color: $theme-color-2;
+                vertical-align: middle;
+                @include text-shadow( 0 1px 0 rgba(255, 255, 255, 0.6) );
+                @include box-shadow( 0 -1px 0 rgba(0, 0, 0, 0.3) );
+            }
+        }
+    }
+    
+    .sub-menu {
+        background-color: $theme-color-3;
+        min-height: 10px;
+        @include box-shadow( inset 0 0 5px rgba(0, 0, 0, 0.3));
+        
+        a {
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px 10px;
+            padding: 2px 15px;
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            @include text-shadow( 0 -1px rgba(0, 0, 0, 0.35) );
+            
+            &:hover,
+            &.active {
+                background-color: rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+        }
+    }
+    
+    .sections {
+        display: table;
+        width: 100%;
+
+        .section {
+            display: table-row;
+            
+            .section-fields {
+                display: table-cell;
+                vertical-align: top;
+                
+                .section-notifications p {
+                    background-color: #FFFBAE;
+                    color: #ABA200;
+                    padding: 5px 15px;
+                    margin: 0;
+                    border-left: 5px solid #ABA200;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+                    
+                    &:before {
+                        font-family: "fontAwesome";
+                        content: "\f071";
+                        margin-right: 10px;
+                    }
+                }
+                
+                .field-wrapper {
+                    display: table;
+                    width: 100%;
+
+                    .field-title {
+                        display: table-cell;
+                        width: $field-title-width;
+                        background-color: $theme-color-1;
+                        border-top: 1px solid rgba(255, 255, 255, 0.2);
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                        border-right: 1px solid rgba(0, 0, 0, 0.2);
+                        position: relative;
+                        padding: 5px 5px 5px 40px;
+                        vertical-align: middle;
+                        
+                        .title {
+                            
+                        }
+                        
+                        .help {
+                            cursor: help;
+                            position: absolute;
+                            width: 20px;
+                            height: 20px;
+                            background-color: rgba(0, 0, 0, 0.1);
+                            border-radius: 50%;
+                            line-height: 20px;
+                            text-align: center;
+                            top: 50%;
+                            margin-top: -10px;
+                            left: 10px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            color: white;
+                            @include box-shadow( inset 0 -1px 0 rgba(255, 255, 255, 0.5),inset 0 1px 0 rgba(0, 0, 0, 0.3) );
+                        }
+                        
+                        &:before {
+                            content: "";
+                            border-width: 6px;
+                            border-style: solid;
+                            border-color: transparent;
+                            border-left-color: rgba(0, 0, 0, 0.7);
+                            right: -12px;
+                            top: 50%;
+                            margin-top: -6px;
+                            position: absolute;
+                        }
+                        
+                        &:after {
+                            content: "";
+                            border-width: 6px;
+                            border-style: solid;
+                            border-color:transparent;
+                            border-left-color: $theme-color-1;
+                            right: -11px;
+                            top: 50%;
+                            margin-top: -6px;
+                            position: absolute;
+                        }
+                    }
+                    .field {
+                        display: table-cell;
+                        font-size: 0;
+                        padding: 5px 15px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                        vertical-align: middle;
+                        
+                        .afw-ui-component-disabled {@include opacity( 0.6 )}
+                    }
+                    
+                    &.field-updated {
+                        border-left: 5px solid rgb(255, 150, 63);
+                        .field-title {width: $field-title-width - 5;}
+                    }
+                    
+                    &.field-disabled {
+                        @include opacity( 0.8 );
+                    }
+                }
+            }
+            
+            .section-help {
+                display: table-cell;
+                width: 250px;
+                background-color: white;
+                @include box-shadow( inset 4px 0 2px -2px rgba(0, 0, 0, 0.2) );
+                
+                h2 {
+                    padding: 0;
+                    margin: 10px;
+                    font-size: 18px;
+                    line-height: 18px;
+                    
+                    i {
+                        padding: 5px;
+                        background-color: $theme-color-3;
+                        color: white;
+                    }
+                }
+                
+                h3 {
+                    font-size: 14px;
+                    font-weight: normal;
+                    margin: 10px;
+                    font-style: italic;
+                }
+                
+                p {
+                    margin: 10px;
+                }
+            }
+        }
+    }
+    
+    .footer {
+        border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+        border-top: 3px solid rgba(255, 255, 255, 0.4);
+        display: table;
+        width: 100%;
+        @include background-image(linear-gradient($theme-color-1, $theme-color-2));
+        
+        .content {
+            display: table-cell;
+            padding: 10px;
+            
+            .icon,
+            .text {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 5px;
+            }
+        }
+        
+        .form-control {
+            display: table-cell;
+            width: 200px;
+            text-align: center;
+            vertical-align: middle;
+            
+            button {
+                display: inline-block;
+                border-width: 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.6);
+                position: relative;
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: bold;
+                padding: 0 10px 0 0;
+                cursor: pointer;
+                outline: none;
+                margin: 0 5px;
+                @include box-shadow( 0 0 0px 1px rgba(0,0,0,0.6), inset 0 -12px 15px rgba(0, 0, 0, 0.3) );
+                @include text-shadow( 0 -1px 0 rgba(0, 0, 0, 0.4) );
+                @include border-radius( 4px );
+                
+                
+                i {
+                    display: inline-block;
+                    border-right: 1px solid rgba(0, 0, 0, 0.15);
+                    line-height: 24px;
+                    width: 20px;
+                    margin-right: 5px;
+                }
+                
+                ul {
+                    position: absolute;
+                    display: none;
+                    bottom: 115%;
+                    right: -10px;
+                    left: -10px;
+                    margin: 0;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-bottom-color: rgba(0, 0, 0, 0.4);
+                    border-top-color: rgba(255, 255, 255, 0.7);
+                    border-right-color: transparent;
+                    border-left-color: transparent;
+                    @include border-radius( 4px );
+                    
+                    li {
+                        padding: 5px;
+                        margin: 0;
+                        
+                        &:hover {
+                            background-color: rgba(255,255,255,0.2);
+                        }
+                    }
+                }
+                
+                &.orange, &.orange ul {background-color: #E87D28}
+                &.blue,  &.blue ul {background-color: #547c90}
+                
+                &.active {
+                    &.orange i {@include background-image(linear-gradient(#B55200,#E87D28));}
+                    &.blue i {@include background-image(linear-gradient(#436373,#547c90));}
+                    ul {display:block}
+                }
+                
+                &:hover {@include box-shadow( 0 0 0px 1px rgba(0,0,0,0.6), inset 0 -10px 10px rgba(0, 0, 0, 0.4) );}
+            }
+        }
+    }
+    
+    .ao-subfooter {
+        margin: 0 15px;
+    }
+    
+    .ao-notification {
+        background-color: white;
+        position: fixed;
+        left: 160px;
+        top: 32px;
+        margin: 15px;
+        padding: 2px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        z-index: 99;
+        
+        p {
+            border-left-width: 5px;
+            border-left-style: solid;
+            margin: 0;
+            padding: 10px 25px 10px 10px;
+        }
+        
+        .ao-notification-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: 5px;
+            padding: 2px 4px;
+            background-color: rgb(234, 234, 234);
+            color: white;
+            cursor: pointer;
+            
+            &:hover {background-color: rgb(200, 200, 200);}
+        }
+        
+        &.notifier-success p {border-left-color: rgb(66, 211, 66);}
+        &.notifier-error p {border-left-color: #D34242;}
+    }
+}
+@import 'compass/css3';
+
+// Allow the usage of font-awesome and dashicons as button icons.
+.mce-ico {
+    &.mce-i-fa {font: 400 20px/1 "fontAwesome"}
+    &.mce-i-dashicons {font: 400 20px/1 "dashicons"}
+}
+
+.mce-container-body {
+    .afw-editor-popup-icon {
+        width: 80px;
+        text-align: center;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 5px;
+        position: relative;
+        margin: 0 15px 15px 0;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        @include transition( all 200ms ease-out );
+
+        &.disabled {opacity: 0.6}
+        
+        &:hover {
+            border-color: silver;
+            border-bottom-color: rgb(158, 158, 158);
+            @include box-shadow( 0 2px 1px rgba(0, 0, 0, 0.1) );
+        }
+        
+        h3 {
+            text-align: center;
+            font-size: 10px;
+            white-space: pre-wrap;
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 5px;
+            @include transition( all 200ms ease-out );
+        }
+    }
+}
+.afw-editor-popup-form {
+    display: table;
+    width: 100%;
+    font-family: "Open Sans",sans-serif;
+    border-spacing: 0;
+    
+    .afw-form-row {
+        display: table-row;
+        
+        &:last-child > td {border: none;}
+        
+        .afw-form-component-label {
+            display: table-cell;
+            vertical-align: middle;
+            border-bottom: 1px solid rgb(223, 223, 223);
+            padding: 10px;
+            padding-left: 40px;
+            position: relative;
+            width: 200px;
+            
+            .help {
+                font-size: 14px;
+                width: 20px;
+                height: 20px;
+                line-height: 22px;
+                text-align: center;
+                display: block;
+                background-color: rgb(228, 228, 228);
+                vertical-align: middle;
+                border-top: 1px solid rgba(0, 0, 0, 0.45);
+                border-bottom: 1px solid white;
+                position: absolute;
+                top: 50%;
+                left: 8px;
+                margin-top: -10px;
+                cursor: pointer;
+                @include border-radius( 50% );
+                @include box-shadow( inset 0 0 3px rgba(0, 0, 0, 0.2) );
+            }
+            
+            .description {
+                font-size: 12px;
+                line-height: 15px;
+                font-style: italic;
+                color: rgb(90, 90, 90);
+                margin: 10px 0 0;
+            }
+        }
+        .afw-form-component-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+            border-bottom: 1px solid rgb(223, 223, 223);
+            
+            .afw-ui-component {
+                margin: 10px;
+            }
+        }
+    }
+}
+
+.mce-container-body iframe {border-bottom: 1px solid rgb(223, 223, 223);}
+.afw-wp-metabox {
+    .afw-wp-metabox-row {
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgb(234, 234, 234);
+        padding-bottom: 10px;
+        
+        &:last-child {
+            margin-bottom: 0px;
+            border: none;
+            padding-bottom: 0px;
+        }
+        
+        .afw-wp-metabox-component-label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .afw-wp-metabox-component-wrapper {
+            
+        }
+    }
+}
+@import 'compass/css3';
+
+.afw-widget-form {
+    font-size: 0;
+    margin-top: 15px;
+    
+    .afw-form-row {
+        margin-bottom: 15px;
+        
+        .afw-form-component-label {
+            margin-bottom: 5px;
+            font-size: 13px;
+            
+            .help {
+                width: 18px;
+                height: 18px;
+                display: inline-block;
+                text-align: center;
+                background-color: rgb(240, 240, 240);
+                border: 1px solid rgb(203, 219, 226);
+                line-height: 18px;
+                margin-right: 5px;
+                cursor: help;
+                @include border-radius( 50% );
+            }
+        }
+        
+        .afw-ui-component-text input {width: 100%}
+    }
+}
