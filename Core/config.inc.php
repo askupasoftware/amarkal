@@ -70,11 +70,6 @@ return array(
          */
         'register'  => array(
             array(
-                'handle'    => 'amarkal-widget',
-                'url'       => AMARKAL_ASSETS_URL.'css/widget.min.css',
-                'facing'    => array( 'admin-widgets.php' )
-            ),
-            array(
                 'handle'    => 'font-awesome',
                 'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
                 'facing'    => array( 'admin' )
@@ -85,19 +80,9 @@ return array(
                 'facing'    => array( 'admin' )
             ),
             array(
-                'handle'    => 'amarkal-ui',
-                'url'       => AMARKAL_ASSETS_URL.'css/ui.min.css',
+                'handle'    => 'amarkal',
+                'url'       => AMARKAL_ASSETS_URL.'css/amarkal.min.css',
                 'facing'    => array( 'admin' )
-            ),
-            array(
-                'handle'    => 'amarkal-options',
-                'url'       => AMARKAL_ASSETS_URL.'css/options.min.css',
-                'facing'    => array( 'admin-admin.php' )
-            ),
-            array(
-                'handle'    => 'amarkal-editor',
-                'url'       => AMARKAL_ASSETS_URL.'css/editor.min.css',
-                'facing'    => array( 'admin-post.php', 'admin-post-new.php' )
             ),
             array(
                 'handle'    => 'select2',
