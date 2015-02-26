@@ -19,16 +19,19 @@ $field-title-width: 150px;
 
 // rtl fixes
 body.rtl {
-    .amarkal-options {margin: 0 -20px 0 0;}
+    .amarkal-options {margin: 0 -20px 0 0 !important;}
     .amarkal-options .ao-notification {left:0}
+}
+body {
+    .amarkal-options {margin-left: -20px;}
 }
 
 #wpwrap {width:auto} // color-picker fix
-#wpcontent {padding-left:0 !important}
 
-.wrap {
-    
-    .updated,
+.amarkal-options {
+     margin: 0;
+     
+     .updated,
     .error {
         position: absolute;
         width: 94%;
@@ -36,9 +39,6 @@ body.rtl {
         right: 2%;
         padding: 5px 1% !important;
     }
-}
-.amarkal-options {
-     margin: 0;
      
     .banner {
         position: relative;
