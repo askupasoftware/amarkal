@@ -207,4 +207,22 @@ class MetaBox {
         wp_nonce_field( $this->action_name(), $this->nonce_name() );
         $this->form->render(true);
     }
+    
+    /**
+     * Get a meta box value for a given post id, by specifying the metabox 
+     * id and field name.
+     * 
+     * @param int $post_id The post's id
+     * @param string $metabox_id The metabox id
+     * @param string $field_name The metabox field name
+     * @return mixed
+     */
+    static function get_meta_value( $post_id, $metabox_id, $field_name )
+    {
+        $meta = \get_post_meta( $post_id, $metabox_id, true );
+        if( isset($meta[$field_name]) )
+        {
+            return $meta[$field_name];
+        }
+    }
 }
