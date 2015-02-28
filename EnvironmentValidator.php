@@ -77,7 +77,7 @@ if(!class_exists('EnvironmentValidator'))
          * @param type $path
          */
         public function __construct( $package, $path ) 
-        { 
+        {
             // Set the autoloader path and the package if null, or compare the current version with the new version if not null
             if( null == self::$package || version_compare( self::$package->version, $package->version, '<' ))
             {
@@ -170,7 +170,7 @@ if(!class_exists('EnvironmentValidator'))
         {
             $afw_url = self::get_framework_url();
             define( 'AMARKAL_VERSION' , self::$package->version );
-            define( 'AMARKAL_DIR' , dirname( __FILE__ ) );
+            define( 'AMARKAL_DIR' , dirname( self::$autoloader ) );
             define( 'AMARKAL_URL' , $afw_url );
             define( 'AMARKAL_ASSETS_URL' , $afw_url.'Assets/' );
         }
@@ -185,7 +185,7 @@ if(!class_exists('EnvironmentValidator'))
         static function get_framework_url()
         {
             // Theme relative url
-            $path = dirname( __FILE__ );
+            $path = dirname( self::$autoloader );
             $str = 'wp-content/themes';
             $pos = strpos( $path, $str );
             
