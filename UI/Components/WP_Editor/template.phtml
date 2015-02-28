@@ -1,5 +1,5 @@
 <div class="afw-ui-component afw-ui-component-wp-editor<?php echo $this->invalid ? ' afw-ui-component-error' : '' ?><?php echo ($this->disabled ? ' afw-ui-component-disabled' : '') ?>"
      data-name="<?php echo $this->name; ?>"
-     data-value="<?php echo $this->value; ?>">
+     data-value="<?php echo htmlentities( $this->value ); ?>">
     <?php echo wp_editor( $this->value, $this->name, array( 'textarea_name' => $this->name ) ); ?>
 </div>
