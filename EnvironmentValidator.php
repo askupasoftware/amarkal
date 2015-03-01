@@ -146,6 +146,7 @@ if(!class_exists('EnvironmentValidator'))
             if ( version_compare( self::$package->php, phpversion(), '>' ) )
             {
                 add_action( 'admin_notices', array( __CLASS__, 'print_message' ) );
+                return;
             }
             
             // Initiate the autoloader and activate all plugins.
