@@ -5,14 +5,16 @@
      data-value="<?php echo $this->value; ?>">
     <input type="hidden" name="<?php echo $this->name ?>" value="<?php echo $this->value ?>"/>
     <div class="afw-ui-wp-attachments">
-        <?php if( $this->multi ): foreach( explode(',',$this->value) as $id ): ?>
-            <div class="afw-ui-wp-attachment">
-                <?php echo wp_get_attachment_image( $id, array(64,64), !wp_attachment_is_image( $id ) ); ?>
-            </div>
-        <?php endforeach;else: ?>
-            <div class="afw-ui-wp-attachment">
-                <?php echo wp_get_attachment_image( $this->value, array(64,64), !wp_attachment_is_image( $id ) ); ?>
-            </div>
+        <?php if( $this->value ): ?>
+            <?php if( $this->multi ): foreach( explode(',',$this->value) as $id ): ?>
+                <div class="afw-ui-wp-attachment">
+                    <?php echo wp_get_attachment_image( $id, array(64,64), !wp_attachment_is_image( $id ) ); ?>
+                </div>
+            <?php endforeach;else: ?>
+                <div class="afw-ui-wp-attachment">
+                    <?php echo wp_get_attachment_image( $this->value, array(64,64), !wp_attachment_is_image( $id ) ); ?>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
     <?php if( $this->multi || !$this->value ): ?>
