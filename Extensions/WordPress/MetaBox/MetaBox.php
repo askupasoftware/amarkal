@@ -210,16 +210,22 @@ class MetaBox {
     
     /**
      * Get a meta box value for a given post id, by specifying the metabox 
-     * id and field name.
+     * id and field name. If no field name is given, an associative array with
+     * all the meta box values will be returned.
      * 
      * @param int $post_id The post's id
      * @param string $metabox_id The metabox id
-     * @param string $field_name The metabox field name
+     * @param string $field_name (optional) The metabox field name
      * @return mixed
      */
-    static function get_meta_value( $post_id, $metabox_id, $field_name )
+    static function get_meta_value( $post_id, $metabox_id, $field_name = null )
     {
         $meta = \get_post_meta( $post_id, $metabox_id, true );
+        if( null == $field_name )
+        {
+            return $meta;
+        }
+        
         if( isset($meta[$field_name]) )
         {
             return $meta[$field_name];
