@@ -17,7 +17,15 @@ class State
         {
             self::init();
         }
-        return $param ? self::$data->$param : self::$data;
+        if( null !== $param )
+        {
+            if( isset( self::$data->$param ) )
+            {
+                return self::$data->$param;
+            }
+            return;
+        }
+        return self::$data;
     }
     
     static function set( $param, $value )

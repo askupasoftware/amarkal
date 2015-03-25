@@ -31,7 +31,10 @@ abstract class Controller
      */
     public function __get( $name ) 
     {
-        return $this->model[$name];
+        if( isset( $this->model[$name] ) )
+        {
+            return $this->model[$name];
+        }
     }
     
     /**

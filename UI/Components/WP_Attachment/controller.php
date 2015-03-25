@@ -40,7 +40,7 @@ implements \Amarkal\UI\ValueComponentInterface,
     public function __construct( array $model ) 
     {
         parent::__construct( $model );
-        add_action( 'admin_enqueue_scripts', function(){ wp_enqueue_media( $args ); });
+        add_action( 'admin_enqueue_scripts', function(){ wp_enqueue_media(); });
     }
     
     public function default_model() 

@@ -12,7 +12,7 @@
                 </div>
             <?php endforeach;else: ?>
                 <div class="afw-ui-wp-attachment">
-                    <?php echo wp_get_attachment_image( $this->value, array(64,64), !wp_attachment_is_image( $id ) ); ?>
+                    <?php echo wp_get_attachment_image( $this->value, array(64,64), !wp_attachment_is_image( $this->value ) ); ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
