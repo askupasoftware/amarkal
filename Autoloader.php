@@ -9,17 +9,17 @@ namespace Amarkal;
  * bootstrap process.
  */
 class Autoloader 
-{    
+{
     /**
      * Amarkal configuration (from file Core/config.inc.php)
      * @var mixed[] Amarkal configuration. 
      */
-    static $config;
+    private static $config;
     
     /**
      * Initiate the autoloader
      */
-    static function init()
+    public static function init()
     {
         self::$config = include('Core/config.inc.php');
         Autoloader::register_classes();
@@ -29,7 +29,7 @@ class Autoloader
     /**
      * Register the class autoloader for Amarkal classes
      */
-    public static function register_classes() 
+    private static function register_classes() 
     {
         spl_autoload_register(array(__CLASS__, 'autoload'));        
     }
@@ -74,7 +74,7 @@ class Autoloader
     /**
      * Register Amarkal Scripts and Stylesheets
      */
-    public static function register_assets() 
+    private static function register_assets() 
     {    
         $ac = new \Amarkal\Loaders\AssetLoader();
         
