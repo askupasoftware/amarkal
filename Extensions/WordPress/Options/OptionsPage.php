@@ -311,4 +311,12 @@ class OptionsPage
     {
         echo '<span id="footer-thankyou">Created with <a href="https://github.com/amarkal/amarkal">Amarkal</a> v'.AMARKAL_VERSION.'</span>';
     }
+    
+    /**
+     * Remove options values from the database.
+     */
+    public function uninstall()
+    {
+        \delete_option( $this->page->get_slug() );
+    }
 }
