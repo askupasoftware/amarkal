@@ -4,6 +4,30 @@ namespace Amarkal\Debug;
 
 class Debug 
 {
+    private static $enabled = false;
+    
+    public static function enable()
+    {
+        if (static::$enabled) {
+            return;
+        }
+        
+        static::$enabled = true;
+        
+        error_reporting(-1);
+    }
+    
+    public static function disable()
+    {
+        if (!static::$enabled) {
+            return;
+        }
+        
+        static::$enabled = false;
+        
+        error_reporting(0);
+    }
+    
     static function print_array( array $arr = array() ) 
     {
         self::print_object($arr);
@@ -12,17 +36,5 @@ class Debug
     static function print_object( $obj ) 
     {
         echo '<pre dir="ltr">', print_r($obj, TRUE), '</pre>';
-    }
-    
-    static function display_php_errors()
-    {
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-    }
-    
-    static function hide_php_errors()
-    {
-        error_reporting(0);
-        ini_set('display_errors',0);
     }
 }
