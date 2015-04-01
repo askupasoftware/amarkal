@@ -34,17 +34,17 @@ abstract class AbstractPlugin {
     {
         register_activation_hook(
             $this->plugin_file,
-            array ( __CLASS__, 'activate' )
+            get_called_class().'::activate'
         );
 
         register_deactivation_hook(
             $this->plugin_file,
-            array ( __CLASS__, 'deactivate' )
+            get_called_class().'::deactivate'
         );
 
         register_uninstall_hook(
             $this->plugin_file,
-            array ( __CLASS__, 'uninstall' )
+            get_called_class().'::uninstall'
         );
     }
     
@@ -61,8 +61,7 @@ abstract class AbstractPlugin {
             return;
         }
         
-        $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-        check_admin_referer( "activate-plugin_{$plugin}" );
+        self::check_referer();
     }
     
     /**
@@ -78,8 +77,7 @@ abstract class AbstractPlugin {
             return;
         }
         
-        $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-        check_admin_referer( "deactivate-plugin_{$plugin}" );
+        self::check_referer();
     }
     
     /**
@@ -103,5 +101,15 @@ abstract class AbstractPlugin {
         {
             return;
         }
+    }
+    
+    /**
+     * Verifiy that the current request was referred from an 
+     * administration screen.
+     */
+    private static function check_referer()
+    {
+        $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
+        check_admin_referer( "deactivate-plugin_{$plugin}" );
     }
 }
