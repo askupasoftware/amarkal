@@ -176,7 +176,7 @@ class Updater
         }
         
         $this->update_value( $component, $this->new_instance[$comp_name] );
-        
+
         // Apply user-defined filter
         if( $component instanceof UI\FilterableComponentInterface )
         {
@@ -251,13 +251,6 @@ class Updater
             );
             $this->errors[$name] = $error;
             $component->set_validity($component::INVALID);
-        }
-        else
-        {
-            $this->update_value( 
-                $component, 
-                $this->new_instance[$name]
-            );
         }
     }
     
