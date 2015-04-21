@@ -57,6 +57,13 @@ class OptionsPage
     private $page;
     
     /**
+     * Holds an instance of the options values from the database.
+     * 
+     * @var type 
+     */
+    private $options;
+    
+    /**
      * Create a new options page.
      * 
      * @see OptionsConfig
@@ -69,6 +76,7 @@ class OptionsPage
         $this->page         = $this->create_page();
         $this->form         = new \Amarkal\Form\Form( $this->components );
         $this->updater      = $this->form->updater;
+        $this->options      = new \Amarkal\Extensions\WordPress\Options\Options( $this->page->get_slug() );
     }
     
     /**
@@ -77,7 +85,7 @@ class OptionsPage
     public function register()
     {
         // This is the initial activation, save the defaults to the db
-        if(!$this->options_exists())
+        if(!$this->options->exists())
         {
             $this->reset();
         }
@@ -203,16 +211,13 @@ class OptionsPage
     
     private function load()
     {
-        $this->updater->update($this->get_old_instance());
+        $this->updater->update($this->options->get());
     }
     
     private function save()
     {
-        \update_option(
-            $this->page->get_slug(), 
-            $this->updater->update($this->get_old_instance())
-        );
-        
+        $old_instance = $this->options->get();
+        $this->options->update($this->updater->update($old_instance));
         return $this->updater->get_errors();
     }
     
@@ -229,47 +234,18 @@ class OptionsPage
                     $names[] = $field->get_name();
                 }
             }
-            \update_option(
-                $this->page->get_slug(), 
-                $this->updater->reset( $names )
+            $this->options->update( 
+                $this->updater->reset( $names ) 
             );
         }
         else 
         {
             // No values are passed to the OptionsUpdater so that the default values
             // Will be returned.
-            \update_option(
-                $this->page->get_slug(), 
-                $this->updater->reset()
+            $this->options->update( 
+                $this->updater->reset() 
             );
         }
-    }
-    
-    /**
-     * Get the current options instance from the database.
-     * @return type
-     */
-    private function get_old_instance()
-    {
-        $old_instance = \get_option( $this->page->get_slug() );
-        if( $old_instance )
-        {
-            return $old_instance;
-        }
-        else
-        {
-            return array();
-        }
-    }
-    
-    /**
-     * Checks if the database contains a saved instance of these options.
-     * 
-     * @return bool true, if a saved instance exists.
-     */
-    private function options_exists()
-    {
-        return $this->get_old_instance() != array();
     }
     
     /**
@@ -289,7 +265,7 @@ class OptionsPage
             $var_name = $this->page->get_slug().'_options';
         }
         
-        $GLOBALS[$var_name] = $this->get_old_instance();
+        $GLOBALS[$var_name] = $this->options->get();
     }
     
     /**
@@ -317,6 +293,16 @@ class OptionsPage
      */
     public function uninstall()
     {
-        \delete_option( $this->page->get_slug() );
+        $this->options->delete();
+    }
+    
+    /**
+     * Get the value of an option property by name.
+     * 
+     * @param type $name
+     */
+    public function get( $name )
+    {
+        return $this->options->get( $name );
     }
 }
