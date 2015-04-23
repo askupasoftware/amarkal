@@ -17,7 +17,7 @@ abstract class Controller
      * Create a new web element controller
      * @param array $model
      */
-    public function __construct( array $model ) 
+    public function __construct( array $model = array() ) 
     {
         $this->model = array_merge( $this->default_model(), $model );
     }
