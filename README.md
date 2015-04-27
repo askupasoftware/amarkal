@@ -3,7 +3,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/amarkal/amarkal/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/amarkal/amarkal/?branch=master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/amarkal/amarkal/badges/build.png?b=master)](https://scrutinizer-ci.com/g/amarkal/amarkal/?branch=master)
 
-- Version: 0.3.3-alpha
+- Version: 0.3.6-alpha
 - Website: [askupasoftware.com](http://www.askupasoftware.com/)
 - Tested up to WordPress 4.1
 
