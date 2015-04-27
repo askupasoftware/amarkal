@@ -33,12 +33,6 @@ return array(
                 'dependencies'  => array('jquery','jquery-ui')
             ),
             array(
-                'handle'        => 'bootstrap-tooltip',
-                'url'           => AMARKAL_ASSETS_URL.'js/tooltip.min.js',
-                'facing'        => array('admin'),
-                'dependencies'  => array('jquery')
-            ),
-            array(
                 'handle'        => 'select2',
                 'url'           => AMARKAL_ASSETS_URL.'js/select2.min.js',
                 'facing'        => array('admin'),
@@ -72,11 +66,6 @@ return array(
             array(
                 'handle'    => 'font-awesome',
                 'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
-                'facing'    => array( 'admin' )
-            ),
-            array(
-                'handle'    => 'bootstrap-tooltip',
-                'url'       => AMARKAL_ASSETS_URL.'css/tooltip.min.css',
                 'facing'    => array( 'admin' )
             ),
             array(

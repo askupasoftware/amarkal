@@ -36,10 +36,9 @@ class Plugin
         
         if( is_array( $this->config['callback'] ) )
         {
-            $i = 0;
-            foreach( $this->config['callback'] as $callback )
+            foreach( $this->config['callback'] as $handle => $callback )
             {
-                $callback->register( $this->config['slug'].'_'.$i++ );
+                $callback->register( $this->config['slug'].'_'.$handle );
             }
         }
         else

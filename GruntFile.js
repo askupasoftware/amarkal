@@ -36,6 +36,7 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'Assets/sass/amarkal.min.scss': [
+                        'Assets/sass/_tooltip.scss',
                         'Assets/sass/UI/_ui.scss',
                         'Assets/sass/UI/Components/*.scss',
                         'Extensions/WordPress/Assets/sass/options/options.scss',
@@ -45,6 +46,8 @@ module.exports = function(grunt) {
                         'Extensions/WordPress/Assets/sass/widget/widget.scss'
                     ],
                     'Assets/js/amarkal.min.js': [
+                        'Assets/js/transition.js',
+                        'Assets/js/tooltip.js',
                         'Assets/js/Intro.js',
                         'Assets/js/Utility.js',
                         'Assets/js/Notifier.js',
@@ -80,8 +83,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'Assets/js/amarkal.min.js': ['Assets/js/amarkal.min.js'],
-                    'Assets/js/tooltip.min.js': ['Assets/js/tooltip.js']
+                    'Assets/js/amarkal.min.js': ['Assets/js/amarkal.min.js']
                 }
             }
         }

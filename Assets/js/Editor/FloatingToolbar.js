@@ -25,6 +25,11 @@ Amarkal.Editor.FloatingToolbar.prototype.init = function()
     function isPlaceholder( node ) {
         return !! ( editor.dom.getAttrib( node, 'data-mce-placeholder' ) || editor.dom.getAttrib( node, 'data-mce-object' ) );
     }
+    
+    function isSelectorElement( node )
+    {
+        return node && ( tinymce.$(node).is( self.settings.selector) || tinymce.$(node).parents(self.settings.selector).length !== 0 );
+    }
 
     var i = this.settings.buttons.length;
     while( i-- )
@@ -52,8 +57,14 @@ Amarkal.Editor.FloatingToolbar.prototype.init = function()
             adminbarHeight = 0,
             node = editor.selection.getNode();
     
-        if ( ! node || !tinymce.$(node).is( self.settings.selector ) ) {
+        if ( !isSelectorElement( node ) ) {
             return this;
+        }
+        
+        // If this is a child of the real element, select its parent
+        if( !tinymce.$(node).is( self.settings.selector) )
+        {
+            node = tinymce.$(node).parents(self.settings.selector)[0];
         }
 
         windowPos = window.pageYOffset || document.documentElement.scrollTop;
@@ -149,7 +160,7 @@ Amarkal.Editor.FloatingToolbar.prototype.init = function()
         // Safari on iOS fails to select image nodes in contentEditoble mode on touch/click.
         // Select them again.
         editor.on( 'click', function( event ) {
-            if ( tinymce.$(event.target).is( self.settings.selector ) ) {
+            if ( isSelectorElement( node ) ) {
                 var node = event.target;
 
                 window.setTimeout( function() {
@@ -164,7 +175,7 @@ Amarkal.Editor.FloatingToolbar.prototype.init = function()
     editor.on( 'nodechange', function( event ) {
         var delay = iOS ? 350 : 100;
 
-        if (  !tinymce.$(event.element).is( self.settings.selector ) || isPlaceholder( event.element ) ) {
+        if (  !isSelectorElement( event.element ) || isPlaceholder( event.element ) ) {
             floatingToolbar.hide();
             return;
         }
@@ -172,7 +183,7 @@ Amarkal.Editor.FloatingToolbar.prototype.init = function()
         setTimeout( function() {
             var element = editor.selection.getNode();
 
-            if ( tinymce.$(element).is( self.settings.selector ) && ! isPlaceholder( element ) ) {
+            if ( isSelectorElement( element ) && ! isPlaceholder( element ) ) {
                 if ( floatingToolbar._visible ) {
                     floatingToolbar.reposition();
                 } else {
