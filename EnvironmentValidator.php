@@ -195,7 +195,7 @@ if(!class_exists('EnvironmentValidator'))
                 return substr( get_template_directory_uri(), 0, strpos( get_template_directory_uri(), $str ) ).substr($path, $pos).'/';
             }
             // Plugin relative url
-            return \plugin_dir_url( __FILE__ );
+            return \plugin_dir_url( self::$autoloader );
         }
         
         /**
