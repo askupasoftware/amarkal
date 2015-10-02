@@ -40,8 +40,8 @@ return array(
             ),
             array(
                 'handle'        => 'ace-editor',
-                'url'           => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js',
-                'facing'        => array( 'admin' ),
+                'url'           => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js',
+                'facing'        => array('admin'),
                 'dependencies'  => array('jquery')
             )
         )
@@ -65,7 +65,7 @@ return array(
         'register'  => array(
             array(
                 'handle'    => 'font-awesome',
-                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
+                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
                 'facing'    => array( 'admin' )
             ),
             array(

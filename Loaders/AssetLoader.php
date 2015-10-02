@@ -154,7 +154,7 @@ class AssetLoader {
         {
             foreach( $query as $key => $val )
             {
-                if( $_GET[$key] != $val )
+                if( !array_key_exists( $key, $_GET ) || $_GET[$key] != $val )
                 {
                     return false;
                 }
