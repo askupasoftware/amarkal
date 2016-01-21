@@ -1,7 +1,7 @@
 {
   "name": "amarkal",
   "version": "0.3.7",
-  "php": "5.4.30",
+  "php": "5.4.4",
   "description": "Development framework for WordPress.",
   "author": "Askupa Software",
   "main": "GruntFile.js",
