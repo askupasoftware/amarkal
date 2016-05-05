@@ -29,13 +29,13 @@ return array(
             array(
                 'handle'        => 'amarkal',
                 'url'           => AMARKAL_ASSETS_URL.'js/amarkal.min.js',
-                'facing'        => array('admin'),
+                'facing'        => array('admin', 'public'),
                 'dependencies'  => array('jquery','jquery-ui')
             ),
             array(
                 'handle'        => 'select2',
                 'url'           => AMARKAL_ASSETS_URL.'js/select2.min.js',
-                'facing'        => array('admin'),
+                'facing'        => array('admin', 'public'),
                 'dependencies'  => array('jquery')
             ),
             array(
@@ -65,18 +65,18 @@ return array(
         'register'  => array(
             array(
                 'handle'    => 'font-awesome',
-                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
-                'facing'    => array( 'admin' )
+                'url'       => '//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css',
+                'facing'    => array( 'admin', 'public' )
             ),
             array(
                 'handle'    => 'amarkal',
                 'url'       => AMARKAL_ASSETS_URL.'css/amarkal.min.css',
-                'facing'    => array( 'admin' )
+                'facing'    => array( 'admin', 'public' )
             ),
             array(
                 'handle'    => 'select2',
                 'url'       => AMARKAL_ASSETS_URL.'css/select2.min.css',
-                'facing'    => array( 'admin' )
+                'facing'    => array( 'admin', 'public' )
             )
         )
     )
