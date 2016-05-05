@@ -33,6 +33,7 @@ class Plugin
     public function register() 
     {
         add_action( 'admin_head', array( $this, 'add_filters' ) );
+        add_action( 'wp_head', array( $this, 'add_filters' ) );
         
         if( is_array( $this->config['callback'] ) )
         {
