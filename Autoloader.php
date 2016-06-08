@@ -84,7 +84,8 @@ class Autoloader
                     'handle'    => $asset['handle'],
                     'url'       => $asset['url'],
                     'version'   => AMARKAL_VERSION,
-                    'facing'    => $asset['facing']
+                    'facing'    => $asset['facing'],
+                    'footer'    => true
                 ))    
             );
         };
@@ -92,7 +93,8 @@ class Autoloader
             $ac->register_asset(
                 new Assets\Stylesheet(array(
                     'handle'    => $handle,
-                    'facing'    => array( 'admin' )
+                    'facing'    => array( 'admin' ),
+                    'footer'    => true
                 ))    
             );
         };
@@ -103,7 +105,8 @@ class Autoloader
                     'url'           => $asset['url'],
                     'version'       => AMARKAL_VERSION,
                     'facing'        => $asset['facing'],
-                    'dependencies'  => $asset['dependencies']
+                    'dependencies'  => $asset['dependencies'],
+                    'footer'        => true
                 ))    
             );
         };
@@ -111,7 +114,8 @@ class Autoloader
             $ac->register_asset(
                 new Assets\Script(array(
                     'handle'    => $handle,
-                    'facing'    => array( 'admin' )
+                    'facing'    => array( 'admin' ),
+                    'footer'    => true
                 ))    
             );
         };
