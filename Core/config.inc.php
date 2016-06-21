@@ -40,7 +40,7 @@ return array(
             ),
             array(
                 'handle'        => 'ace-editor',
-                'url'           => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js',
+                'url'           => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js',
                 'facing'        => array('admin'),
                 'dependencies'  => array('jquery')
             )
