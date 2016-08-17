@@ -9,21 +9,14 @@ namespace Amarkal;
  * bootstrap process.
  */
 class Autoloader 
-{
-    /**
-     * Amarkal configuration (from file Core/config.inc.php)
-     * @var mixed[] Amarkal configuration. 
-     */
-    private static $config;
-    
+{   
     /**
      * Initiate the autoloader
      */
     public static function init()
     {
-        self::$config = include('Core/config.inc.php');
         Autoloader::register_classes();
-        Autoloader::register_assets();
+        \add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ) );
     }
     
     /**
@@ -74,48 +67,15 @@ class Autoloader
     /**
      * Register Amarkal Scripts and Stylesheets
      */
-    private static function register_assets() 
+    static function register_assets() 
     {    
-        $ac = new \Amarkal\Loaders\AssetLoader();
+        \wp_enqueue_script( 'amarkal', AMARKAL_ASSETS_URL.'js/amarkal.min.js', array('jquery','jquery-ui','jquery-ui-datepicker','jquery-ui-spinner','jquery-ui-slider','jquery-ui-resizable','wp-color-picker'), AMARKAL_VERSION, true );
+        \wp_enqueue_script( 'select2', AMARKAL_ASSETS_URL.'js/select2.min.js', array('jquery'), '3.5.1', true );
+        \wp_enqueue_script( 'ace-editor', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', array(), '1.2.5', true );
         
-        foreach ( self::$config['css']['register'] as $asset ) {
-            $ac->register_asset(
-                new Assets\Stylesheet(array(
-                    'handle'    => $asset['handle'],
-                    'url'       => $asset['url'],
-                    'version'   => AMARKAL_VERSION,
-                    'facing'    => $asset['facing']
-                ))    
-            );
-        };
-        foreach ( self::$config['css']['enqueue'] as $handle ) {
-            $ac->register_asset(
-                new Assets\Stylesheet(array(
-                    'handle'    => $handle,
-                    'facing'    => array( 'admin' )
-                ))    
-            );
-        };
-        foreach ( self::$config['js']['register'] as $asset ) {
-            $ac->register_asset(
-                new Assets\Script(array(
-                    'handle'        => $asset['handle'],
-                    'url'           => $asset['url'],
-                    'version'       => AMARKAL_VERSION,
-                    'facing'        => $asset['facing'],
-                    'dependencies'  => $asset['dependencies']
-                ))    
-            );
-        };
-        foreach ( self::$config['js']['enqueue'] as $handle ) {
-            $ac->register_asset(
-                new Assets\Script(array(
-                    'handle'    => $handle,
-                    'facing'    => array( 'admin' )
-                ))    
-            );
-        };
-        $ac->enqueue();
+        \wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+        \wp_enqueue_style( 'amarkal', AMARKAL_ASSETS_URL.'css/amarkal.min.css', array('wp-color-picker'), AMARKAL_VERSION );
+        \wp_enqueue_style( 'select2', AMARKAL_ASSETS_URL.'css/select2.min.css', array(), '3.5.1' );
     }
 }
 Autoloader::init();
