@@ -31,7 +31,7 @@ Amarkal.UI.register({
         // Push each editor to the list of editors to be used later by onShow()
         this.editors.push(editor);
         
-        ace.config.set('basePath', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/');
+        ace.config.set('basePath', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/');
         editor.setTheme("ace/theme/"+theme);
         editor.getSession().setMode("ace/mode/"+lang);
         editor.setOptions({

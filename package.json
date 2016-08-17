@@ -24,11 +24,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/amarkal/amarkal.git"
-    },
-    {
-      "type": "svn",
-      "url": "http://plugins.svn.wordpress.org/amarkal/"
+      "url": "https://github.com/askupasoftware/amarkal.git"
     }
   ]
 }
