@@ -69,7 +69,15 @@ class Autoloader
      */
     static function register_assets() 
     {    
-        \wp_enqueue_script( 'amarkal', AMARKAL_ASSETS_URL.'js/amarkal.min.js', array('jquery','jquery-ui','jquery-ui-datepicker','jquery-ui-spinner','jquery-ui-slider','jquery-ui-resizable','wp-color-picker'), AMARKAL_VERSION, true );
+        \wp_enqueue_script( 'jquery' );
+        \wp_enqueue_script( 'jquery-ui' );
+        \wp_enqueue_script( 'jquery-ui-datepicker' );
+        \wp_enqueue_script( 'jquery-ui-spinner' );
+        \wp_enqueue_script( 'jquery-ui-slider' );
+        \wp_enqueue_script( 'jquery-ui-resizable' );
+        \wp_enqueue_script( 'wp-color-picker' );
+        
+        \wp_enqueue_script( 'amarkal', AMARKAL_ASSETS_URL.'js/amarkal.min.js', array('jquery'), AMARKAL_VERSION, true );
         \wp_enqueue_script( 'select2', AMARKAL_ASSETS_URL.'js/select2.min.js', array('jquery'), '3.5.1', true );
         \wp_enqueue_script( 'ace-editor', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', array(), '1.2.5', true );
         
