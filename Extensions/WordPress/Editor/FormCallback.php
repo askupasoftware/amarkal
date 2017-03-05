@@ -22,8 +22,8 @@ class FormCallback extends AbstractCallback
     public function register( $slug )
     {
         $fields = $this->fields;
-        add_action( 'wp_ajax_'.$slug, function( $fields ) use ( $fields ) {
-            $this->render_form( $fields );
+        add_action( 'wp_ajax_'.$slug, function( $f ) use ( $fields ) {
+            $this->render_form( $f );
         });
     }
     
