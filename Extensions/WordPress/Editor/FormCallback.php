@@ -22,12 +22,12 @@ class FormCallback extends AbstractCallback
     public function register( $slug )
     {
         $fields = $this->fields;
-        add_action( 'wp_ajax_'.$slug, function( $f ) use ( $fields ) {
-            $this->render_form( $f );
+        add_action( 'wp_ajax_'.$slug, function() use ( $fields ) {
+            $this->render_form( $fields );
         });
     }
     
-    public function render_form( $fields )
+    public function render_form( array $fields = array() )
     {
         $form = new \Amarkal\Form\Form( $fields );
         $form->set_script_path( dirname( __FILE__ ).'/FormCallback.phtml' );
