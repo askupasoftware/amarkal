@@ -78,12 +78,12 @@ class Autoloader
         \wp_enqueue_script( 'wp-color-picker' );
         
         \wp_enqueue_script( 'amarkal', AMARKAL_ASSETS_URL.'js/amarkal.min.js', array('jquery'), AMARKAL_VERSION, true );
-        \wp_enqueue_script( 'select2', AMARKAL_ASSETS_URL.'js/select2.min.js', array('jquery'), '3.5.1', true );
-        \wp_enqueue_script( 'ace-editor', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', array(), '1.2.5', true );
+        \wp_enqueue_script( 'select2', AMARKAL_ASSETS_URL.'js/select2.min.js', array('jquery'), '4.0.3', true );
+        \wp_enqueue_script( 'ace-editor', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js', array(), '1.2.6', true );
         
-        \wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+        \wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
         \wp_enqueue_style( 'amarkal', AMARKAL_ASSETS_URL.'css/amarkal.min.css', array('wp-color-picker'), AMARKAL_VERSION );
-        \wp_enqueue_style( 'select2', AMARKAL_ASSETS_URL.'css/select2.min.css', array(), '3.5.1' );
+        \wp_enqueue_style( 'select2', AMARKAL_ASSETS_URL.'css/select2.min.css', array(), '4.0.3' );
     }
 }
 Autoloader::init();
